@@ -1,0 +1,34 @@
+Reading package lists...
+NOTICE: 'libarchive' packaging is maintained in the 'Git' version control system at:
+https://salsa.debian.org/debian/libarchive.git
+Please use:
+git clone https://salsa.debian.org/debian/libarchive.git
+to retrieve the latest (possibly unreleased) updates to the package.
+Need to get 5461 kB of source archives.
+Get:1 http://deb.debian.org/debian stable/main libarchive 3.7.4-4+deb13u1 (dsc) [2634 B]
+Get:2 http://deb.debian.org/debian stable/main libarchive 3.7.4-4+deb13u1 (tar) [5418 kB]
+Get:3 http://deb.debian.org/debian stable/main libarchive 3.7.4-4+deb13u1 (asc) [659 B]
+Get:4 http://deb.debian.org/debian stable/main libarchive 3.7.4-4+deb13u1 (diff) [40.1 kB]
+dpkg-source: info: extracting libarchive in libarchive-3.7.4
+dpkg-source: info: unpacking libarchive_3.7.4.orig.tar.xz
+dpkg-source: info: unpacking libarchive_3.7.4-4+deb13u1.debian.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying typos.patch
+dpkg-source: info: applying fix-OOB-in-rar-delta-filter-2148.patch
+dpkg-source: info: applying fix-OOB-in-rar-audio-filter-2149.patch
+dpkg-source: info: applying rar4-reader-protect-copy_from_lzss_window_to_unp-217.patch
+dpkg-source: info: applying CVE-2025-1632-25724.patch
+dpkg-source: info: applying CVE-2025-5914.patch
+dpkg-source: info: applying CVE-2025-5915.patch
+dpkg-source: info: applying CVE-2025-5916.patch
+dpkg-source: info: applying CVE-2025-5917.patch
+dpkg-source: info: applying CVE-2025-5918-pre1.patch
+dpkg-source: info: applying CVE-2025-5918_1.patch
+dpkg-source: info: applying CVE-2025-5918_2.patch
+dpkg-source: info: applying CVE-2026-4111-1.patch
+dpkg-source: info: applying CVE-2026-4111-2.patch
+dpkg-source: info: applying CVE-2026-4424-1.patch
+dpkg-source: info: applying CVE-2026-4424-2.patch
+dpkg-source: info: applying CVE-2026-4426_CVE-2026-5121.patch
+Fetched 5461 kB in 0s (29.4 MB/s)
+W: Download is performed unsandboxed as root as file 'libarchive_3.7.4-4+deb13u1.dsc' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)

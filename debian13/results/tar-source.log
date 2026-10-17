@@ -1,0 +1,23 @@
+Reading package lists...
+NOTICE: 'tar' packaging is maintained in the 'Git' version control system at:
+https://salsa.debian.org/debian/tar.git
+Please use:
+git clone https://salsa.debian.org/debian/tar.git
+to retrieve the latest (possibly unreleased) updates to the package.
+Need to get 2135 kB of source archives.
+Get:1 http://deb.debian.org/debian stable/main tar 1.35+dfsg-3.1 (dsc) [2017 B]
+Get:2 http://deb.debian.org/debian stable/main tar 1.35+dfsg-3.1 (tar) [2112 kB]
+Get:3 http://deb.debian.org/debian stable/main tar 1.35+dfsg-3.1 (diff) [21.5 kB]
+dpkg-source: info: extracting tar in tar-1.35+dfsg
+dpkg-source: info: unpacking tar_1.35+dfsg.orig.tar.xz
+dpkg-source: info: unpacking tar_1.35+dfsg-3.1.debian.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying pristine-tar.diff
+dpkg-source: info: applying listed03-linux-only
+dpkg-source: info: applying oldgnu-unknown-mode-bits.patch
+dpkg-source: info: applying proper_it_translation.patch
+dpkg-source: info: applying exclude17.patch
+dpkg-source: info: applying exclude18.patch
+dpkg-source: info: applying tar-1.35-revert-fix-savannah-bug-633567.patch
+Fetched 2135 kB in 0s (13.8 MB/s)
+W: Download is performed unsandboxed as root as file 'tar_1.35+dfsg-3.1.dsc' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)

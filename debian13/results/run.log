@@ -1,0 +1,75 @@
+== 2026-10-17T16:01:07Z packages: file tar libarchive htslib samtools python bzip2
+Debian GNU/Linux 13 (trixie) (13.7) | gcc 14 | ld 2.44 | libbz2: 1.0.8-6, /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4 
+bz2-ng source: 63987e0
+bz2-ng built: /bz2ng/libbz2.so.1.0 /bz2ng/libbz2.so.1.0.8 
+-- [file] build-dep + source
+[file] source file-5.46
+[file] built
+-- [tar] build-dep + source
+[tar] source tar-1.35+dfsg
+[tar] built
+-- [libarchive] build-dep + source
+[libarchive] source libarchive-3.7.4
+[libarchive] built
+-- [htslib] build-dep + source
+[htslib] source htslib-1.21+ds
+[htslib] built
+-- [samtools] build-dep + source
+[samtools] source samtools-1.21
+[samtools] built
+== built: file tar libarchive htslib samtools python bzip2
+== BEFORE: Debian's own libbz2 and bzip2
+bzip2 says: bzip2, a block-sorting file compressor.  Version 1.0.8, 13-Jul-2019.
+  /usr/bin/file -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  /usr/lib/python3.13/lib-dynload/_bz2.cpython-313-x86_64-linux-gnu.so -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  libarchive: bsdtar -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  htslib: htsfile -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  samtools: samtools -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  tar runs the external program: /usr/bin/bzip2
+[before] file: exit 0 in 1 s
+[before] tar: exit 0 in 186 s
+[before] libarchive: exit 2 in 48 s
+[before] htslib: exit 0 in 41 s
+[before] samtools: exit 0 in 47 s
+[before] python: exit 0 in 16 s
+[before] bzip2 (its own make test, through /usr/bin/bzip2): exit 0
+== INSTALL bz2-ng over the distribution's files
+bzip2 says: bzip2, a block-sorting file compressor.  Version 1.0.8, bz2-ng 0.1.0.
+libbz2.so.1.0 -> /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.8
+  /usr/bin/file -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  /usr/lib/python3.13/lib-dynload/_bz2.cpython-313-x86_64-linux-gnu.so -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  libarchive: bsdtar -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  htslib: htsfile -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  samtools: samtools -> libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0
+  tar runs the external program: /usr/bin/bzip2
+== AFTER
+[after] file: exit 0 in 2 s
+[after] tar: exit 0 in 188 s
+[after] libarchive: exit 2 in 39 s
+[after] htslib: exit 0 in 43 s
+[after] samtools: exit 0 in 50 s
+[after] python: exit 0 in 15 s
+[after] bzip2 (its own make test, through /usr/bin/bzip2): exit 0
+== SUMMARY (before | after)
+file:
+  before: 82 tests run, rc=0 secs=1
+  after:  82 tests run, rc=0 secs=2
+tar:
+  before: 209 tests were successful. 35 tests were skipped. rc=0 secs=186
+  after:  209 tests were successful. 35 tests were skipped. rc=0 secs=188
+libarchive:
+  before: TOTAL:5 PASS:4 SKIP:0 XFAIL:0 FAIL:1 ERROR:0 FAIL: bsdunzip_test rc=2 secs=48
+  after:  TOTAL:5 PASS:4 SKIP:0 XFAIL:0 FAIL:1 ERROR:0 FAIL: bsdunzip_test rc=2 secs=39
+htslib:
+  before: total 339,passed 339,failed 0, rc=0 secs=41
+  after:  total 339,passed 339,failed 0, rc=0 secs=43
+samtools:
+  before: total 990,passed 946,failed 0,expected failure 44,unexpected pass 0, rc=0 secs=47
+  after:  total 990,passed 946,failed 0,expected failure 44,unexpected pass 0, rc=0 secs=50
+python:
+  before: Total tests: run=1,294 skipped=65 Result: SUCCESS rc=0 secs=16
+  after:  Total tests: run=1,294 skipped=65 Result: SUCCESS rc=0 secs=15
+bzip2:
+  before: rc=0
+  after:  rc=0
+== done 2026-10-17T16:15:46Z

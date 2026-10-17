@@ -1,0 +1,23 @@
+Reading package lists...
+NOTICE: 'htslib' packaging is maintained in the 'Git' version control system at:
+https://salsa.debian.org/med-team/htslib.git
+Please use:
+git clone https://salsa.debian.org/med-team/htslib.git
+to retrieve the latest (possibly unreleased) updates to the package.
+Need to get 1595 kB of source archives.
+Get:1 http://deb.debian.org/debian stable/main htslib 1.21+ds-1 (dsc) [2465 B]
+Get:2 http://deb.debian.org/debian stable/main htslib 1.21+ds-1 (tar) [1571 kB]
+Get:3 http://deb.debian.org/debian stable/main htslib 1.21+ds-1 (diff) [21.5 kB]
+dpkg-source: info: extracting htslib in htslib-1.21+ds
+dpkg-source: info: unpacking htslib_1.21+ds.orig.tar.bz2
+dpkg-source: info: unpacking htslib_1.21+ds-1.debian.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying no_git_version
+dpkg-source: info: applying define_PATH_MAX.patch
+dpkg-source: info: applying fPIC.patch
+dpkg-source: info: applying testShebang.patch
+dpkg-source: info: applying fix_float_precision
+dpkg-source: info: applying fix_sequence_of_linked_libs.patch
+dpkg-source: info: applying trim-file-prefix.patch
+Fetched 1595 kB in 0s (11.7 MB/s)
+W: Download is performed unsandboxed as root as file 'htslib_1.21+ds-1.dsc' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)

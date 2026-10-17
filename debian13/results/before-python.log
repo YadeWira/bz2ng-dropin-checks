@@ -1,0 +1,20 @@
+Using random seed: 3652587477
+0:00:00 load avg: 2.90 Run 4 tests sequentially in a single process
+0:00:00 load avg: 2.90 [1/4] test_bz2
+0:00:00 load avg: 2.98 [1/4] test_bz2 passed
+0:00:00 load avg: 2.98 [2/4] test_tarfile
+0:00:10 load avg: 2.99 [2/4] test_tarfile passed
+0:00:10 load avg: 2.99 [3/4] test_zipfile
+0:00:15 load avg: 3.07 [3/4] test_zipfile passed
+0:00:15 load avg: 3.07 [4/4] test_shutil
+0:00:16 load avg: 3.06 [4/4] test_shutil passed
+
+== Tests result: SUCCESS ==
+
+All 4 tests OK.
+
+Total duration: 16.2 sec
+Total tests: run=1,294 skipped=65
+Total test files: run=4/4
+Result: SUCCESS
+rc=0 secs=16

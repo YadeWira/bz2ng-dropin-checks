@@ -1,0 +1,29 @@
+Reading package lists...
+NOTICE: 'file' packaging is maintained in the 'Git' version control system at:
+https://git.in-ulm.de/cbiedl/file.git
+Please use:
+git clone https://git.in-ulm.de/cbiedl/file.git
+to retrieve the latest (possibly unreleased) updates to the package.
+Need to get 1352 kB of source archives.
+Get:1 http://deb.debian.org/debian stable/main file 1:5.46-5 (dsc) [2268 B]
+Get:2 http://deb.debian.org/debian stable/main file 1:5.46-5 (tar) [1313 kB]
+Get:3 http://deb.debian.org/debian stable/main file 1:5.46-5 (asc) [201 B]
+Get:4 http://deb.debian.org/debian stable/main file 1:5.46-5 (diff) [37.0 kB]
+dpkg-source: info: extracting file in file-5.46
+dpkg-source: info: unpacking file_5.46.orig.tar.gz
+dpkg-source: info: unpacking file_5.46-5.debian.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying 1733423740.FILE5_46-7-gb3384a1f.pr-579-net147-fix-stack-overrun.patch
+dpkg-source: info: applying 1733427672.FILE5_46-14-g60b2032b.pr-571-jschleus-some-zip-files-are-misclassified-as-data.patch
+dpkg-source: info: applying 1741021322.FILE5_46-55-gff9ba253.use-unsigned-byte-christoph-biedl.patch
+dpkg-source: info: applying 1742485595.FILE5_46-68-g5089651f.fix-openstreetmap-christoph-biedl.patch
+dpkg-source: info: applying 1742492756.FILE5_46-69-g280e121f.remove-superfluous-christoph-biedl.patch
+dpkg-source: info: applying 1742492810.FILE5_46-70-g4e2c7d3d.fix-msdosdate-endianess.patch
+dpkg-source: info: applying upstream.disable.att3b.patch
+dpkg-source: info: applying upstream.stricter-postscript-magic.patch
+dpkg-source: info: applying local.support-local-definitions-in-etc-magic.patch
+dpkg-source: info: applying local.don-t-include-libs-in-build.patch
+dpkg-source: info: applying local.extra-magic.patch
+dpkg-source: info: applying local.manpage-seccomp-is-disabled.patch
+Fetched 1352 kB in 0s (9271 kB/s)
+W: Download is performed unsandboxed as root as file 'file_5.46-5.dsc' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)

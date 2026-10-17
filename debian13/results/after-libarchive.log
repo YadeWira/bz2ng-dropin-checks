@@ -1,0 +1,41 @@
+make  check-am
+make[1]: Entering directory '/w/libarchive/libarchive-3.7.4'
+make  libarchive_test bsdtar_test bsdcpio_test bsdcat_test bsdunzip_test
+make[2]: Entering directory '/w/libarchive/libarchive-3.7.4'
+make[2]: 'bsdtar_test' is up to date.
+make[2]: 'bsdcpio_test' is up to date.
+make[2]: 'bsdcat_test' is up to date.
+make[2]: 'bsdunzip_test' is up to date.
+make[2]: Leaving directory '/w/libarchive/libarchive-3.7.4'
+make  check-TESTS
+make[2]: Entering directory '/w/libarchive/libarchive-3.7.4'
+make[3]: Entering directory '/w/libarchive/libarchive-3.7.4'
+PASS: bsdcat_test
+FAIL: bsdunzip_test
+PASS: bsdcpio_test
+PASS: bsdtar_test
+PASS: libarchive_test
+============================================================================
+Testsuite summary for libarchive 3.7.4
+============================================================================
+# TOTAL: 5
+# PASS:  4
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  1
+# XPASS: 0
+# ERROR: 0
+============================================================================
+See ./test-suite.log for debugging.
+Some test(s) failed.  Please report this to libarchive-discuss@googlegroups.com,
+together with the test-suite.log file (gzipped) and your system
+information.  Thanks.
+============================================================================
+make[3]: *** [Makefile:15765: test-suite.log] Error 1
+make[3]: Leaving directory '/w/libarchive/libarchive-3.7.4'
+make[2]: *** [Makefile:15900: check-TESTS] Error 2
+make[2]: Leaving directory '/w/libarchive/libarchive-3.7.4'
+make[1]: *** [Makefile:16140: check-am] Error 2
+make[1]: Leaving directory '/w/libarchive/libarchive-3.7.4'
+make: *** [Makefile:16142: check] Error 2
+rc=2 secs=39

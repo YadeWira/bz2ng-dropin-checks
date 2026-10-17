@@ -1,0 +1,17 @@
+Reading package lists...
+NOTICE: 'samtools' packaging is maintained in the 'Git' version control system at:
+https://salsa.debian.org/med-team/samtools.git
+Please use:
+git clone https://salsa.debian.org/med-team/samtools.git
+to retrieve the latest (possibly unreleased) updates to the package.
+Need to get 5707 kB of source archives.
+Get:1 http://deb.debian.org/debian stable/main samtools 1.21-1 (dsc) [2281 B]
+Get:2 http://deb.debian.org/debian stable/main samtools 1.21-1 (tar) [5683 kB]
+Get:3 http://deb.debian.org/debian stable/main samtools 1.21-1 (diff) [22.1 kB]
+dpkg-source: info: extracting samtools in samtools-1.21
+dpkg-source: info: unpacking samtools_1.21.orig.tar.gz
+dpkg-source: info: unpacking samtools_1.21-1.debian.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying reproducible.patch
+Fetched 5707 kB in 0s (22.1 MB/s)
+W: Download is performed unsandboxed as root as file 'samtools_1.21-1.dsc' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)

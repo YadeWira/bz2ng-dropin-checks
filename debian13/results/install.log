@@ -1,0 +1,17 @@
+-- Install configuration: "Release"
+-- Installing: /usr/include/bzlib.h
+-- Installing: /usr/lib/x86_64-linux-gnu/pkgconfig/bzip2.pc
+-- Installing: /usr/lib/x86_64-linux-gnu/libbz2.a
+-- Installing: /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.8
+-- Installing: /usr/lib/x86_64-linux-gnu/libbz2.so.1.0
+-- Up-to-date: /usr/lib/x86_64-linux-gnu/libbz2.so
+-- Installing: /usr/lib/x86_64-linux-gnu/libbz2.so.1
+-- Installing: /usr/bin/bzip2
+-- Set non-toolchain portion of runtime path of "/usr/bin/bzip2" to ""
+-- Installing: /usr/bin/bzip2recover
+-- Up-to-date: /usr/bin/bunzip2
+-- Up-to-date: /usr/bin/bzcat
+-- Installing: /usr/share/man/man1/bunzip2.1
+-- Installing: /usr/share/man/man1/bzcat.1
+-- Installing: /usr/share/man/man1/bzip2recover.1
+-- Installing: /usr/share/man/man1/bzip2.1

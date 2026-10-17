@@ -1,0 +1,21 @@
+== 2026-10-17T15:30:38Z
+alpine 3.23.6, apk-tools 3.0.8-r0, compiled for x86_64., x86_64
+libbz2 in Alpine: SONAME libbz2.so.1, file /usr/lib/libbz2.so.1.0.8 
+Alpine's libbz2 exports 37 dynamic symbols
+bz2-ng source: 63987e0
+bz2-ng exports 24 BZ2_ symbols
+packages that depend on so:libbz2.so.1: 108
+  scanned 20 packages
+  scanned 40 packages
+  scanned 60 packages
+  scanned 80 packages
+  scanned 100 packages
+scanned 108 packages; per-package results in scan.jsonl
+== SUMMARY
+packages scanned: 108, failed to fetch or extract: 0
+ELF files: 2621, of which link libbz2: 144
+packages with an ELF file that links libbz2: 108
+distinct BZ2_ symbols referenced that bz2-ng exports: 23: BZ2_bzBuffToBuffCompress BZ2_bzBuffToBuffDecompress BZ2_bzCompress BZ2_bzCompressEnd BZ2_bzCompressInit BZ2_bzDecompress BZ2_bzDecompressEnd BZ2_bzDecompressInit BZ2_bzRead BZ2_bzReadClose BZ2_bzReadGetUnused BZ2_bzReadOpen BZ2_bzWrite BZ2_bzWriteClose BZ2_bzWriteOpen BZ2_bzclose BZ2_bzdopen BZ2_bzerror BZ2_bzflush BZ2_bzlibVersion BZ2_bzopen BZ2_bzread BZ2_bzwrite
+packages referencing a BZ2_ symbol bz2-ng does not export: 0 
+packages carrying a private libbz2 name in their bytes (a bundled copy, not a reference): 0 
+== done 2026-10-17T15:34:13Z

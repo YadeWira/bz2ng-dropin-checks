@@ -1,0 +1,2418 @@
+test/hts_endian
+test/test_expr
+test/test_kfunc
+test/test_khash
+test/test_kstring
+test/test_nibbles -v
+test/test_str2int
+test/test_time_funcs
+test/fieldarith test/fieldarith.sam
+test/hfile
+if test "x" != "x"; then \
+    HTS_PATH=. test/with-shlib.sh test/plugins-dlhts -g ./libhts.so; \
+fi
+if test "x" != "x"; then \
+  HTS_PATH=. test/with-shlib.sh test/plugins-dlhts -l ./libhts.so; \
+fi
+test/test_bgzf test/bgziptest.txt
+test/test-parse-reg -t test/colons.bam
+Expected error: [E::hts_parse_region] Range is ambiguous. Use {chr1:100-200} or {chr1}:100-200 instead
+Expected error: [E::hts_parse_region] Range is ambiguous. Use {chr1:100-200,chr3} or {chr1}:100-200,chr3 instead
+Expected error: [E::hts_parse_region] Mismatching braces in "{chr1"
+Expected error: [E::hts_parse_region] Unexpected string "x" after region
+Expected error: [E::hts_parse_region] Unexpected string "y" after region
+Expected error: [E::hts_parse_region] Unexpected string "chr3" after region
+cd test/faidx && ./test-faidx.sh faidx.tst
+Testing faidx...
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -e faidx.fa.expected.fai
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t fai_line_length -e 24 trailingblank2
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t faidx_has_seq -e 1 foo
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t faidx_has_seq -e 0 absent
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t faidx_iseq -e trailingblank3 3
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t faidx_seq_len -e 33 trailingblank1
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t faidx_seq_len64 -e 72 trailingblank2
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -e fastqs.fq.expected.fai
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -Q -t fai_line_length -e 63 FAKE0005_3
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -Q -t fai_line_length -e 144 SRR014849.203935_3
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -t faidx_has_seq -e 1 SRR014849.203935_3
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -t faidx_has_seq -e 0 absent
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -t faidx_iseq -e FAKE0005_1 0
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -t faidx_seq_len -e 453 FSRRS4401CM938_1
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -t faidx_seq_len64 -e 309 FSRRS4401AOV6A_4
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai trailingblank2:28-33 trailingblank3:4-5 bar:4-5
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t fai_fetch trailingblank2:28-33 trailingblank3:4-5 bar:4-5
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t faidx_fetch_seq64 trailingblank2:28-33 trailingblank3:4-5 bar:4-5
+PASS : $test_faidx -i faidx.fa -f faidx.fa.tmp.fai -t fai_adjust_region trailingblank2:28-33 trailingblank3:4-5 bar:4-5
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -Q FAKE0006_1:4-12 FSRRS4401BE7HA_1:81-120 FAKE0010_2 SRR014849.50939_3:71-90
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -Q -t fai_fetch FAKE0006_1:4-12 FSRRS4401BE7HA_1:81-120 FAKE0010_2 SRR014849.50939_3:71-90
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai -Q -t faidx_fetch_seq64 FAKE0006_1:4-12 FSRRS4401BE7HA_1:81-120 FAKE0010_2 SRR014849.50939_3:71-90
+PASS : $test_faidx -i fastqs.fq -f fastqs.fq.tmp.fai FAKE0006_1:4-12 FSRRS4401BE7HA_1:81-120 FAKE0010_2 SRR014849.50939_3:71-90
+PASS : $test_faidx -i ce.fa.tmp.gz -f ce.fa.tmp.gz.fai -g ce.fa.tmp.gz.gzi -e ../ce.fa.fai
+PASS : $test_faidx -i ce.fa.tmp.gz -f ce.fa.tmp.gz.fai -g ce.fa.tmp.gz.gzi CHROMOSOME_I:5001-5125 CHROMOSOME_X:101-225
+
+Expected   passes:   25
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+cd test/sam_filter && ./filter.sh filter.tst
+Testing sam_filter...
+PASS : $tv -i 'filter=qname =~ "\.1" && cigar =~ "D"' ../ce#1000.sam
+PASS : $tv -i 'filter=rname=="CHROMOSOME_II"' ../ce#5b.sam
+PASS : $tv -i 'filter=rname=~"CHROMOSOME_II"' ../ce#5b.sam
+PASS : $tv -i 'filter=cigar=~"D"' ../ce#1000.sam
+PASS : $tv -i 'filter=seq =~ "(AT){2}"' ../ce#1000.sam
+PASS : $tv -i 'filter=library=="x"' ../xx#rg.sam
+PASS : $tv -i 'filter=library!="x"' ../xx#rg.sam
+PASS : $tv -i 'filter=pos % 23 == 11' ../ce#1000.sam | grep -E -cv '^@'
+PASS : $tv -i 'filter=qlen/(flag*mapq+pos)>5' ../ce#1000.sam | grep -E -cv '^@'
+PASS : $tv -i 'filter=[NM]>=10 || [MD]=~"A.*A.*A"' -t4 ../ce#1000.sam | grep -E -cv '^@'
+PASS : $tv -i 'filter=length(seq) != qlen' ../ce#5b.sam | grep -E -cv '^@'
+PASS : $tv -i 'filter=min(qual) >= 20' ../ce#1000.sam | grep -E -cv '^@'
+PASS : $tv -i 'filter=max(qual) <= 20' ../ce#1000.sam | grep -E -cv '^@'
+PASS : $tv -i 'filter=avg(qual) >= 20 && avg(qual) <= 30' ../ce#1000.sam | grep -E -cv '^@'
+PASS : $tv -i 'filter=sclen>=20' ../realn02.sam | grep -E -v '^@'
+PASS : $tv -i 'filter=rlen<50' ../realn02.sam | grep -E -v '^@'
+PASS : $tv -i 'filter=qlen>100' ../realn02.sam | grep -E -v '^@'
+PASS : $tv -i 'filter=hclen>=4' ../c1#clip.sam | grep -E -v '^@'
+
+Expected   passes:   18
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+cd test/tabix && ./test-tabix.sh tabix.tst
+Testing tabix...
+PASS : $tabix -f -p vcf vcf_file.tbi.tmp.vcf.gz
+PASS : $tabix vcf_file.tbi.tmp.vcf.gz 1:3000151-3000151
+PASS : $tabix vcf_file.tbi.tmp.vcf.gz 2:3199812-3199812
+PASS : $tabix -f -C -p vcf vcf_file.csi.tmp.vcf.gz
+PASS : $tabix vcf_file.csi.tmp.vcf.gz 1:3000151-3000151
+PASS : $tabix vcf_file.csi.tmp.vcf.gz 2:3199812-3199812
+PASS : $tabix -f -p vcf large_chr.tmp.vcf.gz (must exit non-zero)
+PASS : $tabix -f -C -p vcf large_chr.tmp.vcf.gz
+PASS : $tabix large_chr.tmp.vcf.gz chr20:1-2147483647
+PASS : $tabix -f -p bed bed_file.tbi.tmp.bed.gz
+PASS : $tabix bed_file.tbi.tmp.bed.gz Y:100200-100200
+PASS : $tabix -f -p gff gff_file.tbi.tmp.gff.gz
+PASS : $tabix gff_file.tbi.tmp.gff.gz X:2934832-2935190
+PASS : $tabix --separate-regions bed_file.tbi.tmp.bed.gz X:1100-1400 Y:100000-100550 Z:100000-100005
+PASS : $tabix -f -p bed bed_file.tbi.tmp.bed.gz -@ 2
+PASS : $tabix vcf_file.tbi.tmp.vcf.gz 1:3000151-3000151 --threads 2
+
+Expected   passes:   16
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+cd test/mpileup && ./test-pileup.sh mpileup.tst
+Testing (m)pileup...
+PASS : $pileup mp_D.sam
+PASS : $pileup -m mp_D.sam
+PASS : $pileup mp_DI.sam
+PASS : $pileup -m mp_DI.sam
+PASS : $pileup mp_I.sam
+PASS : $pileup -m mp_I.sam
+PASS : $pileup mp_P.sam
+PASS : $pileup -m mp_P.sam
+PASS : $pileup mp_ID.sam
+PASS : $pileup -m mp_ID.sam
+PASS : $pileup mp_N.sam
+PASS : $pileup -m mp_N.sam
+PASS : $pileup mp_N2.sam
+PASS : $pileup -m mp_N2.sam
+PASS : $pileup c1#pad1.sam
+PASS : $pileup -m c1#pad1.sam
+PASS : $pileup c1#pad2.sam
+PASS : $pileup -m c1#pad2.sam
+PASS : $pileup c1#pad3.sam
+PASS : $pileup -m c1#pad3.sam
+PASS : $pileup -m small.bam
+PASS : $pileup -m mp_overlap1.sam
+PASS : $pileup -m mp_overlap2.sam
+
+Expected   passes:   23
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+cd test/fastq && ./test-fastq.sh
+Testing fastq support
+PASS : $tview minimal.fq
+PASS : $tview minimal.fa
+PASS : $tview multiline.fq
+PASS : $tview multiline.fa
+PASS : $tview -i fastq_aux longline.fq
+PASS : $tview single.fq
+PASS : $tview single.fa
+PASS : $tview -i fastq_aux single.fq
+PASS : $tview -i fastq_aux single.fa
+PASS : $tview interleaved.fq
+PASS : $tview interleaved.fa
+PASS : $tview -i fastq_aux interleaved.fq
+PASS : $tview -i fastq_aux interleaved.fa
+PASS : $tview -i fastq_casava interleaved_casava.fq
+PASS : $tview -i fastq_barcode=OX -i fastq_casava interleaved_casava.fq
+PASS : $tview -i fastq_casava interleaved_casava.fa
+PASS : $tview -i fastq_barcode=OX -i fastq_casava interleaved_casava.fa
+PASS : $tview -i fastq_casava filter_casava.fq
+PASS : $tview -i fastq_casava filter_casava.fa
+PASS : $tview -i fastq_aux r1.fq
+PASS : $tview -i fastq_aux r2.fq
+PASS : $tview -i fastq_aux r1.fa
+PASS : $tview -i fastq_aux r2.fa
+PASS : $tview -i fastq_name2 name2.fq
+PASS : $tview -i fastq_name2 name2.fa
+PASS : $tview -f minimal.sam
+PASS : $tview -F minimal.sam
+PASS : $tview -f -o fastq_aux single_aux.sam
+PASS : $tview -F -o fastq_aux single_aux.sam
+PASS : $tview -f -o fastq_aux -o fastq_rnum inter_aux.sam
+PASS : $tview -F -o fastq_aux -o fastq_rnum inter_aux.sam
+PASS : $tview -f -o fastq_casava inter_casava.sam
+PASS : $tview -f -o fastq_barcode=OX -o fastq_casava inter_casavaOX.sam
+PASS : $tview -F -o fastq_casava inter_casava.sam
+PASS : $tview -F -o fastq_barcode=OX -o fastq_casava inter_casavaOX.sam
+PASS : $tview -f -o fastq_casava filter_casava.sam
+PASS : $tview -F -o fastq_casava filter_casava.sam
+PASS : $tview -f -o fastq_aux -o fastq_rnum r1.sam
+PASS : $tview -f -o fastq_aux -o fastq_rnum r2.sam
+PASS : $tview -F -o fastq_aux -o fastq_rnum r1.sam
+PASS : $tview -F -o fastq_aux -o fastq_rnum r2.sam
+
+Expected   passes:   41
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+cd test/base_mods && ./base-mods.sh base-mods.tst
+Testing base-modifications...
+PASS : $test_mod MM-chebi.sam
+PASS : $test_mod MM-double.sam
+PASS : $test_mod MM-multi.sam
+PASS : $test_mod MM-explicit.sam
+PASS : $test_mod -x MM-explicit.sam
+PASS : $test_mod -f 1 MM-explicit.sam
+PASS : $test_mod MM-not-all-modded.sam
+PASS : $pileup_mod < MM-pileup.sam
+PASS : $pileup_mod < MM-pileup2.sam
+PASS : $pileup_mod < MM-MNp.sam
+PASS : $pileup_mod < MM-MNf1.sam (must exit non-zero)
+PASS : $pileup_mod < MM-MNf2.sam (must exit non-zero)
+PASS : $test_mod < MM-MNf1.sam (must exit non-zero)
+PASS : $test_mod < MM-MNf2.sam (must exit non-zero)
+PASS : $test_mod < MM-bounds+.sam (must exit non-zero)
+PASS : $test_mod < MM-bounds-.sam (must exit non-zero)
+
+Expected   passes:   16
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+REF_PATH=: test/sam test/ce.fa test/faidx/faidx.fa test/faidx/fastqs.fq
+(Expect trailing 'x' message for " 	 -1,001x")
+[W::hts_parse_decimal] Ignoring unknown characters after -1,001[x]
+(Expect trailing 'k' message for "1.5e+3k")
+[W::hts_parse_decimal] Ignoring unknown characters after 1.5e+3[k]
+(Expect dropped fraction message for "12.3456k")
+[W::hts_parse_decimal] Discarding fractional part of 12.3456k
+[W::hts_parse_decimal] Discarding fractional part of 12.3456k
+(Expect invalid numeric message for "A")
+[W::hts_parse_decimal] Invalid numeric value A[truncated]
+(Expect invalid numeric message for "G")
+[W::hts_parse_decimal] Invalid numeric value G[truncated]
+(Expect invalid numeric message for " +/-")
+[W::hts_parse_decimal] Invalid numeric value +/-[truncated]
+(Expect invalid numeric message for " 	 -.e+9999")
+[W::hts_parse_decimal] Invalid numeric value -.e+9999[truncated]
+test/test-regidx
+cd test && REF_PATH=: ./test.pl ${TEST_OPTS:-}
+bgzip round-trip no threads: .. ok
+
+bgzip text mode round-trip no threads: .. ok
+
+bgzip -b no threads: .. ok
+
+bgzip -b -I no threads: .. ok
+
+bgzip multifile no threads: .. ok
+
+bgzip --output no threads: .. ok
+
+bgzip round-trip  4 threads: .. ok
+
+bgzip text mode round-trip  4 threads: .. ok
+
+bgzip -b  4 threads: .. ok
+
+bgzip -b -I  4 threads: .. ok
+
+bgzip multifile  4 threads: .. ok
+
+bgzip --output  4 threads: .. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -b -m 14 -x /tmp/j2M87p4lqr/index.bam.csi /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -b -m 0 -x /tmp/j2M87p4lqr/index.bam.bai /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -b /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -z -m 14 -x /tmp/j2M87p4lqr/index.sam.gz.csi /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -z -m 0 -x /tmp/j2M87p4lqr/index.sam.gz.bai /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -b /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -z -m 14 -x /tmp/j2M87p4lqr/index.sam.gz.csi /w/htslib/htslib-1.21+ds/test/index_dos.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -z -m 0 -x /tmp/j2M87p4lqr/index.sam.gz.bai /w/htslib/htslib-1.21+ds/test/index_dos.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -b /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -C -x /tmp/j2M87p4lqr/index.cram.crai /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.cram
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index /tmp/j2M87p4lqr/index.cram
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -b -m 14 -x /tmp/j2M87p4lqr/index.bcf.csi /w/htslib/htslib-1.21+ds/test/index.vcf > /tmp/j2M87p4lqr/index.bcf
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.bcf
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -z -m 14 -x /tmp/j2M87p4lqr/index.vcf.gz.csi /w/htslib/htslib-1.21+ds/test/index.vcf > /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view  -l 0 -z -m 0 -x /tmp/j2M87p4lqr/index.vcf.gz.tbi /w/htslib/htslib-1.21+ds/test/index.vcf > /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -t /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/tabix /tmp/j2M87p4lqr/index.vcf.gz##idx##/tmp/j2M87p4lqr/index.vcf.gz.tbi 1:10000060-10000060
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 1:1000000-1000000
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 1:2000000-2000000
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 2:1000000-1000000
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 2:2000000-2000000
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -b -m 14 -x /tmp/j2M87p4lqr/index.bam.csi /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -b -m 0 -x /tmp/j2M87p4lqr/index.bam.bai /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -b /tmp/j2M87p4lqr/index.bam
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -z -m 14 -x /tmp/j2M87p4lqr/index.sam.gz.csi /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -z -m 0 -x /tmp/j2M87p4lqr/index.sam.gz.bai /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -b /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -z -m 14 -x /tmp/j2M87p4lqr/index.sam.gz.csi /w/htslib/htslib-1.21+ds/test/index_dos.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -z -m 0 -x /tmp/j2M87p4lqr/index.sam.gz.bai /w/htslib/htslib-1.21+ds/test/index_dos.sam > /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -b /tmp/j2M87p4lqr/index.sam.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -C -x /tmp/j2M87p4lqr/index.cram.crai /w/htslib/htslib-1.21+ds/test/index.sam > /tmp/j2M87p4lqr/index.cram
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index /tmp/j2M87p4lqr/index.cram
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -b -m 14 -x /tmp/j2M87p4lqr/index.bcf.csi /w/htslib/htslib-1.21+ds/test/index.vcf > /tmp/j2M87p4lqr/index.bcf
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.bcf
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -z -m 14 -x /tmp/j2M87p4lqr/index.vcf.gz.csi /w/htslib/htslib-1.21+ds/test/index.vcf > /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -c /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view -@4 -l 0 -z -m 0 -x /tmp/j2M87p4lqr/index.vcf.gz.tbi /w/htslib/htslib-1.21+ds/test/index.vcf > /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_index -t /tmp/j2M87p4lqr/index.vcf.gz
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/tabix /tmp/j2M87p4lqr/index.vcf.gz##idx##/tmp/j2M87p4lqr/index.vcf.gz.tbi 1:10000060-10000060
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 1:1000000-1000000
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 1:2000000-2000000
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 2:1000000-1000000
+.. ok
+
+test_index:
+	/w/htslib/htslib-1.21+ds/test/test_view /tmp/j2M87p4lqr/index2.bam 2:2000000-2000000
+.. ok
+
+test_view testing multi-ref CRAM modes:
+  ./test_view  -o seqs_per_slice=100 -o no_ref=1 -o multi_seq_per_slice=-1 -S -C multi_ref.tmp.sam > multi_ref.tmp.cram
+  ./test_view  multi_ref.tmp.cram > multi_ref.tmp.sam_
+  ./compare_sam.pl multi_ref.tmp.sam multi_ref.tmp.sam_
+  ./test_view  -o seqs_per_slice=100 -o no_ref=1 -o multi_seq_per_slice=0 -S -C multi_ref.tmp.sam > multi_ref.tmp.cram
+  ./test_view  multi_ref.tmp.cram > multi_ref.tmp.sam_
+  ./compare_sam.pl multi_ref.tmp.sam multi_ref.tmp.sam_
+  ./test_view  -o seqs_per_slice=100 -o no_ref=1 -o multi_seq_per_slice=1 -S -C multi_ref.tmp.sam > multi_ref.tmp.cram
+  ./test_view  multi_ref.tmp.cram > multi_ref.tmp.sam_
+  ./compare_sam.pl multi_ref.tmp.sam multi_ref.tmp.sam_
+.. ok
+
+test_view testing multi-ref CRAM modes:
+  ./test_view -@4 -o seqs_per_slice=100 -o no_ref=1 -o multi_seq_per_slice=-1 -S -C multi_ref.tmp.sam > multi_ref.tmp.cram
+  ./test_view -@4 multi_ref.tmp.cram > multi_ref.tmp.sam_
+  ./compare_sam.pl multi_ref.tmp.sam multi_ref.tmp.sam_
+  ./test_view -@4 -o seqs_per_slice=100 -o no_ref=1 -o multi_seq_per_slice=0 -S -C multi_ref.tmp.sam > multi_ref.tmp.cram
+  ./test_view -@4 multi_ref.tmp.cram > multi_ref.tmp.sam_
+  ./compare_sam.pl multi_ref.tmp.sam multi_ref.tmp.sam_
+  ./test_view -@4 -o seqs_per_slice=100 -o no_ref=1 -o multi_seq_per_slice=1 -S -C multi_ref.tmp.sam > multi_ref.tmp.cram
+  ./test_view -@4 multi_ref.tmp.cram > multi_ref.tmp.sam_
+  ./compare_sam.pl multi_ref.tmp.sam multi_ref.tmp.sam_
+.. ok
+
+test_view testing auxf#values.sam, ref auxf.fa:
+  ./test_view  -S -l0 -b auxf#values.sam > auxf#values.tmp.bam
+  ./test_view  auxf#values.tmp.bam > auxf#values.tmp.bam.sam_
+  ./compare_sam.pl auxf#values.sam auxf#values.tmp.bam.sam_
+  ./test_view  -t auxf.fa -S -C -o VERSION=2.1 auxf#values.sam > auxf#values.tmp.cram
+  ./test_view  -D auxf#values.tmp.cram > auxf#values.tmp.cram.sam_
+  ./compare_sam.pl -nomd auxf#values.sam auxf#values.tmp.cram.sam_
+  ./test_view  -t auxf.fa -C -o VERSION=3.0 auxf#values.tmp.bam > auxf#values.tmp.bam.cram
+  ./test_view  auxf#values.tmp.bam.cram > auxf#values.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd auxf#values.sam auxf#values.tmp.bam.cram.bam.sam_
+  ./test_view  -i reference=auxf.fa auxf#values_java.cram > auxf#values_java.tmp.sam_
+  ./compare_sam.pl -Baux -nomd auxf#values.sam auxf#values_java.tmp.sam_
+.. ok
+
+test_view testing c1#bounds.sam, ref c1.fa:
+  ./test_view  -S -l0 -b c1#bounds.sam > c1#bounds.tmp.bam
+  ./test_view  c1#bounds.tmp.bam > c1#bounds.tmp.bam.sam_
+  ./compare_sam.pl c1#bounds.sam c1#bounds.tmp.bam.sam_
+  ./test_view  -t c1.fa -S -C -o VERSION=2.1 c1#bounds.sam > c1#bounds.tmp.cram
+  ./test_view  -D c1#bounds.tmp.cram > c1#bounds.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#bounds.sam c1#bounds.tmp.cram.sam_
+  ./test_view  -t c1.fa -C -o VERSION=3.0 c1#bounds.tmp.bam > c1#bounds.tmp.bam.cram
+  ./test_view  c1#bounds.tmp.bam.cram > c1#bounds.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#bounds.sam c1#bounds.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#clip.sam, ref c1.fa:
+  ./test_view  -S -l0 -b c1#clip.sam > c1#clip.tmp.bam
+  ./test_view  c1#clip.tmp.bam > c1#clip.tmp.bam.sam_
+  ./compare_sam.pl c1#clip.sam c1#clip.tmp.bam.sam_
+  ./test_view  -t c1.fa -S -C -o VERSION=2.1 c1#clip.sam > c1#clip.tmp.cram
+  ./test_view  -D c1#clip.tmp.cram > c1#clip.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#clip.sam c1#clip.tmp.cram.sam_
+  ./test_view  -t c1.fa -C -o VERSION=3.0 c1#clip.tmp.bam > c1#clip.tmp.bam.cram
+  ./test_view  c1#clip.tmp.bam.cram > c1#clip.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#clip.sam c1#clip.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#noseq.sam, ref c1.fa:
+  ./test_view  -S -l0 -b c1#noseq.sam > c1#noseq.tmp.bam
+  ./test_view  c1#noseq.tmp.bam > c1#noseq.tmp.bam.sam_
+  ./compare_sam.pl c1#noseq.sam c1#noseq.tmp.bam.sam_
+  ./test_view  -t c1.fa -S -C -o VERSION=2.1 c1#noseq.sam > c1#noseq.tmp.cram
+  ./test_view  -D c1#noseq.tmp.cram > c1#noseq.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#noseq.sam c1#noseq.tmp.cram.sam_
+  ./test_view  -t c1.fa -C -o VERSION=3.0 c1#noseq.tmp.bam > c1#noseq.tmp.bam.cram
+  ./test_view  c1#noseq.tmp.bam.cram > c1#noseq.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#noseq.sam c1#noseq.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#pad1.sam, ref c1.fa:
+  ./test_view  -S -l0 -b c1#pad1.sam > c1#pad1.tmp.bam
+  ./test_view  c1#pad1.tmp.bam > c1#pad1.tmp.bam.sam_
+  ./compare_sam.pl c1#pad1.sam c1#pad1.tmp.bam.sam_
+  ./test_view  -t c1.fa -S -C -o VERSION=2.1 c1#pad1.sam > c1#pad1.tmp.cram
+  ./test_view  -D c1#pad1.tmp.cram > c1#pad1.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad1.sam c1#pad1.tmp.cram.sam_
+  ./test_view  -t c1.fa -C -o VERSION=3.0 c1#pad1.tmp.bam > c1#pad1.tmp.bam.cram
+  ./test_view  c1#pad1.tmp.bam.cram > c1#pad1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#pad1.sam c1#pad1.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#pad2.sam, ref c1.fa:
+  ./test_view  -S -l0 -b c1#pad2.sam > c1#pad2.tmp.bam
+  ./test_view  c1#pad2.tmp.bam > c1#pad2.tmp.bam.sam_
+  ./compare_sam.pl c1#pad2.sam c1#pad2.tmp.bam.sam_
+  ./test_view  -t c1.fa -S -C -o VERSION=2.1 c1#pad2.sam > c1#pad2.tmp.cram
+  ./test_view  -D c1#pad2.tmp.cram > c1#pad2.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad2.sam c1#pad2.tmp.cram.sam_
+  ./test_view  -t c1.fa -C -o VERSION=3.0 c1#pad2.tmp.bam > c1#pad2.tmp.bam.cram
+  ./test_view  c1#pad2.tmp.bam.cram > c1#pad2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#pad2.sam c1#pad2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#pad3.sam, ref c1.fa:
+  ./test_view  -S -l0 -b c1#pad3.sam > c1#pad3.tmp.bam
+  ./test_view  c1#pad3.tmp.bam > c1#pad3.tmp.bam.sam_
+  ./compare_sam.pl c1#pad3.sam c1#pad3.tmp.bam.sam_
+  ./test_view  -t c1.fa -S -C -o VERSION=2.1 c1#pad3.sam > c1#pad3.tmp.cram
+  ./test_view  -D c1#pad3.tmp.cram > c1#pad3.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad3.sam c1#pad3.tmp.cram.sam_
+  ./test_view  -t c1.fa -C -o VERSION=3.0 c1#pad3.tmp.bam > c1#pad3.tmp.bam.cram
+  ./test_view  c1#pad3.tmp.bam.cram > c1#pad3.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#pad3.sam c1#pad3.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#unknown.sam, ref c1.fa:
+  ./test_view  -S -l0 -b c1#unknown.sam > c1#unknown.tmp.bam
+  ./test_view  c1#unknown.tmp.bam > c1#unknown.tmp.bam.sam_
+  ./compare_sam.pl c1#unknown.sam c1#unknown.tmp.bam.sam_
+  ./test_view  -t c1.fa -S -C -o VERSION=2.1 c1#unknown.sam > c1#unknown.tmp.cram
+  ./test_view  -D c1#unknown.tmp.cram > c1#unknown.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#unknown.sam c1#unknown.tmp.cram.sam_
+  ./test_view  -t c1.fa -C -o VERSION=3.0 c1#unknown.tmp.bam > c1#unknown.tmp.bam.cram
+  ./test_view  c1#unknown.tmp.bam.cram > c1#unknown.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#unknown.sam c1#unknown.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c2#pad.sam, ref c2.fa:
+  ./test_view  -S -l0 -b c2#pad.sam > c2#pad.tmp.bam
+  ./test_view  c2#pad.tmp.bam > c2#pad.tmp.bam.sam_
+  ./compare_sam.pl c2#pad.sam c2#pad.tmp.bam.sam_
+  ./test_view  -t c2.fa -S -C -o VERSION=2.1 c2#pad.sam > c2#pad.tmp.cram
+  ./test_view  -D c2#pad.tmp.cram > c2#pad.tmp.cram.sam_
+  ./compare_sam.pl -nomd c2#pad.sam c2#pad.tmp.cram.sam_
+  ./test_view  -t c2.fa -C -o VERSION=3.0 c2#pad.tmp.bam > c2#pad.tmp.bam.cram
+  ./test_view  c2#pad.tmp.bam.cram > c2#pad.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c2#pad.sam c2#pad.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#1.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#1.sam > ce#1.tmp.bam
+  ./test_view  ce#1.tmp.bam > ce#1.tmp.bam.sam_
+  ./compare_sam.pl ce#1.sam ce#1.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#1.sam > ce#1.tmp.cram
+  ./test_view  -D ce#1.tmp.cram > ce#1.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1.sam ce#1.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#1.tmp.bam > ce#1.tmp.bam.cram
+  ./test_view  ce#1.tmp.bam.cram > ce#1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#1.sam ce#1.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#1000.sam, ref ce.fa:
+  ./test_view  -S -b ce#1000.sam > ce#1000.tmp.bam
+  ./test_view  ce#1000.tmp.bam > ce#1000.tmp.bam.sam_
+  ./compare_sam.pl ce#1000.sam ce#1000.tmp.bam.sam_
+  ./test_view  -S -l0 -b ce#1000.sam > ce#1000.tmp.bam
+  ./test_view  ce#1000.tmp.bam > ce#1000.tmp.bam.sam_
+  ./compare_sam.pl ce#1000.sam ce#1000.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#1000.sam > ce#1000.tmp.cram
+  ./test_view  -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view  -t ce.fa -S -l0 -C -o VERSION=3.0 ce#1000.sam > ce#1000.tmp.cram
+  ./test_view  -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#1000.tmp.bam > ce#1000.tmp.bam.cram
+  ./test_view  ce#1000.tmp.bam.cram > ce#1000.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#2.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#2.sam > ce#2.tmp.bam
+  ./test_view  ce#2.tmp.bam > ce#2.tmp.bam.sam_
+  ./compare_sam.pl ce#2.sam ce#2.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#2.sam > ce#2.tmp.cram
+  ./test_view  -D ce#2.tmp.cram > ce#2.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#2.sam ce#2.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#2.tmp.bam > ce#2.tmp.bam.cram
+  ./test_view  ce#2.tmp.bam.cram > ce#2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#2.sam ce#2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#5.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#5.sam > ce#5.tmp.bam
+  ./test_view  ce#5.tmp.bam > ce#5.tmp.bam.sam_
+  ./compare_sam.pl ce#5.sam ce#5.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#5.sam > ce#5.tmp.cram
+  ./test_view  -D ce#5.tmp.cram > ce#5.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#5.sam ce#5.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#5.tmp.bam > ce#5.tmp.bam.cram
+  ./test_view  ce#5.tmp.bam.cram > ce#5.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#5.sam ce#5.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#5b.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#5b.sam > ce#5b.tmp.bam
+  ./test_view  ce#5b.tmp.bam > ce#5b.tmp.bam.sam_
+  ./compare_sam.pl ce#5b.sam ce#5b.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#5b.sam > ce#5b.tmp.cram
+  ./test_view  -D ce#5b.tmp.cram > ce#5b.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#5b.sam ce#5b.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#5b.tmp.bam > ce#5b.tmp.bam.cram
+  ./test_view  ce#5b.tmp.bam.cram > ce#5b.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#5b.sam ce#5b.tmp.bam.cram.bam.sam_
+  ./test_view  -i reference=ce.fa ce#5b_java.cram > ce#5b_java.tmp.sam_
+  ./compare_sam.pl -Baux -nomd ce#5b.sam ce#5b_java.tmp.sam_
+.. ok
+
+test_view testing ce#large_seq.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#large_seq.sam > ce#large_seq.tmp.bam
+  ./test_view  ce#large_seq.tmp.bam > ce#large_seq.tmp.bam.sam_
+  ./compare_sam.pl ce#large_seq.sam ce#large_seq.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#large_seq.sam > ce#large_seq.tmp.cram
+  ./test_view  -D ce#large_seq.tmp.cram > ce#large_seq.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#large_seq.tmp.bam > ce#large_seq.tmp.bam.cram
+  ./test_view  ce#large_seq.tmp.bam.cram > ce#large_seq.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#supp.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#supp.sam > ce#supp.tmp.bam
+  ./test_view  ce#supp.tmp.bam > ce#supp.tmp.bam.sam_
+  ./compare_sam.pl ce#supp.sam ce#supp.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#supp.sam > ce#supp.tmp.cram
+  ./test_view  -D ce#supp.tmp.cram > ce#supp.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#supp.sam ce#supp.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#supp.tmp.bam > ce#supp.tmp.bam.cram
+  ./test_view  ce#supp.tmp.bam.cram > ce#supp.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#supp.sam ce#supp.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#tag_depadded.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#tag_depadded.sam > ce#tag_depadded.tmp.bam
+  ./test_view  ce#tag_depadded.tmp.bam > ce#tag_depadded.tmp.bam.sam_
+  ./compare_sam.pl ce#tag_depadded.sam ce#tag_depadded.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#tag_depadded.sam > ce#tag_depadded.tmp.cram
+  ./test_view  -D ce#tag_depadded.tmp.cram > ce#tag_depadded.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#tag_depadded.sam ce#tag_depadded.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#tag_depadded.tmp.bam > ce#tag_depadded.tmp.bam.cram
+  ./test_view  ce#tag_depadded.tmp.bam.cram > ce#tag_depadded.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#tag_depadded.sam ce#tag_depadded.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#tag_padded.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#tag_padded.sam > ce#tag_padded.tmp.bam
+  ./test_view  ce#tag_padded.tmp.bam > ce#tag_padded.tmp.bam.sam_
+  ./compare_sam.pl ce#tag_padded.sam ce#tag_padded.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#tag_padded.sam > ce#tag_padded.tmp.cram
+  ./test_view  -D ce#tag_padded.tmp.cram > ce#tag_padded.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#tag_padded.sam ce#tag_padded.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#tag_padded.tmp.bam > ce#tag_padded.tmp.bam.cram
+  ./test_view  ce#tag_padded.tmp.bam.cram > ce#tag_padded.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#tag_padded.sam ce#tag_padded.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#unmap.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#unmap.sam > ce#unmap.tmp.bam
+  ./test_view  ce#unmap.tmp.bam > ce#unmap.tmp.bam.sam_
+  ./compare_sam.pl ce#unmap.sam ce#unmap.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#unmap.sam > ce#unmap.tmp.cram
+  ./test_view  -D ce#unmap.tmp.cram > ce#unmap.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap.sam ce#unmap.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#unmap.tmp.bam > ce#unmap.tmp.bam.cram
+  ./test_view  ce#unmap.tmp.bam.cram > ce#unmap.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#unmap.sam ce#unmap.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#unmap1.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#unmap1.sam > ce#unmap1.tmp.bam
+  ./test_view  ce#unmap1.tmp.bam > ce#unmap1.tmp.bam.sam_
+  ./compare_sam.pl ce#unmap1.sam ce#unmap1.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#unmap1.sam > ce#unmap1.tmp.cram
+  ./test_view  -D ce#unmap1.tmp.cram > ce#unmap1.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap1.sam ce#unmap1.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#unmap1.tmp.bam > ce#unmap1.tmp.bam.cram
+  ./test_view  ce#unmap1.tmp.bam.cram > ce#unmap1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#unmap1.sam ce#unmap1.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#unmap2.sam, ref ce.fa:
+  ./test_view  -S -l0 -b ce#unmap2.sam > ce#unmap2.tmp.bam
+  ./test_view  ce#unmap2.tmp.bam > ce#unmap2.tmp.bam.sam_
+  ./compare_sam.pl ce#unmap2.sam ce#unmap2.tmp.bam.sam_
+  ./test_view  -t ce.fa -S -C -o VERSION=2.1 ce#unmap2.sam > ce#unmap2.tmp.cram
+  ./test_view  -D ce#unmap2.tmp.cram > ce#unmap2.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap2.sam ce#unmap2.tmp.cram.sam_
+  ./test_view  -t ce.fa -C -o VERSION=3.0 ce#unmap2.tmp.bam > ce#unmap2.tmp.bam.cram
+  ./test_view  ce#unmap2.tmp.bam.cram > ce#unmap2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#unmap2.sam ce#unmap2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing md#1.sam, ref md.fa:
+  ./test_view  -S -l0 -b md#1.sam > md#1.tmp.bam
+  ./test_view  md#1.tmp.bam > md#1.tmp.bam.sam_
+  ./compare_sam.pl md#1.sam md#1.tmp.bam.sam_
+  ./test_view  -t md.fa -S -C -o VERSION=2.1 md#1.sam > md#1.tmp.cram
+  ./test_view  -D md#1.tmp.cram > md#1.tmp.cram.sam_
+  ./compare_sam.pl  md#1.sam md#1.tmp.cram.sam_
+  ./test_view  -t md.fa -C -o VERSION=3.0 md#1.tmp.bam > md#1.tmp.bam.cram
+  ./test_view  md#1.tmp.bam.cram > md#1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl  md#1.sam md#1.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#blank.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#blank.sam > xx#blank.tmp.bam
+  ./test_view  xx#blank.tmp.bam > xx#blank.tmp.bam.sam_
+  ./compare_sam.pl xx#blank.sam xx#blank.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#blank.sam > xx#blank.tmp.cram
+  ./test_view  -D xx#blank.tmp.cram > xx#blank.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#blank.sam xx#blank.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#blank.tmp.bam > xx#blank.tmp.bam.cram
+  ./test_view  xx#blank.tmp.bam.cram > xx#blank.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#blank.sam xx#blank.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#large_aux.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#large_aux.sam > xx#large_aux.tmp.bam
+  ./test_view  xx#large_aux.tmp.bam > xx#large_aux.tmp.bam.sam_
+  ./compare_sam.pl xx#large_aux.sam xx#large_aux.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#large_aux.sam > xx#large_aux.tmp.cram
+  ./test_view  -D xx#large_aux.tmp.cram > xx#large_aux.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#large_aux.tmp.bam > xx#large_aux.tmp.bam.cram
+  ./test_view  xx#large_aux.tmp.bam.cram > xx#large_aux.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.bam.cram.bam.sam_
+  ./test_view  -i reference=xx.fa xx#large_aux_java.cram > xx#large_aux_java.tmp.sam_
+[W::sanitise_SQ_lines] Header @SQ length mismatch for ref xx, 30 vs 20
+  ./compare_sam.pl -Baux -nomd xx#large_aux.sam xx#large_aux_java.tmp.sam_
+.. ok
+
+test_view testing xx#large_aux2.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#large_aux2.sam > xx#large_aux2.tmp.bam
+  ./test_view  xx#large_aux2.tmp.bam > xx#large_aux2.tmp.bam.sam_
+  ./compare_sam.pl xx#large_aux2.sam xx#large_aux2.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#large_aux2.sam > xx#large_aux2.tmp.cram
+  ./test_view  -D xx#large_aux2.tmp.cram > xx#large_aux2.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux2.sam xx#large_aux2.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#large_aux2.tmp.bam > xx#large_aux2.tmp.bam.cram
+  ./test_view  xx#large_aux2.tmp.bam.cram > xx#large_aux2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#large_aux2.sam xx#large_aux2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#MD.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#MD.sam > xx#MD.tmp.bam
+  ./test_view  xx#MD.tmp.bam > xx#MD.tmp.bam.sam_
+  ./compare_sam.pl xx#MD.sam xx#MD.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#MD.sam > xx#MD.tmp.cram
+  ./test_view  -D xx#MD.tmp.cram > xx#MD.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#MD.sam xx#MD.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#MD.tmp.bam > xx#MD.tmp.bam.cram
+  ./test_view  xx#MD.tmp.bam.cram > xx#MD.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#MD.sam xx#MD.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#MD2.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#MD2.sam > xx#MD2.tmp.bam
+  ./test_view  xx#MD2.tmp.bam > xx#MD2.tmp.bam.sam_
+  ./compare_sam.pl xx#MD2.sam xx#MD2.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#MD2.sam > xx#MD2.tmp.cram
+  ./test_view  -D xx#MD2.tmp.cram > xx#MD2.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#MD2.sam xx#MD2.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#MD2.tmp.bam > xx#MD2.tmp.bam.cram
+  ./test_view  xx#MD2.tmp.bam.cram > xx#MD2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#MD2.sam xx#MD2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#minimal.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#minimal.sam > xx#minimal.tmp.bam
+  ./test_view  xx#minimal.tmp.bam > xx#minimal.tmp.bam.sam_
+  ./compare_sam.pl xx#minimal.sam xx#minimal.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#minimal.sam > xx#minimal.tmp.cram
+  ./test_view  -D xx#minimal.tmp.cram > xx#minimal.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#minimal.sam xx#minimal.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#minimal.tmp.bam > xx#minimal.tmp.bam.cram
+  ./test_view  xx#minimal.tmp.bam.cram > xx#minimal.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#minimal.sam xx#minimal.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#pair.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#pair.sam > xx#pair.tmp.bam
+  ./test_view  xx#pair.tmp.bam > xx#pair.tmp.bam.sam_
+  ./compare_sam.pl xx#pair.sam xx#pair.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#pair.sam > xx#pair.tmp.cram
+  ./test_view  -D xx#pair.tmp.cram > xx#pair.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#pair.sam xx#pair.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#pair.tmp.bam > xx#pair.tmp.bam.cram
+  ./test_view  xx#pair.tmp.bam.cram > xx#pair.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#pair.sam xx#pair.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#repeated.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#repeated.sam > xx#repeated.tmp.bam
+  ./test_view  xx#repeated.tmp.bam > xx#repeated.tmp.bam.sam_
+  ./compare_sam.pl xx#repeated.sam xx#repeated.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#repeated.sam > xx#repeated.tmp.cram
+  ./test_view  -D xx#repeated.tmp.cram > xx#repeated.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#repeated.sam xx#repeated.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#repeated.tmp.bam > xx#repeated.tmp.bam.cram
+  ./test_view  xx#repeated.tmp.bam.cram > xx#repeated.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#repeated.sam xx#repeated.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#rg.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#rg.sam > xx#rg.tmp.bam
+  ./test_view  xx#rg.tmp.bam > xx#rg.tmp.bam.sam_
+  ./compare_sam.pl xx#rg.sam xx#rg.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#rg.sam > xx#rg.tmp.cram
+  ./test_view  -D xx#rg.tmp.cram > xx#rg.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#rg.sam xx#rg.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#rg.tmp.bam > xx#rg.tmp.bam.cram
+  ./test_view  xx#rg.tmp.bam.cram > xx#rg.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#rg.sam xx#rg.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#tlen.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#tlen.sam > xx#tlen.tmp.bam
+  ./test_view  xx#tlen.tmp.bam > xx#tlen.tmp.bam.sam_
+  ./compare_sam.pl xx#tlen.sam xx#tlen.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#tlen.sam > xx#tlen.tmp.cram
+  ./test_view  -D xx#tlen.tmp.cram > xx#tlen.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen.sam xx#tlen.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#tlen.tmp.bam > xx#tlen.tmp.bam.cram
+  ./test_view  xx#tlen.tmp.bam.cram > xx#tlen.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#tlen.sam xx#tlen.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#tlen2.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#tlen2.sam > xx#tlen2.tmp.bam
+  ./test_view  xx#tlen2.tmp.bam > xx#tlen2.tmp.bam.sam_
+  ./compare_sam.pl xx#tlen2.sam xx#tlen2.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#tlen2.sam > xx#tlen2.tmp.cram
+  ./test_view  -D xx#tlen2.tmp.cram > xx#tlen2.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen2.sam xx#tlen2.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#tlen2.tmp.bam > xx#tlen2.tmp.bam.cram
+  ./test_view  xx#tlen2.tmp.bam.cram > xx#tlen2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#tlen2.sam xx#tlen2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#triplet.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#triplet.sam > xx#triplet.tmp.bam
+  ./test_view  xx#triplet.tmp.bam > xx#triplet.tmp.bam.sam_
+  ./compare_sam.pl xx#triplet.sam xx#triplet.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#triplet.sam > xx#triplet.tmp.cram
+  ./test_view  -D xx#triplet.tmp.cram > xx#triplet.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#triplet.sam xx#triplet.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#triplet.tmp.bam > xx#triplet.tmp.bam.cram
+  ./test_view  xx#triplet.tmp.bam.cram > xx#triplet.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#triplet.sam xx#triplet.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#unsorted.sam, ref xx.fa:
+  ./test_view  -S -l0 -b xx#unsorted.sam > xx#unsorted.tmp.bam
+  ./test_view  xx#unsorted.tmp.bam > xx#unsorted.tmp.bam.sam_
+  ./compare_sam.pl xx#unsorted.sam xx#unsorted.tmp.bam.sam_
+  ./test_view  -t xx.fa -S -C -o VERSION=2.1 xx#unsorted.sam > xx#unsorted.tmp.cram
+  ./test_view  -D xx#unsorted.tmp.cram > xx#unsorted.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#unsorted.sam xx#unsorted.tmp.cram.sam_
+  ./test_view  -t xx.fa -C -o VERSION=3.0 xx#unsorted.tmp.bam > xx#unsorted.tmp.bam.cram
+  ./test_view  xx#unsorted.tmp.bam.cram > xx#unsorted.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#unsorted.sam xx#unsorted.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing BAM records in multiple BGZF blocks:
+  ./test_view  -p bgzf_boundaries/bgzf_boundaries1.bam.tmp.sam bgzf_boundaries/bgzf_boundaries1.bam
+  ./compare_sam.pl bgzf_boundaries/bgzf_boundaries1.bam.tmp.sam ce#1.sam
+  ./test_view  -p bgzf_boundaries/bgzf_boundaries2.bam.tmp.sam bgzf_boundaries/bgzf_boundaries2.bam
+  ./compare_sam.pl bgzf_boundaries/bgzf_boundaries2.bam.tmp.sam ce#1.sam
+  ./test_view  -p bgzf_boundaries/bgzf_boundaries3.bam.tmp.sam bgzf_boundaries/bgzf_boundaries3.bam
+  ./compare_sam.pl bgzf_boundaries/bgzf_boundaries3.bam.tmp.sam ce#1.sam
+  ./test_view  -b -l 0 -p bgzf_boundaries/large_rec.tmp.sam.bam bgzf_boundaries/large_rec.tmp.sam
+  ./test_view  -p bgzf_boundaries/large_rec.tmp.sam.bam.sam bgzf_boundaries/large_rec.tmp.sam.bam
+  ./compare_sam.pl bgzf_boundaries/large_rec.tmp.sam bgzf_boundaries/large_rec.tmp.sam.bam.sam
+.. ok
+
+test_view testing embed_ref=2:
+  ./test_view  -C -p ce#1000_er.tmp.cram ce#1000.sam
+[W::cram_get_ref] Failed to populate reference for id 0
+[W::cram_write_SAM_hdr] No M5 tags present and could not find reference
+[W::cram_write_SAM_hdr] Enabling embed_ref=2 option
+[W::cram_write_SAM_hdr] NOTE: the CRAM file will be bigger than using an external reference
+  ./test_view  -p ce#1000_er.tmp.cram.sam ce#1000_er.tmp.cram
+  ./compare_sam.pl ce#1000.sam ce#1000_er.tmp.cram.sam
+.. ok
+
+test_view testing region queries:
+  ./test_view  -i reference=ce.fa range.cram CHROMOSOME_II:2980-2980 CHROMOSOME_IV:1500-1500 CHROMOSOME_II:2980-2980 CHROMOSOME_I:1000-1100 > range.tmp
+  ./compare_sam.pl range.tmp range.out
+  ./test_view  range.bam CHROMOSOME_II:2980-2980 CHROMOSOME_IV:1500-1500 CHROMOSOME_II:2980-2980 CHROMOSOME_I:1000-1100 > range.tmp
+  ./compare_sam.pl range.tmp range.out
+  ./test_view  -i reference=ce.fa -M range.cram CHROMOSOME_I:1122-1122 CHROMOSOME_II:1136-1136 CHROMOSOME_II:1241-1241 CHROMOSOME_II:1267-1267 CHROMOSOME_II:1326-1326 CHROMOSOME_II:1345-1345 CHROMOSOME_II:1353-1353 CHROMOSOME_II:1366-1366 CHROMOSOME_II:1416-1416 CHROMOSOME_II:1459-1459 CHROMOSOME_II:1536-1536 > range.tmp
+  ./compare_sam.pl range.tmp range.out2
+  ./test_view  -M range.bam CHROMOSOME_I:1122-1122 CHROMOSOME_II:1136-1136 CHROMOSOME_II:1241-1241 CHROMOSOME_II:1267-1267 CHROMOSOME_II:1326-1326 CHROMOSOME_II:1345-1345 CHROMOSOME_II:1353-1353 CHROMOSOME_II:1366-1366 CHROMOSOME_II:1416-1416 CHROMOSOME_II:1459-1459 CHROMOSOME_II:1536-1536 > range.tmp
+  ./compare_sam.pl range.tmp range.out2
+.. ok
+
+test_view testing BAM files with absent @SQ lines:
+  ./test_view  -p no_hdr_sq_1.tmp.sam no_hdr_sq_1.bam
+  ./compare_sam.pl no_hdr_sq_1.tmp.sam no_hdr_sq_1.expected.sam
+  ./test_view  -p no_hdr_sq_1.chr1.tmp.sam no_hdr_sq_1.bam CHROMOSOME_I
+  ./compare_sam.pl no_hdr_sq_1.chr1.tmp.sam no_hdr_sq_1.expected.sam
+.. ok
+
+test_view testing large (> 2Gbases) positions:
+  ./test_view  -z -p longrefs/longref.tmp.sam.gz -x longrefs/longref.tmp.sam.gz.csi.otf -m 14 longrefs/longref.sam
+  ./test_view  -p longrefs/longref.tmp.sam_ longrefs/longref.tmp.sam.gz
+  ./compare_sam.pl longrefs/longref.sam longrefs/longref.tmp.sam_
+test_view:
+	/w/htslib/htslib-1.21+ds/test/test_index -c longrefs/longref.tmp.sam.gz
+.. ok
+
+  ./test_view  -p longrefs/longref_itr.tmp.sam longrefs/longref.tmp.sam.gz CHROMOSOME_I:10000000000-10000000003
+  ./compare_sam.pl longrefs/longref_itr.expected.sam longrefs/longref_itr.tmp.sam
+  ./test_view  -M -p longrefs/longref_multi.tmp.sam longrefs/longref.tmp.sam.gz CHROMOSOME_I:10000000000-10000000003 CHROMOSOME_I:10000000100-10000000110
+  ./compare_sam.pl longrefs/longref_multi.expected.sam longrefs/longref_multi.tmp.sam
+.. ok
+
+test_view testing auxf#values.sam, ref auxf.fa:
+  ./test_view -@4 -S -l0 -b auxf#values.sam > auxf#values.tmp.bam
+  ./test_view -@4 auxf#values.tmp.bam > auxf#values.tmp.bam.sam_
+  ./compare_sam.pl auxf#values.sam auxf#values.tmp.bam.sam_
+  ./test_view -@4 -t auxf.fa -S -C -o VERSION=2.1 auxf#values.sam > auxf#values.tmp.cram
+  ./test_view -@4 -D auxf#values.tmp.cram > auxf#values.tmp.cram.sam_
+  ./compare_sam.pl -nomd auxf#values.sam auxf#values.tmp.cram.sam_
+  ./test_view -@4 -t auxf.fa -C -o VERSION=3.0 auxf#values.tmp.bam > auxf#values.tmp.bam.cram
+  ./test_view -@4 auxf#values.tmp.bam.cram > auxf#values.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd auxf#values.sam auxf#values.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t auxf.fa -S -l7 -C -o VERSION=3.1 -o archive auxf#values.sam > auxf#values.tmp.cram
+  ./test_view -@4 -D auxf#values.tmp.cram > auxf#values.tmp.cram.sam_
+  ./compare_sam.pl -nomd auxf#values.sam auxf#values.tmp.cram.sam_
+  ./test_view -@4 -t auxf.fa -S -l7 -C -o VERSION=4.0 -o archive auxf#values.sam > auxf#values.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D auxf#values.tmp.cram > auxf#values.tmp.cram.sam_
+  ./compare_sam.pl -nomd auxf#values.sam auxf#values.tmp.cram.sam_
+  ./test_view -@4 -i reference=auxf.fa auxf#values_java.cram > auxf#values_java.tmp.sam_
+  ./compare_sam.pl -Baux -nomd auxf#values.sam auxf#values_java.tmp.sam_
+.. ok
+
+test_view testing c1#bounds.sam, ref c1.fa:
+  ./test_view -@4 -S -l0 -b c1#bounds.sam > c1#bounds.tmp.bam
+  ./test_view -@4 c1#bounds.tmp.bam > c1#bounds.tmp.bam.sam_
+  ./compare_sam.pl c1#bounds.sam c1#bounds.tmp.bam.sam_
+  ./test_view -@4 -t c1.fa -S -C -o VERSION=2.1 c1#bounds.sam > c1#bounds.tmp.cram
+  ./test_view -@4 -D c1#bounds.tmp.cram > c1#bounds.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#bounds.sam c1#bounds.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -C -o VERSION=3.0 c1#bounds.tmp.bam > c1#bounds.tmp.bam.cram
+  ./test_view -@4 c1#bounds.tmp.bam.cram > c1#bounds.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#bounds.sam c1#bounds.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#clip.sam, ref c1.fa:
+  ./test_view -@4 -S -l0 -b c1#clip.sam > c1#clip.tmp.bam
+  ./test_view -@4 c1#clip.tmp.bam > c1#clip.tmp.bam.sam_
+  ./compare_sam.pl c1#clip.sam c1#clip.tmp.bam.sam_
+  ./test_view -@4 -t c1.fa -S -C -o VERSION=2.1 c1#clip.sam > c1#clip.tmp.cram
+  ./test_view -@4 -D c1#clip.tmp.cram > c1#clip.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#clip.sam c1#clip.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -C -o VERSION=3.0 c1#clip.tmp.bam > c1#clip.tmp.bam.cram
+  ./test_view -@4 c1#clip.tmp.bam.cram > c1#clip.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#clip.sam c1#clip.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#noseq.sam, ref c1.fa:
+  ./test_view -@4 -S -l0 -b c1#noseq.sam > c1#noseq.tmp.bam
+  ./test_view -@4 c1#noseq.tmp.bam > c1#noseq.tmp.bam.sam_
+  ./compare_sam.pl c1#noseq.sam c1#noseq.tmp.bam.sam_
+  ./test_view -@4 -t c1.fa -S -C -o VERSION=2.1 c1#noseq.sam > c1#noseq.tmp.cram
+  ./test_view -@4 -D c1#noseq.tmp.cram > c1#noseq.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#noseq.sam c1#noseq.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -C -o VERSION=3.0 c1#noseq.tmp.bam > c1#noseq.tmp.bam.cram
+  ./test_view -@4 c1#noseq.tmp.bam.cram > c1#noseq.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#noseq.sam c1#noseq.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#pad1.sam, ref c1.fa:
+  ./test_view -@4 -S -l0 -b c1#pad1.sam > c1#pad1.tmp.bam
+  ./test_view -@4 c1#pad1.tmp.bam > c1#pad1.tmp.bam.sam_
+  ./compare_sam.pl c1#pad1.sam c1#pad1.tmp.bam.sam_
+  ./test_view -@4 -t c1.fa -S -C -o VERSION=2.1 c1#pad1.sam > c1#pad1.tmp.cram
+  ./test_view -@4 -D c1#pad1.tmp.cram > c1#pad1.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad1.sam c1#pad1.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -C -o VERSION=3.0 c1#pad1.tmp.bam > c1#pad1.tmp.bam.cram
+  ./test_view -@4 c1#pad1.tmp.bam.cram > c1#pad1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#pad1.sam c1#pad1.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#pad2.sam, ref c1.fa:
+  ./test_view -@4 -S -l0 -b c1#pad2.sam > c1#pad2.tmp.bam
+  ./test_view -@4 c1#pad2.tmp.bam > c1#pad2.tmp.bam.sam_
+  ./compare_sam.pl c1#pad2.sam c1#pad2.tmp.bam.sam_
+  ./test_view -@4 -t c1.fa -S -C -o VERSION=2.1 c1#pad2.sam > c1#pad2.tmp.cram
+  ./test_view -@4 -D c1#pad2.tmp.cram > c1#pad2.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad2.sam c1#pad2.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -C -o VERSION=3.0 c1#pad2.tmp.bam > c1#pad2.tmp.bam.cram
+  ./test_view -@4 c1#pad2.tmp.bam.cram > c1#pad2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#pad2.sam c1#pad2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c1#pad3.sam, ref c1.fa:
+  ./test_view -@4 -S -l0 -b c1#pad3.sam > c1#pad3.tmp.bam
+  ./test_view -@4 c1#pad3.tmp.bam > c1#pad3.tmp.bam.sam_
+  ./compare_sam.pl c1#pad3.sam c1#pad3.tmp.bam.sam_
+  ./test_view -@4 -t c1.fa -S -C -o VERSION=2.1 c1#pad3.sam > c1#pad3.tmp.cram
+  ./test_view -@4 -D c1#pad3.tmp.cram > c1#pad3.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad3.sam c1#pad3.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -C -o VERSION=3.0 c1#pad3.tmp.bam > c1#pad3.tmp.bam.cram
+  ./test_view -@4 c1#pad3.tmp.bam.cram > c1#pad3.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#pad3.sam c1#pad3.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t c1.fa -S -l7 -C -o VERSION=3.1 -o archive c1#pad3.sam > c1#pad3.tmp.cram
+  ./test_view -@4 -D c1#pad3.tmp.cram > c1#pad3.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad3.sam c1#pad3.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -S -l7 -C -o VERSION=4.0 -o archive c1#pad3.sam > c1#pad3.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D c1#pad3.tmp.cram > c1#pad3.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#pad3.sam c1#pad3.tmp.cram.sam_
+.. ok
+
+test_view testing c1#unknown.sam, ref c1.fa:
+  ./test_view -@4 -S -l0 -b c1#unknown.sam > c1#unknown.tmp.bam
+  ./test_view -@4 c1#unknown.tmp.bam > c1#unknown.tmp.bam.sam_
+  ./compare_sam.pl c1#unknown.sam c1#unknown.tmp.bam.sam_
+  ./test_view -@4 -t c1.fa -S -C -o VERSION=2.1 c1#unknown.sam > c1#unknown.tmp.cram
+  ./test_view -@4 -D c1#unknown.tmp.cram > c1#unknown.tmp.cram.sam_
+  ./compare_sam.pl -nomd c1#unknown.sam c1#unknown.tmp.cram.sam_
+  ./test_view -@4 -t c1.fa -C -o VERSION=3.0 c1#unknown.tmp.bam > c1#unknown.tmp.bam.cram
+  ./test_view -@4 c1#unknown.tmp.bam.cram > c1#unknown.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c1#unknown.sam c1#unknown.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing c2#pad.sam, ref c2.fa:
+  ./test_view -@4 -S -l0 -b c2#pad.sam > c2#pad.tmp.bam
+  ./test_view -@4 c2#pad.tmp.bam > c2#pad.tmp.bam.sam_
+  ./compare_sam.pl c2#pad.sam c2#pad.tmp.bam.sam_
+  ./test_view -@4 -t c2.fa -S -C -o VERSION=2.1 c2#pad.sam > c2#pad.tmp.cram
+  ./test_view -@4 -D c2#pad.tmp.cram > c2#pad.tmp.cram.sam_
+  ./compare_sam.pl -nomd c2#pad.sam c2#pad.tmp.cram.sam_
+  ./test_view -@4 -t c2.fa -C -o VERSION=3.0 c2#pad.tmp.bam > c2#pad.tmp.bam.cram
+  ./test_view -@4 c2#pad.tmp.bam.cram > c2#pad.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd c2#pad.sam c2#pad.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#1.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#1.sam > ce#1.tmp.bam
+  ./test_view -@4 ce#1.tmp.bam > ce#1.tmp.bam.sam_
+  ./compare_sam.pl ce#1.sam ce#1.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#1.sam > ce#1.tmp.cram
+  ./test_view -@4 -D ce#1.tmp.cram > ce#1.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1.sam ce#1.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#1.tmp.bam > ce#1.tmp.bam.cram
+  ./test_view -@4 ce#1.tmp.bam.cram > ce#1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#1.sam ce#1.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#1000.sam, ref ce.fa:
+  ./test_view -@4 -S -b ce#1000.sam > ce#1000.tmp.bam
+  ./test_view -@4 ce#1000.tmp.bam > ce#1000.tmp.bam.sam_
+  ./compare_sam.pl ce#1000.sam ce#1000.tmp.bam.sam_
+  ./test_view -@4 -S -l0 -b ce#1000.sam > ce#1000.tmp.bam
+  ./test_view -@4 ce#1000.tmp.bam > ce#1000.tmp.bam.sam_
+  ./compare_sam.pl ce#1000.sam ce#1000.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#1000.sam > ce#1000.tmp.cram
+  ./test_view -@4 -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l0 -C -o VERSION=3.0 ce#1000.sam > ce#1000.tmp.cram
+  ./test_view -@4 -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#1000.tmp.bam > ce#1000.tmp.bam.cram
+  ./test_view -@4 ce#1000.tmp.bam.cram > ce#1000.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 ce#1000.tmp.bam.cram > ce#1000.tmp.bam.cram.ms
+  ./test_view -@4 ce#1000.tmp.bam.cram.ms > ce#1000.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.bam.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=3.1 -o fast ce#1000.sam > ce#1000.tmp.cram
+  ./test_view -@4 -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=3.1 -o normal ce#1000.sam > ce#1000.tmp.cram
+  ./test_view -@4 -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=3.1 -o small ce#1000.sam > ce#1000.tmp.cram
+  ./test_view -@4 -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=3.1 -o archive ce#1000.sam > ce#1000.tmp.cram
+  ./test_view -@4 -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=4.0 -o archive ce#1000.sam > ce#1000.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D ce#1000.tmp.cram > ce#1000.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000.sam ce#1000.tmp.cram.sam_
+.. ok
+
+test_view testing ce#1000_er.tmp.cram.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#1000_er.tmp.cram.sam > ce#1000_er.tmp.cram.tmp.bam
+  ./test_view -@4 ce#1000_er.tmp.cram.tmp.bam > ce#1000_er.tmp.cram.tmp.bam.sam_
+  ./compare_sam.pl ce#1000_er.tmp.cram.sam ce#1000_er.tmp.cram.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#1000_er.tmp.cram.sam > ce#1000_er.tmp.cram.tmp.cram
+  ./test_view -@4 -D ce#1000_er.tmp.cram.tmp.cram > ce#1000_er.tmp.cram.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#1000_er.tmp.cram.sam ce#1000_er.tmp.cram.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#1000_er.tmp.cram.tmp.bam > ce#1000_er.tmp.cram.tmp.bam.cram
+  ./test_view -@4 ce#1000_er.tmp.cram.tmp.bam.cram > ce#1000_er.tmp.cram.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#1000_er.tmp.cram.sam ce#1000_er.tmp.cram.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#2.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#2.sam > ce#2.tmp.bam
+  ./test_view -@4 ce#2.tmp.bam > ce#2.tmp.bam.sam_
+  ./compare_sam.pl ce#2.sam ce#2.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#2.sam > ce#2.tmp.cram
+  ./test_view -@4 -D ce#2.tmp.cram > ce#2.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#2.sam ce#2.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#2.tmp.bam > ce#2.tmp.bam.cram
+  ./test_view -@4 ce#2.tmp.bam.cram > ce#2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#2.sam ce#2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#5.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#5.sam > ce#5.tmp.bam
+  ./test_view -@4 ce#5.tmp.bam > ce#5.tmp.bam.sam_
+  ./compare_sam.pl ce#5.sam ce#5.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#5.sam > ce#5.tmp.cram
+  ./test_view -@4 -D ce#5.tmp.cram > ce#5.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#5.sam ce#5.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#5.tmp.bam > ce#5.tmp.bam.cram
+  ./test_view -@4 ce#5.tmp.bam.cram > ce#5.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#5.sam ce#5.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 ce#5.tmp.bam.cram > ce#5.tmp.bam.cram.ms
+  ./test_view -@4 ce#5.tmp.bam.cram.ms > ce#5.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd ce#5.sam ce#5.tmp.bam.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=3.1 -o archive ce#5.sam > ce#5.tmp.cram
+  ./test_view -@4 -D ce#5.tmp.cram > ce#5.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#5.sam ce#5.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=4.0 -o archive ce#5.sam > ce#5.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D ce#5.tmp.cram > ce#5.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#5.sam ce#5.tmp.cram.sam_
+.. ok
+
+test_view testing ce#5b.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#5b.sam > ce#5b.tmp.bam
+  ./test_view -@4 ce#5b.tmp.bam > ce#5b.tmp.bam.sam_
+  ./compare_sam.pl ce#5b.sam ce#5b.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#5b.sam > ce#5b.tmp.cram
+  ./test_view -@4 -D ce#5b.tmp.cram > ce#5b.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#5b.sam ce#5b.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#5b.tmp.bam > ce#5b.tmp.bam.cram
+  ./test_view -@4 ce#5b.tmp.bam.cram > ce#5b.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#5b.sam ce#5b.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 ce#5b.tmp.bam.cram > ce#5b.tmp.bam.cram.ms
+  ./test_view -@4 ce#5b.tmp.bam.cram.ms > ce#5b.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd ce#5b.sam ce#5b.tmp.bam.cram.sam_
+  ./test_view -@4 -i reference=ce.fa ce#5b_java.cram > ce#5b_java.tmp.sam_
+  ./compare_sam.pl -Baux -nomd ce#5b.sam ce#5b_java.tmp.sam_
+.. ok
+
+test_view testing ce#large_seq.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#large_seq.sam > ce#large_seq.tmp.bam
+  ./test_view -@4 ce#large_seq.tmp.bam > ce#large_seq.tmp.bam.sam_
+  ./compare_sam.pl ce#large_seq.sam ce#large_seq.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#large_seq.sam > ce#large_seq.tmp.cram
+  ./test_view -@4 -D ce#large_seq.tmp.cram > ce#large_seq.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#large_seq.tmp.bam > ce#large_seq.tmp.bam.cram
+  ./test_view -@4 ce#large_seq.tmp.bam.cram > ce#large_seq.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=3.1 -o archive ce#large_seq.sam > ce#large_seq.tmp.cram
+  ./test_view -@4 -D ce#large_seq.tmp.cram > ce#large_seq.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=4.0 -o fast ce#large_seq.sam > ce#large_seq.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D ce#large_seq.tmp.cram > ce#large_seq.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=4.0 -o normal ce#large_seq.sam > ce#large_seq.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D ce#large_seq.tmp.cram > ce#large_seq.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=4.0 -o small ce#large_seq.sam > ce#large_seq.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D ce#large_seq.tmp.cram > ce#large_seq.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=4.0 -o archive ce#large_seq.sam > ce#large_seq.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D ce#large_seq.tmp.cram > ce#large_seq.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#large_seq.sam ce#large_seq.tmp.cram.sam_
+.. ok
+
+test_view testing ce#supp.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#supp.sam > ce#supp.tmp.bam
+  ./test_view -@4 ce#supp.tmp.bam > ce#supp.tmp.bam.sam_
+  ./compare_sam.pl ce#supp.sam ce#supp.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#supp.sam > ce#supp.tmp.cram
+  ./test_view -@4 -D ce#supp.tmp.cram > ce#supp.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#supp.sam ce#supp.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#supp.tmp.bam > ce#supp.tmp.bam.cram
+  ./test_view -@4 ce#supp.tmp.bam.cram > ce#supp.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#supp.sam ce#supp.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=3.1 -o archive ce#supp.sam > ce#supp.tmp.cram
+  ./test_view -@4 -D ce#supp.tmp.cram > ce#supp.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#supp.sam ce#supp.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -S -l7 -C -o VERSION=4.0 -o archive ce#supp.sam > ce#supp.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D ce#supp.tmp.cram > ce#supp.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#supp.sam ce#supp.tmp.cram.sam_
+.. ok
+
+test_view testing ce#tag_depadded.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#tag_depadded.sam > ce#tag_depadded.tmp.bam
+  ./test_view -@4 ce#tag_depadded.tmp.bam > ce#tag_depadded.tmp.bam.sam_
+  ./compare_sam.pl ce#tag_depadded.sam ce#tag_depadded.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#tag_depadded.sam > ce#tag_depadded.tmp.cram
+  ./test_view -@4 -D ce#tag_depadded.tmp.cram > ce#tag_depadded.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#tag_depadded.sam ce#tag_depadded.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#tag_depadded.tmp.bam > ce#tag_depadded.tmp.bam.cram
+  ./test_view -@4 ce#tag_depadded.tmp.bam.cram > ce#tag_depadded.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#tag_depadded.sam ce#tag_depadded.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#tag_padded.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#tag_padded.sam > ce#tag_padded.tmp.bam
+  ./test_view -@4 ce#tag_padded.tmp.bam > ce#tag_padded.tmp.bam.sam_
+  ./compare_sam.pl ce#tag_padded.sam ce#tag_padded.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#tag_padded.sam > ce#tag_padded.tmp.cram
+  ./test_view -@4 -D ce#tag_padded.tmp.cram > ce#tag_padded.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#tag_padded.sam ce#tag_padded.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#tag_padded.tmp.bam > ce#tag_padded.tmp.bam.cram
+  ./test_view -@4 ce#tag_padded.tmp.bam.cram > ce#tag_padded.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#tag_padded.sam ce#tag_padded.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing ce#unmap.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#unmap.sam > ce#unmap.tmp.bam
+  ./test_view -@4 ce#unmap.tmp.bam > ce#unmap.tmp.bam.sam_
+  ./compare_sam.pl ce#unmap.sam ce#unmap.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#unmap.sam > ce#unmap.tmp.cram
+  ./test_view -@4 -D ce#unmap.tmp.cram > ce#unmap.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap.sam ce#unmap.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#unmap.tmp.bam > ce#unmap.tmp.bam.cram
+  ./test_view -@4 ce#unmap.tmp.bam.cram > ce#unmap.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#unmap.sam ce#unmap.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 ce#unmap.tmp.bam.cram > ce#unmap.tmp.bam.cram.ms
+  ./test_view -@4 ce#unmap.tmp.bam.cram.ms > ce#unmap.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap.sam ce#unmap.tmp.bam.cram.sam_
+.. ok
+
+test_view testing ce#unmap1.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#unmap1.sam > ce#unmap1.tmp.bam
+  ./test_view -@4 ce#unmap1.tmp.bam > ce#unmap1.tmp.bam.sam_
+  ./compare_sam.pl ce#unmap1.sam ce#unmap1.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#unmap1.sam > ce#unmap1.tmp.cram
+  ./test_view -@4 -D ce#unmap1.tmp.cram > ce#unmap1.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap1.sam ce#unmap1.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#unmap1.tmp.bam > ce#unmap1.tmp.bam.cram
+  ./test_view -@4 ce#unmap1.tmp.bam.cram > ce#unmap1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#unmap1.sam ce#unmap1.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 ce#unmap1.tmp.bam.cram > ce#unmap1.tmp.bam.cram.ms
+  ./test_view -@4 ce#unmap1.tmp.bam.cram.ms > ce#unmap1.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap1.sam ce#unmap1.tmp.bam.cram.sam_
+.. ok
+
+test_view testing ce#unmap2.sam, ref ce.fa:
+  ./test_view -@4 -S -l0 -b ce#unmap2.sam > ce#unmap2.tmp.bam
+  ./test_view -@4 ce#unmap2.tmp.bam > ce#unmap2.tmp.bam.sam_
+  ./compare_sam.pl ce#unmap2.sam ce#unmap2.tmp.bam.sam_
+  ./test_view -@4 -t ce.fa -S -C -o VERSION=2.1 ce#unmap2.sam > ce#unmap2.tmp.cram
+  ./test_view -@4 -D ce#unmap2.tmp.cram > ce#unmap2.tmp.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap2.sam ce#unmap2.tmp.cram.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 ce#unmap2.tmp.bam > ce#unmap2.tmp.bam.cram
+  ./test_view -@4 ce#unmap2.tmp.bam.cram > ce#unmap2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd ce#unmap2.sam ce#unmap2.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t ce.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 ce#unmap2.tmp.bam.cram > ce#unmap2.tmp.bam.cram.ms
+  ./test_view -@4 ce#unmap2.tmp.bam.cram.ms > ce#unmap2.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd ce#unmap2.sam ce#unmap2.tmp.bam.cram.sam_
+.. ok
+
+test_view testing md#1.sam, ref md.fa:
+  ./test_view -@4 -S -l0 -b md#1.sam > md#1.tmp.bam
+  ./test_view -@4 md#1.tmp.bam > md#1.tmp.bam.sam_
+  ./compare_sam.pl md#1.sam md#1.tmp.bam.sam_
+  ./test_view -@4 -t md.fa -S -C -o VERSION=2.1 md#1.sam > md#1.tmp.cram
+  ./test_view -@4 -D md#1.tmp.cram > md#1.tmp.cram.sam_
+  ./compare_sam.pl  md#1.sam md#1.tmp.cram.sam_
+  ./test_view -@4 -t md.fa -C -o VERSION=3.0 md#1.tmp.bam > md#1.tmp.bam.cram
+  ./test_view -@4 md#1.tmp.bam.cram > md#1.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl  md#1.sam md#1.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#blank.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#blank.sam > xx#blank.tmp.bam
+  ./test_view -@4 xx#blank.tmp.bam > xx#blank.tmp.bam.sam_
+  ./compare_sam.pl xx#blank.sam xx#blank.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#blank.sam > xx#blank.tmp.cram
+  ./test_view -@4 -D xx#blank.tmp.cram > xx#blank.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#blank.sam xx#blank.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#blank.tmp.bam > xx#blank.tmp.bam.cram
+  ./test_view -@4 xx#blank.tmp.bam.cram > xx#blank.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#blank.sam xx#blank.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 xx#blank.tmp.bam.cram > xx#blank.tmp.bam.cram.ms
+  ./test_view -@4 xx#blank.tmp.bam.cram.ms > xx#blank.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd xx#blank.sam xx#blank.tmp.bam.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=3.1 -o archive xx#blank.sam > xx#blank.tmp.cram
+  ./test_view -@4 -D xx#blank.tmp.cram > xx#blank.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#blank.sam xx#blank.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o archive xx#blank.sam > xx#blank.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#blank.tmp.cram > xx#blank.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#blank.sam xx#blank.tmp.cram.sam_
+.. ok
+
+test_view testing xx#large_aux.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#large_aux.sam > xx#large_aux.tmp.bam
+  ./test_view -@4 xx#large_aux.tmp.bam > xx#large_aux.tmp.bam.sam_
+  ./compare_sam.pl xx#large_aux.sam xx#large_aux.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#large_aux.sam > xx#large_aux.tmp.cram
+  ./test_view -@4 -D xx#large_aux.tmp.cram > xx#large_aux.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#large_aux.tmp.bam > xx#large_aux.tmp.bam.cram
+  ./test_view -@4 xx#large_aux.tmp.bam.cram > xx#large_aux.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=3.1 -o archive xx#large_aux.sam > xx#large_aux.tmp.cram
+  ./test_view -@4 -D xx#large_aux.tmp.cram > xx#large_aux.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o fast xx#large_aux.sam > xx#large_aux.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#large_aux.tmp.cram > xx#large_aux.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o normal xx#large_aux.sam > xx#large_aux.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#large_aux.tmp.cram > xx#large_aux.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o small xx#large_aux.sam > xx#large_aux.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#large_aux.tmp.cram > xx#large_aux.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o archive xx#large_aux.sam > xx#large_aux.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#large_aux.tmp.cram > xx#large_aux.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux.sam xx#large_aux.tmp.cram.sam_
+  ./test_view -@4 -i reference=xx.fa xx#large_aux_java.cram > xx#large_aux_java.tmp.sam_
+[W::sanitise_SQ_lines] Header @SQ length mismatch for ref xx, 30 vs 20
+  ./compare_sam.pl -Baux -nomd xx#large_aux.sam xx#large_aux_java.tmp.sam_
+.. ok
+
+test_view testing xx#large_aux2.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#large_aux2.sam > xx#large_aux2.tmp.bam
+  ./test_view -@4 xx#large_aux2.tmp.bam > xx#large_aux2.tmp.bam.sam_
+  ./compare_sam.pl xx#large_aux2.sam xx#large_aux2.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#large_aux2.sam > xx#large_aux2.tmp.cram
+  ./test_view -@4 -D xx#large_aux2.tmp.cram > xx#large_aux2.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#large_aux2.sam xx#large_aux2.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#large_aux2.tmp.bam > xx#large_aux2.tmp.bam.cram
+  ./test_view -@4 xx#large_aux2.tmp.bam.cram > xx#large_aux2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#large_aux2.sam xx#large_aux2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#MD.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#MD.sam > xx#MD.tmp.bam
+  ./test_view -@4 xx#MD.tmp.bam > xx#MD.tmp.bam.sam_
+  ./compare_sam.pl xx#MD.sam xx#MD.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#MD.sam > xx#MD.tmp.cram
+  ./test_view -@4 -D xx#MD.tmp.cram > xx#MD.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#MD.sam xx#MD.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#MD.tmp.bam > xx#MD.tmp.bam.cram
+  ./test_view -@4 xx#MD.tmp.bam.cram > xx#MD.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#MD.sam xx#MD.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=3.1 -o archive xx#MD.sam > xx#MD.tmp.cram
+  ./test_view -@4 -D xx#MD.tmp.cram > xx#MD.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#MD.sam xx#MD.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o archive xx#MD.sam > xx#MD.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#MD.tmp.cram > xx#MD.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#MD.sam xx#MD.tmp.cram.sam_
+.. ok
+
+test_view testing xx#MD2.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#MD2.sam > xx#MD2.tmp.bam
+  ./test_view -@4 xx#MD2.tmp.bam > xx#MD2.tmp.bam.sam_
+  ./compare_sam.pl xx#MD2.sam xx#MD2.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#MD2.sam > xx#MD2.tmp.cram
+  ./test_view -@4 -D xx#MD2.tmp.cram > xx#MD2.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#MD2.sam xx#MD2.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#MD2.tmp.bam > xx#MD2.tmp.bam.cram
+  ./test_view -@4 xx#MD2.tmp.bam.cram > xx#MD2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#MD2.sam xx#MD2.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#minimal.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#minimal.sam > xx#minimal.tmp.bam
+  ./test_view -@4 xx#minimal.tmp.bam > xx#minimal.tmp.bam.sam_
+  ./compare_sam.pl xx#minimal.sam xx#minimal.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#minimal.sam > xx#minimal.tmp.cram
+  ./test_view -@4 -D xx#minimal.tmp.cram > xx#minimal.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#minimal.sam xx#minimal.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#minimal.tmp.bam > xx#minimal.tmp.bam.cram
+  ./test_view -@4 xx#minimal.tmp.bam.cram > xx#minimal.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#minimal.sam xx#minimal.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 xx#minimal.tmp.bam.cram > xx#minimal.tmp.bam.cram.ms
+  ./test_view -@4 xx#minimal.tmp.bam.cram.ms > xx#minimal.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd xx#minimal.sam xx#minimal.tmp.bam.cram.sam_
+.. ok
+
+test_view testing xx#pair.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#pair.sam > xx#pair.tmp.bam
+  ./test_view -@4 xx#pair.tmp.bam > xx#pair.tmp.bam.sam_
+  ./compare_sam.pl xx#pair.sam xx#pair.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#pair.sam > xx#pair.tmp.cram
+  ./test_view -@4 -D xx#pair.tmp.cram > xx#pair.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#pair.sam xx#pair.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#pair.tmp.bam > xx#pair.tmp.bam.cram
+  ./test_view -@4 xx#pair.tmp.bam.cram > xx#pair.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#pair.sam xx#pair.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=3.1 -o archive xx#pair.sam > xx#pair.tmp.cram
+  ./test_view -@4 -D xx#pair.tmp.cram > xx#pair.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#pair.sam xx#pair.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o archive xx#pair.sam > xx#pair.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#pair.tmp.cram > xx#pair.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#pair.sam xx#pair.tmp.cram.sam_
+.. ok
+
+test_view testing xx#repeated.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#repeated.sam > xx#repeated.tmp.bam
+  ./test_view -@4 xx#repeated.tmp.bam > xx#repeated.tmp.bam.sam_
+  ./compare_sam.pl xx#repeated.sam xx#repeated.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#repeated.sam > xx#repeated.tmp.cram
+  ./test_view -@4 -D xx#repeated.tmp.cram > xx#repeated.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#repeated.sam xx#repeated.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#repeated.tmp.bam > xx#repeated.tmp.bam.cram
+  ./test_view -@4 xx#repeated.tmp.bam.cram > xx#repeated.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#repeated.sam xx#repeated.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#rg.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#rg.sam > xx#rg.tmp.bam
+  ./test_view -@4 xx#rg.tmp.bam > xx#rg.tmp.bam.sam_
+  ./compare_sam.pl xx#rg.sam xx#rg.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#rg.sam > xx#rg.tmp.cram
+  ./test_view -@4 -D xx#rg.tmp.cram > xx#rg.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#rg.sam xx#rg.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#rg.tmp.bam > xx#rg.tmp.bam.cram
+  ./test_view -@4 xx#rg.tmp.bam.cram > xx#rg.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#rg.sam xx#rg.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing xx#tlen.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#tlen.sam > xx#tlen.tmp.bam
+  ./test_view -@4 xx#tlen.tmp.bam > xx#tlen.tmp.bam.sam_
+  ./compare_sam.pl xx#tlen.sam xx#tlen.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#tlen.sam > xx#tlen.tmp.cram
+  ./test_view -@4 -D xx#tlen.tmp.cram > xx#tlen.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen.sam xx#tlen.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#tlen.tmp.bam > xx#tlen.tmp.bam.cram
+  ./test_view -@4 xx#tlen.tmp.bam.cram > xx#tlen.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#tlen.sam xx#tlen.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 xx#tlen.tmp.bam.cram > xx#tlen.tmp.bam.cram.ms
+  ./test_view -@4 xx#tlen.tmp.bam.cram.ms > xx#tlen.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen.sam xx#tlen.tmp.bam.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=3.1 -o archive xx#tlen.sam > xx#tlen.tmp.cram
+  ./test_view -@4 -D xx#tlen.tmp.cram > xx#tlen.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen.sam xx#tlen.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -S -l7 -C -o VERSION=4.0 -o archive xx#tlen.sam > xx#tlen.tmp.cram
+[W::cram_set_voption] CRAM version 4.0 is still a draft and subject to change.
+This is a technology demonstration that should not be used for archival data.
+  ./test_view -@4 -D xx#tlen.tmp.cram > xx#tlen.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen.sam xx#tlen.tmp.cram.sam_
+.. ok
+
+test_view testing xx#tlen2.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#tlen2.sam > xx#tlen2.tmp.bam
+  ./test_view -@4 xx#tlen2.tmp.bam > xx#tlen2.tmp.bam.sam_
+  ./compare_sam.pl xx#tlen2.sam xx#tlen2.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#tlen2.sam > xx#tlen2.tmp.cram
+  ./test_view -@4 -D xx#tlen2.tmp.cram > xx#tlen2.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen2.sam xx#tlen2.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#tlen2.tmp.bam > xx#tlen2.tmp.bam.cram
+  ./test_view -@4 xx#tlen2.tmp.bam.cram > xx#tlen2.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#tlen2.sam xx#tlen2.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 xx#tlen2.tmp.bam.cram > xx#tlen2.tmp.bam.cram.ms
+  ./test_view -@4 xx#tlen2.tmp.bam.cram.ms > xx#tlen2.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd xx#tlen2.sam xx#tlen2.tmp.bam.cram.sam_
+.. ok
+
+test_view testing xx#triplet.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#triplet.sam > xx#triplet.tmp.bam
+  ./test_view -@4 xx#triplet.tmp.bam > xx#triplet.tmp.bam.sam_
+  ./compare_sam.pl xx#triplet.sam xx#triplet.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#triplet.sam > xx#triplet.tmp.cram
+  ./test_view -@4 -D xx#triplet.tmp.cram > xx#triplet.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#triplet.sam xx#triplet.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#triplet.tmp.bam > xx#triplet.tmp.bam.cram
+  ./test_view -@4 xx#triplet.tmp.bam.cram > xx#triplet.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#triplet.sam xx#triplet.tmp.bam.cram.bam.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 -o seqs_per_slice=7 -o slices_per_container=5 xx#triplet.tmp.bam.cram > xx#triplet.tmp.bam.cram.ms
+  ./test_view -@4 xx#triplet.tmp.bam.cram.ms > xx#triplet.tmp.bam.cram.sam_
+  ./compare_sam.pl -nomd xx#triplet.sam xx#triplet.tmp.bam.cram.sam_
+.. ok
+
+test_view testing xx#unsorted.sam, ref xx.fa:
+  ./test_view -@4 -S -l0 -b xx#unsorted.sam > xx#unsorted.tmp.bam
+  ./test_view -@4 xx#unsorted.tmp.bam > xx#unsorted.tmp.bam.sam_
+  ./compare_sam.pl xx#unsorted.sam xx#unsorted.tmp.bam.sam_
+  ./test_view -@4 -t xx.fa -S -C -o VERSION=2.1 xx#unsorted.sam > xx#unsorted.tmp.cram
+  ./test_view -@4 -D xx#unsorted.tmp.cram > xx#unsorted.tmp.cram.sam_
+  ./compare_sam.pl -nomd xx#unsorted.sam xx#unsorted.tmp.cram.sam_
+  ./test_view -@4 -t xx.fa -C -o VERSION=3.0 xx#unsorted.tmp.bam > xx#unsorted.tmp.bam.cram
+  ./test_view -@4 xx#unsorted.tmp.bam.cram > xx#unsorted.tmp.bam.cram.bam.sam_
+  ./compare_sam.pl -nomd xx#unsorted.sam xx#unsorted.tmp.bam.cram.bam.sam_
+.. ok
+
+test_view testing BAM records in multiple BGZF blocks:
+  ./test_view -@4 -p bgzf_boundaries/bgzf_boundaries1.bam.tmp.sam bgzf_boundaries/bgzf_boundaries1.bam
+  ./compare_sam.pl bgzf_boundaries/bgzf_boundaries1.bam.tmp.sam ce#1.sam
+  ./test_view -@4 -p bgzf_boundaries/bgzf_boundaries2.bam.tmp.sam bgzf_boundaries/bgzf_boundaries2.bam
+  ./compare_sam.pl bgzf_boundaries/bgzf_boundaries2.bam.tmp.sam ce#1.sam
+  ./test_view -@4 -p bgzf_boundaries/bgzf_boundaries3.bam.tmp.sam bgzf_boundaries/bgzf_boundaries3.bam
+  ./compare_sam.pl bgzf_boundaries/bgzf_boundaries3.bam.tmp.sam ce#1.sam
+  ./test_view -@4 -b -l 0 -p bgzf_boundaries/large_rec.tmp.sam.bam bgzf_boundaries/large_rec.tmp.sam
+  ./test_view -@4 -p bgzf_boundaries/large_rec.tmp.sam.bam.sam bgzf_boundaries/large_rec.tmp.sam.bam
+  ./compare_sam.pl bgzf_boundaries/large_rec.tmp.sam bgzf_boundaries/large_rec.tmp.sam.bam.sam
+.. ok
+
+test_view testing embed_ref=2:
+  ./test_view -@4 -C -p ce#1000_er.tmp.cram ce#1000.sam
+[W::cram_get_ref] Failed to populate reference for id 0
+[W::cram_write_SAM_hdr] No M5 tags present and could not find reference
+[W::cram_write_SAM_hdr] Enabling embed_ref=2 option
+[W::cram_write_SAM_hdr] NOTE: the CRAM file will be bigger than using an external reference
+  ./test_view -@4 -p ce#1000_er.tmp.cram.sam ce#1000_er.tmp.cram
+  ./compare_sam.pl ce#1000.sam ce#1000_er.tmp.cram.sam
+.. ok
+
+test_view testing region queries:
+  ./test_view -@4 -i reference=ce.fa range.cram CHROMOSOME_II:2980-2980 CHROMOSOME_IV:1500-1500 CHROMOSOME_II:2980-2980 CHROMOSOME_I:1000-1100 > range.tmp
+  ./compare_sam.pl range.tmp range.out
+  ./test_view -@4 range.bam CHROMOSOME_II:2980-2980 CHROMOSOME_IV:1500-1500 CHROMOSOME_II:2980-2980 CHROMOSOME_I:1000-1100 > range.tmp
+  ./compare_sam.pl range.tmp range.out
+  ./test_view -@4 -i reference=ce.fa -M range.cram CHROMOSOME_I:1122-1122 CHROMOSOME_II:1136-1136 CHROMOSOME_II:1241-1241 CHROMOSOME_II:1267-1267 CHROMOSOME_II:1326-1326 CHROMOSOME_II:1345-1345 CHROMOSOME_II:1353-1353 CHROMOSOME_II:1366-1366 CHROMOSOME_II:1416-1416 CHROMOSOME_II:1459-1459 CHROMOSOME_II:1536-1536 > range.tmp
+  ./compare_sam.pl range.tmp range.out2
+  ./test_view -@4 -M range.bam CHROMOSOME_I:1122-1122 CHROMOSOME_II:1136-1136 CHROMOSOME_II:1241-1241 CHROMOSOME_II:1267-1267 CHROMOSOME_II:1326-1326 CHROMOSOME_II:1345-1345 CHROMOSOME_II:1353-1353 CHROMOSOME_II:1366-1366 CHROMOSOME_II:1416-1416 CHROMOSOME_II:1459-1459 CHROMOSOME_II:1536-1536 > range.tmp
+  ./compare_sam.pl range.tmp range.out2
+.. ok
+
+test_view testing BAM files with absent @SQ lines:
+  ./test_view -@4 -p no_hdr_sq_1.tmp.sam no_hdr_sq_1.bam
+  ./compare_sam.pl no_hdr_sq_1.tmp.sam no_hdr_sq_1.expected.sam
+  ./test_view -@4 -p no_hdr_sq_1.chr1.tmp.sam no_hdr_sq_1.bam CHROMOSOME_I
+  ./compare_sam.pl no_hdr_sq_1.chr1.tmp.sam no_hdr_sq_1.expected.sam
+.. ok
+
+test_view testing large (> 2Gbases) positions:
+  ./test_view -@4 -z -p longrefs/longref.tmp.sam.gz -x longrefs/longref.tmp.sam.gz.csi.otf -m 14 longrefs/longref.sam
+  ./test_view -@4 -p longrefs/longref.tmp.sam_ longrefs/longref.tmp.sam.gz
+  ./compare_sam.pl longrefs/longref.sam longrefs/longref.tmp.sam_
+test_view:
+	/w/htslib/htslib-1.21+ds/test/test_index -c longrefs/longref.tmp.sam.gz
+.. ok
+
+  ./test_view -@4 -p longrefs/longref_itr.tmp.sam longrefs/longref.tmp.sam.gz CHROMOSOME_I:10000000000-10000000003
+  ./compare_sam.pl longrefs/longref_itr.expected.sam longrefs/longref_itr.tmp.sam
+  ./test_view -@4 -M -p longrefs/longref_multi.tmp.sam longrefs/longref.tmp.sam.gz CHROMOSOME_I:10000000000-10000000003 CHROMOSOME_I:10000000100-10000000110
+  ./compare_sam.pl longrefs/longref_multi.expected.sam longrefs/longref_multi.tmp.sam
+.. ok
+
+
+test_MD testing xx#MD.sam, ref xx.fa:
+  ./test_view -o store_nm=1 -o store_md=1 -t xx.fa -C xx#MD.sam > xx#MD.tmp.cram
+  ./test_view -i decode_md=0 -D xx#MD.tmp.cram > xx#MD.tmp.cram.sam_
+  ./compare_sam.pl xx#MD.sam xx#MD.tmp.cram.sam_
+  ./test_view -t xx.fa -C xx#MD.sam > xx#MD.tmp.cram
+  ./test_view -i decode_md=0 -D xx#MD.tmp.cram > xx#MD.tmp.cram.sam_
+  ./compare_sam.pl -partialmd=2 xx#MD.sam xx#MD.tmp.cram.sam_
+  Checking for MD/NM in xx#MD.sam
+  ./test_view -t xx.fa -C xx#MD.sam > xx#MD.tmp.cram
+  ./test_view -i decode_md=1 -D xx#MD.tmp.cram > xx#MD.tmp.cram.sam_
+  ./compare_sam.pl -partialmd=1 xx#MD.sam xx#MD.tmp.cram.sam_
+.. ok
+
+
+test_MD testing xx#MD2.sam, ref xx.fa:
+  ./test_view -o store_nm=1 -o store_md=1 -t xx.fa -C xx#MD2.sam > xx#MD2.tmp.cram
+  ./test_view -i decode_md=0 -D xx#MD2.tmp.cram > xx#MD2.tmp.cram.sam_
+  ./compare_sam.pl xx#MD2.sam xx#MD2.tmp.cram.sam_
+  ./test_view -t xx.fa -C xx#MD2.sam > xx#MD2.tmp.cram
+  ./test_view -i decode_md=0 -D xx#MD2.tmp.cram > xx#MD2.tmp.cram.sam_
+  ./compare_sam.pl -partialmd=2 xx#MD2.sam xx#MD2.tmp.cram.sam_
+  ./test_view -t xx.fa -C xx#MD2.sam > xx#MD2.tmp.cram
+  ./test_view -i decode_md=1 -D xx#MD2.tmp.cram > xx#MD2.tmp.cram.sam_
+  ./compare_sam.pl -partialmd=1 xx#MD2.sam xx#MD2.tmp.cram.sam_
+.. ok
+
+test_vcf_api:
+	/w/htslib/htslib-1.21+ds/test/test-vcf-api /tmp/j2M87p4lqr/test-vcf-api.bcf
+.. ok
+
+test_bcf2vcf:
+	/w/htslib/htslib-1.21+ds/test/test_view /w/htslib/htslib-1.21+ds/test/tabix/vcf_file.bcf
+.. ok
+
+test_vcf_sweep:
+	/w/htslib/htslib-1.21+ds/test/test-vcf-sweep /tmp/j2M87p4lqr/test-vcf-api.bcf
+.. ok
+
+test_vcf_various:
+	/w/htslib/htslib-1.21+ds/htsfile -ch /w/htslib/htslib-1.21+ds/test/test-vcf-hdr-in.vcf
+.. ok
+
+test_vcf_various:
+	/w/htslib/htslib-1.21+ds/htsfile -c /w/htslib/htslib-1.21+ds/test/formatcols.vcf
+.. ok
+
+test_vcf_various:
+	/w/htslib/htslib-1.21+ds/htsfile -c /w/htslib/htslib-1.21+ds/test/noroundtrip.vcf
+.. ok
+
+test_vcf_various:
+	/w/htslib/htslib-1.21+ds/htsfile -c /w/htslib/htslib-1.21+ds/test/formatmissing.vcf
+.. ok
+
+test_vcf_various:
+	/w/htslib/htslib-1.21+ds/htsfile -c /w/htslib/htslib-1.21+ds/test/vcf_meta_meta.vcf
+.. ok
+
+test_vcf_various:
+	/w/htslib/htslib-1.21+ds/test/test_view /w/htslib/htslib-1.21+ds/test/modhdr.vcf.gz chr22:1-2
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 74452500
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 34270147
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 11108528
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 42233895
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 8111117
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 85644070
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 49879942
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 47881429
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 69081244
+.. ok
+
+test-bcf-sr:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr.pl -t /tmp/j2M87p4lqr -s 83459376
+.. ok
+
+test_bcf_sr_no_index:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr --no-index -p all --args /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.a.vcf /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.b.vcf /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.c.vcf 2> /tmp/j2M87p4lqr/no_index_1.err
+.. ok
+
+test_bcf_sr_no_index:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr --no-index -p all --args /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.a.vcf /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.hdr_order.vcf > /tmp/j2M87p4lqr/no_index_2.out 2> /tmp/j2M87p4lqr/no_index_2.err (expected fail)
+.. ok
+
+test_bcf_sr_no_index:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr --no-index -p all --args /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.a.vcf /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.rec_order.vcf > /tmp/j2M87p4lqr/no_index_3.out 2> /tmp/j2M87p4lqr/no_index_3.err (expected fail)
+.. ok
+
+test_bcf_sr_no_index:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr --no-index -p all --args /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.rec_order.vcf /w/htslib/htslib-1.21+ds/test/bcf-sr/merge.noidx.a.vcf > /tmp/j2M87p4lqr/no_index_4.out 2> /tmp/j2M87p4lqr/no_index_4.err (expected fail)
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test_view -b -p /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf -x /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf.csi /w/htslib/htslib-1.21+ds/test/bcf-sr/weird-chr-names.vcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_1.out.vcf -r '1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_2.out.vcf -r '1:1-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_3.out.vcf -r '1:1,1:2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_4.out.vcf -r '1:1-1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_5.out.vcf -r '{1:1}' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_6.out.vcf -r '{1:1}:1-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_7.out.vcf -r '{1:1}:1,{1:1}:2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_8.out.vcf -r '{1:1}:1-1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_9.out.vcf -r '{1:1-1}' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_10.out.vcf -r '{1:1-1}:1-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_11.out.vcf -r '{1:1-1}:1,{1:1-1}:2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_12.out.vcf -r '{1:1-1}:1-1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_13.out.vcf -r '{1:1-1}-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf (expected fail)
+[E::_regions_init_string] Could not parse the region(s): {1:1-1}-2
+Failed to set regions
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_14.out.vcf -t '1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_15.out.vcf -t '1:1-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_16.out.vcf -t '1:1,1:2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_17.out.vcf -t '1:1-1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_18.out.vcf -t '{1:1}' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_19.out.vcf -t '{1:1}:1-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_20.out.vcf -t '{1:1}:1,{1:1}:2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_21.out.vcf -t '{1:1}:1-1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_22.out.vcf -t '{1:1-1}' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_23.out.vcf -t '{1:1-1}:1-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_24.out.vcf -t '{1:1-1}:1,{1:1-1}:2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_25.out.vcf -t '{1:1-1}:1-1' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf
+.. ok
+
+test_bcf_sr_range:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-sr -O vcf -o /tmp/j2M87p4lqr/range_test_26.out.vcf -t '{1:1-1}-2' --args /tmp/j2M87p4lqr/weird-chr-names.vcf.bcf (expected fail)
+[E::_regions_init_string] Could not parse the region(s): {1:1-1}-2
+Failed to set targets
+.. ok
+
+test_command:
+	/w/htslib/htslib-1.21+ds/test/test-bcf-translate -
+.. ok
+
+test_convert_padded_header:
+	/w/htslib/htslib-1.21+ds/test/test_view -t ce.fa -C /tmp/j2M87p4lqr/headernul0.bam
+.. ok
+
+test_convert_padded_header:
+	/w/htslib/htslib-1.21+ds/test/test_view -t ce.fa -C /tmp/j2M87p4lqr/headernul1.bam
+.. ok
+
+test_convert_padded_header:
+	/w/htslib/htslib-1.21+ds/test/test_view -t ce.fa -C /tmp/j2M87p4lqr/headernul678.bam
+.. ok
+
+test_rebgzip: Alternate zlib/deflate library detected
+test_rebgzip:
+	/w/htslib/htslib-1.21+ds/bgzip -I /w/htslib/htslib-1.21+ds/test/bgziptest.txt.tmp.gz.gzi -c -g /w/htslib/htslib-1.21+ds/test/bgziptest.txt
+.. ok
+
+test-logging:
+	/w/htslib/htslib-1.21+ds/test/test-logging.pl
+.. ok
+
+test_plugin_loading: .. skipping
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -f /w/htslib/htslib-1.21+ds/test/realn01.fa -i /w/htslib/htslib-1.21+ds/test/realn01.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -f /w/htslib/htslib-1.21+ds/test/realn02.fa -i /w/htslib/htslib-1.21+ds/test/realn02.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -a -f /w/htslib/htslib-1.21+ds/test/realn01.fa -i /w/htslib/htslib-1.21+ds/test/realn01.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -a -f /w/htslib/htslib-1.21+ds/test/realn02.fa -i /w/htslib/htslib-1.21+ds/test/realn02.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -e -f /w/htslib/htslib-1.21+ds/test/realn01.fa -i /w/htslib/htslib-1.21+ds/test/realn01.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -e -f /w/htslib/htslib-1.21+ds/test/realn02.fa -i /w/htslib/htslib-1.21+ds/test/realn02.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -r -f /w/htslib/htslib-1.21+ds/test/realn02.fa -i /w/htslib/htslib-1.21+ds/test/realn02-r.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -a -f /w/htslib/htslib-1.21+ds/test/realn02.fa -i /w/htslib/htslib-1.21+ds/test/realn02_exp.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -f /w/htslib/htslib-1.21+ds/test/realn02.fa -i /w/htslib/htslib-1.21+ds/test/realn02_exp-a.sam -o -
+.. ok
+
+test_realn:
+	/w/htslib/htslib-1.21+ds/test/test_realn -f /w/htslib/htslib-1.21+ds/test/realn03.fa -e -i /w/htslib/htslib-1.21+ds/test/realn03.sam -o -
+.. ok
+
+test-bcf_set_variant_type:
+	/w/htslib/htslib-1.21+ds/test/test-bcf_set_variant_type
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap --allow-dups -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap --allow-dups -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap --allow-dups -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -c chr,beg,end -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -c chr,beg,end -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -c chr,beg,end -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl,value:overlap,value -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl,value:overlap,value -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl,value:overlap,value -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -O 0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -O 0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -O 0.5 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -rO 0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -rO 0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -rO 0.5 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap --allow-dups --max-annots 2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap --allow-dups --max-annots 2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.1.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap --allow-dups --max-annots 2 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.1.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 --allow-dups -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 --allow-dups -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 --allow-dups -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4,value:5,value -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4,value:5,value -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4,value:5,value -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f value,4:value,5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f value,4:value,5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f value,4:value,5 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f value,4:value,5 -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f value,4:value,5 -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f value,4:value,5 -a nbp,frac -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 --allow-dups --max-annots 2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 --allow-dups --max-annots 2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.2.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 --allow-dups --max-annots 2 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.2.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.3.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.3.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.3.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.3.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.3.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl:overlap -a nbp,frac -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.3.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 2,3,4:2,3,4 -m 1:1 -f 1:1 -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.4.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.4.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.4.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 2,3,4:2,3,4 -m 1:1 -f 1:1 -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.4.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.4.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 2,3,4:2,3,4 -m 1:1 -f 1:1 -a nbp,frac -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.4.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 2,3,4:2,3,4 -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.5.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.5.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.5.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 2,3,4:2,3,4 -a nbp,frac -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.5.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.5.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 2,3,4:2,3,4 -a nbp,frac -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.5.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,2:1,2,2 -a nbp -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.6.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.6.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.6.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,2:1,2,2 -a nbp -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.6.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.6.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,2:1,2,2 -a nbp -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.6.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,2:1,2,2 -f overlap -H -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.7.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.7.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.7.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,2:1,2,2 -f overlap -H -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.7.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.7.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,2:1,2,2 -f overlap -H -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.7.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c chr,beg,end:chr,start,end -m sample -f is_tp -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.8.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.8.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.8.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr,beg,end:chr,start,end -m sample -f is_tp -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.8.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.8.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr,beg,end:chr,start,end -m sample -f is_tp -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.8.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:chr,beg,end -a nbp,frac,cnt -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.9.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.9.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.9.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:chr,beg,end -a nbp,frac,cnt -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.9.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.9.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:chr,beg,end -a nbp,frac,cnt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.9.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -f smpl -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -f smpl -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv  -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv  -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv  -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -x -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -x -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -x -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -m smpl -f smpl -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -m smpl -f smpl -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -m smpl -f smpl -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -m smpl  -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -m smpl  -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -m smpl  -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -m smpl -x -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -m smpl -x -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.10.txt | /w/htslib/htslib-1.21+ds/annot-tsv -m smpl -x -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.10.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -II -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -II -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -II -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:-1 -II -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:-1 -II -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:-1 -II -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c chr2,beg2,end2:chr,beg,end -f smpl2:src_smpl -h 3:2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr2,beg2,end2:chr,beg,end -f smpl2:src_smpl -h 3:2 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr2,beg2,end2:chr,beg,end -f smpl2:src_smpl -h 3:2 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -I -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -I -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr1,beg1,end1:chr,beg,end -f smpl1:src_smpl -h 2:2 -I -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c chr2,beg2,end2:chr,beg,end -f smpl2:src_smpl -h 3:2 -I -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr2,beg2,end2:chr,beg,end -f smpl2:src_smpl -h 3:2 -I -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c chr2,beg2,end2:chr,beg,end -f smpl2:src_smpl -h 3:2 -I -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -d , -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.12.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.12.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.12.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -d , -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.12.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.12.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -d , -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.12.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -d $',:\t' -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.12.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -d $',:\t' -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.12.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.12.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3:1,2,3 -f 4:5 -h 0:0 -d $',:\t' -t /w/htslib/htslib-1.21+ds/test/annot-tsv/dst.11.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5 -r -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5 -r -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5 -r -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5,0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5,0.5 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0.5,0.5 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0,1 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0,1 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 0,1 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	/w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 1,0 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 1,0 -s /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+run_annot_tsv:
+	cat /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt | /w/htslib/htslib-1.21+ds/annot-tsv -c 1,2,3 -f 4:5 -O 1,0 -t /w/htslib/htslib-1.21+ds/test/annot-tsv/src.13.txt
+.. ok
+
+
+Number of tests:
+    total   .. 339
+    passed  .. 339
+    failed  .. 0
+
+rc=0 secs=41
