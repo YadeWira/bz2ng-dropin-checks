@@ -1,0 +1,34 @@
+[  3%] Building C object CMakeFiles/bzip2recover.dir/programs/bzip2recover.c.o
+[  7%] Building C object CMakeFiles/bz2_core_objects.dir/lib/bzlib.c.o
+[ 10%] Building C object CMakeFiles/bz2_core_objects.dir/lib/enc_block.c.o
+[ 14%] Building C object CMakeFiles/bz2_core_objects.dir/lib/compress.c.o
+[ 21%] Building C object CMakeFiles/bz2_dec_objects.dir/lib/decompress.c.o
+[ 21%] Building C object CMakeFiles/bz2_core_objects.dir/lib/sort_libsais.c.o
+[ 25%] Building C object CMakeFiles/bz2_core_objects.dir/lib/enc_huff.c.o
+[ 28%] Building C object CMakeFiles/bz2_core_objects.dir/lib/randtable.c.o
+[ 32%] Building C object CMakeFiles/bz2_core_objects.dir/lib/dec_block.c.o
+[ 35%] Building C object CMakeFiles/bz2_core_objects.dir/lib/kern_scalar.c.o
+[ 39%] Building C object CMakeFiles/bz2_core_objects.dir/lib/crc32_table.c.o
+[ 42%] Building C object CMakeFiles/bz2_core_objects.dir/lib/enc_sort.c.o
+[ 46%] Building C object CMakeFiles/bz2_core_objects.dir/lib/crc32.c.o
+[ 50%] Building C object CMakeFiles/bz2_core_objects.dir/lib/utils.c.o
+[ 53%] Building C object CMakeFiles/bz2_core_objects.dir/lib/arm/crc32_armv8.c.o
+[ 64%] Building C object CMakeFiles/bz2_core_objects.dir/lib/arm/cpu_features.c.o
+[ 64%] Building C object CMakeFiles/bz2_core_objects.dir/lib/x86/crc32_vpclmul.c.o
+[ 64%] Building C object CMakeFiles/bz2_core_objects.dir/lib/arm/kern_neon.c.o
+[ 67%] Building C object CMakeFiles/bz2_core_objects.dir/lib/arm/crc32_pmull.c.o
+[ 71%] Building C object CMakeFiles/bz2_core_objects.dir/lib/x86/cpu_features.c.o
+[ 75%] Building C object CMakeFiles/bz2_core_objects.dir/lib/x86/kern_sse4.c.o
+[ 78%] Building C object CMakeFiles/bz2_core_objects.dir/lib/x86/crc32_pclmul.c.o
+[ 82%] Building C object CMakeFiles/bz2_core_objects.dir/lib/x86/kern_avx2.c.o
+[ 85%] Linking C executable bzip2recover
+[ 85%] Built target bzip2recover
+[ 85%] Built target bz2_dec_objects
+[ 85%] Built target bz2_core_objects
+[ 89%] Linking C static library libbz2.a
+[ 92%] Linking C shared library libbz2.so
+[ 92%] Built target bz2_static
+[ 92%] Built target bz2_shared
+[ 96%] Building C object CMakeFiles/bzip2.dir/programs/bzip2.c.o
+[100%] Linking C executable bzip2
+[100%] Built target bzip2

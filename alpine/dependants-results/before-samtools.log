@@ -1,0 +1,3354 @@
+cd /w/htslib-1.24 && make lib-static
+make[1]: Entering directory '/w/htslib-1.24'
+make[1]: Leaving directory '/w/htslib-1.24'
+test/split/test_count_rg
+test/split/test_expand_format_string
+test/split/test_filter_header_rg
+test/split/test_parse_args
+REF_PATH=: test/test.pl --exec bgzip=/w/htslib-1.24/bgzip ${TEST_OPTS:-}
+test_reference:
+	/w/samtools-1.24/samtools reference test/reference/mpileup.1.tmp.cram
+.. ok
+
+test_reference:
+	/w/samtools-1.24/samtools reference -e test/reference/mpileup.1.tmp.cram
+.. ok
+
+test_reference:
+	/w/samtools-1.24/samtools reference -r 17:1000-1500 test/reference/mpileup.1.tmp.cram
+.. ok
+
+test_reference:
+	/w/samtools-1.24/samtools reference -r 17:1000-1500 -e test/reference/mpileup.1.tmp.cram
+.. ok
+
+test_reference:
+	/w/samtools-1.24/samtools reference -@ 2 test/reference/mpileup.1.tmp.cram
+.. ok
+
+test_reference:
+	/w/samtools-1.24/samtools reference -@ 2 -e test/reference/mpileup.1.tmp.cram
+.. ok
+
+test_reference:
+	/w/samtools-1.24/samtools reference -@ 2 -r 17:1000-1500 test/reference/mpileup.1.tmp.cram
+.. ok
+
+test_reference:
+	/w/samtools-1.24/samtools reference -@ 2 -r 17:1000-1500 -e test/reference/mpileup.1.tmp.cram
+.. ok
+
+/w/htslib-1.24/bgzip -c -b 65272 -s 5 /tmp/naZZRIp7rP/bgzip.dat.gz
+.. ok
+
+/w/htslib-1.24/bgzip -c -b 979200 -s 6 /tmp/naZZRIp7rP/bgzip.dat.gz
+.. ok
+
+/w/htslib-1.24/bgzip -c -b 652804 -s 6 /tmp/naZZRIp7rP/bgzip.dat.gz
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa 3:11-13 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa.gz 3:11-13 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa 2:998-1003 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa.gz 2:998-1003 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa 1:100-104 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa.gz 1:100-104 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa 1:99998-100007 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools faidx /tmp/naZZRIp7rP/faidx.fa.gz 1:99998-100007 | grep -v '^>'
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq 3:11-13
+.. ok
+
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq.gz 3:11-13
+.. ok
+
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq 2:998-1003
+.. ok
+
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq.gz 2:998-1003
+.. ok
+
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq 1:100-104
+.. ok
+
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq.gz 1:100-104
+.. ok
+
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq 1:99998-100007
+.. ok
+
+.. ok
+
+/w/samtools-1.24/samtools fqidx /tmp/naZZRIp7rP/fqidx.fq.gz 1:99998-100007
+.. ok
+
+.. ok
+
+test_dict:
+	/w/samtools-1.24/samtools dict -a hf37d5 -s 'Homo floresiensis' -u ftp://example.com/hf37d5.fa.gz /w/samtools-1.24/test/dat/dict.fa
+.. ok
+
+test_dict:
+	/w/samtools-1.24/samtools dict -a hf37d5 -s 'Homo floresiensis' -u ftp://example.com/hf37d5.fa.gz /tmp/naZZRIp7rP/dict.fa.gz
+.. ok
+
+test_dict:
+	cat /w/samtools-1.24/test/dat/dict.fa | /w/samtools-1.24/samtools dict -a hf37d5 -s 'Homo floresiensis' -u ftp://example.com/hf37d5.fa.gz
+.. ok
+
+test_dict:
+	/w/samtools-1.24/samtools dict -AH < /w/samtools-1.24/test/dat/dict.alias.fa
+.. ok
+
+test_dict:
+	/w/samtools-1.24/samtools dict -H -l /w/samtools-1.24/test/dat/dict.alt < /w/samtools-1.24/test/dat/dict.alias.fa
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view /tmp/naZZRIp7rP/large_chrom.bam ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view /tmp/naZZRIp7rP/large_chrom.bam ref2:1-541556283
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index /w/samtools-1.24/test/dat/test_input_1_a.bam && cat /w/samtools-1.24/test/dat/test_input_1_a.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -X /w/samtools-1.24/test/dat/test_input_1_b.bam /tmp/naZZRIp7rP/test_input_1_b.bam.bai ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -X /w/samtools-1.24/test/dat/test_input_1_b.bam /tmp/naZZRIp7rP/test_input_1_b.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools merge -O sam - -X -cp -R ref2 /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam /w/samtools-1.24/test/dat/test_input_1_a.bam.bai /tmp/naZZRIp7rP/test_input_1_b.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -X /w/samtools-1.24/test/dat/test_input_1_b.bam /tmp/naZZRIp7rP/test_input_1_b_opt.bam.bai ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -M /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam && cat /w/samtools-1.24/test/dat/test_input_1_a.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -X /w/samtools-1.24/test/dat/test_input_1_b.bam /w/samtools-1.24/test/dat/test_input_1_b.bam.bai ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -c /w/samtools-1.24/test/dat/auto_indexed.tmp.bam /tmp/naZZRIp7rP/auto_indexed.csi && cat /tmp/naZZRIp7rP/auto_indexed.csi
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index /w/samtools-1.24/test/dat/auto_indexed.tmp.cram /tmp/naZZRIp7rP/auto_indexed.crai && cat /tmp/naZZRIp7rP/auto_indexed.crai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -c /w/samtools-1.24/test/dat/auto_indexed.tmp.sam /tmp/naZZRIp7rP/auto_indexed.csi && cat /tmp/naZZRIp7rP/auto_indexed.csi
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -@ 2 /tmp/naZZRIp7rP/large_chrom.bam ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -@ 2 /tmp/naZZRIp7rP/large_chrom.bam ref2:1-541556283
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -@ 2 /w/samtools-1.24/test/dat/test_input_1_a.bam && cat /w/samtools-1.24/test/dat/test_input_1_a.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -@ 2 -X /w/samtools-1.24/test/dat/test_input_1_b.bam /tmp/naZZRIp7rP/test_input_1_b.bam.bai ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -@ 2 -X /w/samtools-1.24/test/dat/test_input_1_b.bam /tmp/naZZRIp7rP/test_input_1_b.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools merge -@ 2 -O sam - -X -cp -R ref2 /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam /w/samtools-1.24/test/dat/test_input_1_a.bam.bai /tmp/naZZRIp7rP/test_input_1_b.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -@ 2 -X /w/samtools-1.24/test/dat/test_input_1_b.bam /tmp/naZZRIp7rP/test_input_1_b_opt.bam.bai ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -@ 2 /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -@ 2 -M /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam && cat /w/samtools-1.24/test/dat/test_input_1_a.bam.bai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools view -@ 2 -X /w/samtools-1.24/test/dat/test_input_1_b.bam /w/samtools-1.24/test/dat/test_input_1_b.bam.bai ref2
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -@ 2 -c /w/samtools-1.24/test/dat/auto_indexed.tmp.bam /tmp/naZZRIp7rP/auto_indexed.csi && cat /tmp/naZZRIp7rP/auto_indexed.csi
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -@ 2 /w/samtools-1.24/test/dat/auto_indexed.tmp.cram /tmp/naZZRIp7rP/auto_indexed.crai && cat /tmp/naZZRIp7rP/auto_indexed.crai
+.. ok
+
+test_index:
+	/w/samtools-1.24/samtools index -@ 2 -c /w/samtools-1.24/test/dat/auto_indexed.tmp.sam /tmp/naZZRIp7rP/auto_indexed.csi && cat /tmp/naZZRIp7rP/auto_indexed.csi
+.. ok
+
+test_mpileup:
+	/w/samtools-1.24/samtools mpileup -b /tmp/naZZRIp7rP/mpileup.bam.list -f /tmp/naZZRIp7rP/mpileup.ref.fa.gz -r17:100-150
+.. ok
+
+test_mpileup:
+	/w/samtools-1.24/samtools mpileup -b /tmp/naZZRIp7rP/mpileup.cram.list -f /tmp/naZZRIp7rP/mpileup.ref.fa.gz -r17:100-150
+.. ok
+
+test_mpileup:
+	/w/samtools-1.24/samtools mpileup -b /tmp/naZZRIp7rP/mpileup.bam.urllist -f /tmp/naZZRIp7rP/mpileup.ref.fa.gz -r17:100-150
+.. ok
+
+test_mpileup:
+	/w/samtools-1.24/samtools mpileup -b /tmp/naZZRIp7rP/mpileup.cram.urllist -f /tmp/naZZRIp7rP/mpileup.ref.fa.gz -r17:100-150
+.. ok
+
+test_mpileup:
+	/w/samtools-1.24/samtools mpileup -B --ff 0x14 -f /tmp/naZZRIp7rP/mpileup.ref.fa.gz -r17:1050-1060 /tmp/naZZRIp7rP/mpileup.1.bam | grep -v mpileup
+.. ok
+
+test_mpileup:
+	/w/samtools-1.24/samtools mpileup -B --ff 0x14 -f /tmp/naZZRIp7rP/mpileup.ref.fa.gz -r17:1050-1060 /tmp/naZZRIp7rP/mpileup.1.cram | grep -v mpileup
+.. ok
+
+test_mpileup:
+	/w/samtools-1.24/samtools mpileup /w/samtools-1.24/test/mpileup/overlap.bam | grep 128814202
+test/test.pl: no IO::Pty module or can't open pty; skipping usage tests
+.. ok
+
+test_usage:
+	samtools
+test_view:
+	Generating test data file .................. done
+	1: SAM -> BAM -> SAM                                        .. ok
+
+	2: SAM -> uncompressed BAM                                  .. ok
+
+	3: uncompressed BAM -> SAM and compare                      .. ok
+
+	4: SAM -> fast compressed BAM                               .. ok
+
+	5: fast compressed BAM -> SAM and compare                   .. ok
+
+	6: SAM -> CRAM -> SAM (UR header tags)                      .. ok
+
+	7: SAM -> CRAM -> SAM (M5 header tags)                      .. ok
+
+	8: BAM -> CRAM with UR -> SAM                               .. ok
+
+	9: SAM -> BAM (M5 header tags)                              .. ok
+
+	10: SAM -> BAM -> CRAM -> SAM (M5 header tags)              .. ok
+
+	11: CRAM -> BAM with UR                                     .. ok
+
+	12: CRAM -> BAM with M5                                     .. ok
+
+	13: SAM -> SAM via stdout                                   .. ok
+
+	14: SAM -> BAM via stdout                                   .. ok
+
+	15: SAM -> CRAM via stdout                                  .. ok
+
+	16: SAM from stdin -> SAM                                   .. ok
+
+	17: BAM from stdin -> SAM                                   .. ok
+
+	18: CRAM from stdin -> SAM                                  .. ok
+
+	19: samtools view -H (SAM input)                            .. ok
+
+	20: samtools view -H (BAM input)                            .. ok
+
+	21: samtools view -H (CRAM input)                           .. ok
+
+	22: No headers (SAM input)                                  .. ok
+
+	23: No headers (BAM input)                                  .. ok
+
+	24: No headers (CRAM input)                                 .. ok
+
+	25: Filter -f 128 (SAM input)                               .. ok
+
+	26: Count -f 128 (SAM input)                                .. ok
+
+	27: Filter -f 128 (BAM input)                               .. ok
+
+	28: Count -f 128 (BAM input)                                .. ok
+
+	29: Filter -f 128 (CRAM input)                              .. ok
+
+	30: Count -f 128 (CRAM input)                               .. ok
+
+	31: Filter -F 128 (SAM input)                               .. ok
+
+	32: Count -F 128 (SAM input)                                .. ok
+
+	33: Filter -F 128 (BAM input)                               .. ok
+
+	34: Count -F 128 (BAM input)                                .. ok
+
+	35: Filter -F 128 (CRAM input)                              .. ok
+
+	36: Count -F 128 (CRAM input)                               .. ok
+
+	37: Filter -F 128 -f 2 (SAM input)                          .. ok
+
+	38: Count -F 128 -f 2 (SAM input)                           .. ok
+
+	39: Filter -F 128 -f 2 (BAM input)                          .. ok
+
+	40: Count -F 128 -f 2 (BAM input)                           .. ok
+
+	41: Filter -F 128 -f 2 (CRAM input)                         .. ok
+
+	42: Count -F 128 -f 2 (CRAM input)                          .. ok
+
+	43: Filter -r grp2 (SAM input)                              .. ok
+
+	44: Count -r grp2 (SAM input)                               .. ok
+
+	45: Filter -r grp2 (BAM input)                              .. ok
+
+	46: Count -r grp2 (BAM input)                               .. ok
+
+	47: Filter -r grp2 (CRAM input)                             .. ok
+
+	48: Count -r grp2 (CRAM input)                              .. ok
+
+	49: Filter -R /tmp/naZZRIp7rP/view.001.fogn (SAM input)     .. ok
+
+	50: Count -R /tmp/naZZRIp7rP/view.001.fogn (SAM input)      .. ok
+
+	51: Filter -R /tmp/naZZRIp7rP/view.001.fogn (BAM input)     .. ok
+
+	52: Count -R /tmp/naZZRIp7rP/view.001.fogn (BAM input)      .. ok
+
+	53: Filter -R /tmp/naZZRIp7rP/view.001.fogn (CRAM input)    .. ok
+
+	54: Count -R /tmp/naZZRIp7rP/view.001.fogn (CRAM input)     .. ok
+
+	55: Filter -R /tmp/naZZRIp7rP/view.001.fogn -r grp2 (SAM input).. ok
+
+	56: Count -R /tmp/naZZRIp7rP/view.001.fogn -r grp2 (SAM input).. ok
+
+	57: Filter -R /tmp/naZZRIp7rP/view.001.fogn -r grp2 (BAM input).. ok
+
+	58: Count -R /tmp/naZZRIp7rP/view.001.fogn -r grp2 (BAM input).. ok
+
+	59: Filter -R /tmp/naZZRIp7rP/view.001.fogn -r grp2 (CRAM input).. ok
+
+	60: Count -R /tmp/naZZRIp7rP/view.001.fogn -r grp2 (CRAM input).. ok
+
+	61: Filter -r grp2 -R /tmp/naZZRIp7rP/view.001.fogn (SAM input).. ok
+
+	62: Count -r grp2 -R /tmp/naZZRIp7rP/view.001.fogn (SAM input).. ok
+
+	63: Filter -r grp2 -R /tmp/naZZRIp7rP/view.001.fogn (BAM input).. ok
+
+	64: Count -r grp2 -R /tmp/naZZRIp7rP/view.001.fogn (BAM input).. ok
+
+	65: Filter -r grp2 -R /tmp/naZZRIp7rP/view.001.fogn (CRAM input).. ok
+
+	66: Count -r grp2 -R /tmp/naZZRIp7rP/view.001.fogn (CRAM input).. ok
+
+	67: Filter -N /tmp/naZZRIp7rP/view.001.forn (SAM input)     .. ok
+
+	68: Count -N /tmp/naZZRIp7rP/view.001.forn (SAM input)      .. ok
+
+	69: Filter -N /tmp/naZZRIp7rP/view.001.forn (BAM input)     .. ok
+
+	70: Count -N /tmp/naZZRIp7rP/view.001.forn (BAM input)      .. ok
+
+	71: Filter -N /tmp/naZZRIp7rP/view.001.forn (CRAM input)    .. ok
+
+	72: Count -N /tmp/naZZRIp7rP/view.001.forn (CRAM input)     .. ok
+
+	73: Filter -d BC (SAM input)                                .. ok
+
+	74: Count -d BC (SAM input)                                 .. ok
+
+	75: Filter -d BC (BAM input)                                .. ok
+
+	76: Count -d BC (BAM input)                                 .. ok
+
+	77: Filter -d BC (CRAM input)                               .. ok
+
+	78: Count -d BC (CRAM input)                                .. ok
+
+	79: Filter -d BC:TGCA (SAM input)                           .. ok
+
+	80: Count -d BC:TGCA (SAM input)                            .. ok
+
+	81: Filter -d BC:TGCA (BAM input)                           .. ok
+
+	82: Count -d BC:TGCA (BAM input)                            .. ok
+
+	83: Filter -d BC:TGCA (CRAM input)                          .. ok
+
+	84: Count -d BC:TGCA (CRAM input)                           .. ok
+
+	85: Filter -D BC:/tmp/naZZRIp7rP/view.001.fobc (SAM input)  .. ok
+
+	86: Count -D BC:/tmp/naZZRIp7rP/view.001.fobc (SAM input)   .. ok
+
+	87: Filter -D BC:/tmp/naZZRIp7rP/view.001.fobc (BAM input)  .. ok
+
+	88: Count -D BC:/tmp/naZZRIp7rP/view.001.fobc (BAM input)   .. ok
+
+	89: Filter -D BC:/tmp/naZZRIp7rP/view.001.fobc (CRAM input) .. ok
+
+	90: Count -D BC:/tmp/naZZRIp7rP/view.001.fobc (CRAM input)  .. ok
+
+	91: Filter -D BC:/tmp/naZZRIp7rP/view.001.fobc -d BC:TGCA (SAM input).. ok
+
+	92: Count -D BC:/tmp/naZZRIp7rP/view.001.fobc -d BC:TGCA (SAM input).. ok
+
+	93: Filter -D BC:/tmp/naZZRIp7rP/view.001.fobc -d BC:TGCA (BAM input).. ok
+
+	94: Count -D BC:/tmp/naZZRIp7rP/view.001.fobc -d BC:TGCA (BAM input).. ok
+
+	95: Filter -D BC:/tmp/naZZRIp7rP/view.001.fobc -d BC:TGCA (CRAM input).. ok
+
+	96: Count -D BC:/tmp/naZZRIp7rP/view.001.fobc -d BC:TGCA (CRAM input).. ok
+
+	97: Filter -d BC:TGCA -D BC:/tmp/naZZRIp7rP/view.001.fobc (SAM input).. ok
+
+	98: Count -d BC:TGCA -D BC:/tmp/naZZRIp7rP/view.001.fobc (SAM input).. ok
+
+	99: Filter -d BC:TGCA -D BC:/tmp/naZZRIp7rP/view.001.fobc (BAM input).. ok
+
+	100: Count -d BC:TGCA -D BC:/tmp/naZZRIp7rP/view.001.fobc (BAM input).. ok
+
+	101: Filter -d BC:TGCA -D BC:/tmp/naZZRIp7rP/view.001.fobc (CRAM input).. ok
+
+	102: Count -d BC:TGCA -D BC:/tmp/naZZRIp7rP/view.001.fobc (CRAM input).. ok
+
+	103: Filter -D RG:/tmp/naZZRIp7rP/view.001.fogn (SAM input) .. ok
+
+	104: Count -D RG:/tmp/naZZRIp7rP/view.001.fogn (SAM input)  .. ok
+
+	105: Filter -D RG:/tmp/naZZRIp7rP/view.001.fogn (BAM input) .. ok
+
+	106: Count -D RG:/tmp/naZZRIp7rP/view.001.fogn (BAM input)  .. ok
+
+	107: Filter -D RG:/tmp/naZZRIp7rP/view.001.fogn (CRAM input).. ok
+
+	108: Count -D RG:/tmp/naZZRIp7rP/view.001.fogn (CRAM input) .. ok
+
+	109: Filter -d NE:TGCA (SAM input)                          .. ok
+
+	110: Count -d NE:TGCA (SAM input)                           .. ok
+
+	111: Filter -d NE:TGCA (BAM input)                          .. ok
+
+	112: Count -d NE:TGCA (BAM input)                           .. ok
+
+	113: Filter -d NE:TGCA (CRAM input)                         .. ok
+
+	114: Count -d NE:TGCA (CRAM input)                          .. ok
+
+	115: Filter -d TGCA (SAM input)                             samtools view: Invalid "tag:value" option: "TGCA"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test115.sam -h -d TGCA /tmp/naZZRIp7rP/view.001.sam --no-PG
+
+
+.. expected failure
+
+	116: Count -d TGCA (SAM input)                              samtools view: Invalid "tag:value" option: "TGCA"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -d TGCA /tmp/naZZRIp7rP/view.001.sam --no-PG
+
+
+.. expected failure
+
+	117: Filter -d TGCA (BAM input)                             samtools view: Invalid "tag:value" option: "TGCA"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test117.sam -h -d TGCA /tmp/naZZRIp7rP/view.test001.bam --no-PG
+
+
+.. expected failure
+
+	118: Count -d TGCA (BAM input)                              samtools view: Invalid "tag:value" option: "TGCA"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -d TGCA /tmp/naZZRIp7rP/view.test001.bam --no-PG
+
+
+.. expected failure
+
+	119: Filter -d TGCA (CRAM input)                            samtools view: Invalid "tag:value" option: "TGCA"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test119.sam -h -d TGCA /tmp/naZZRIp7rP/view.test006.cram --no-PG
+
+
+.. expected failure
+
+	120: Count -d TGCA (CRAM input)                             samtools view: Invalid "tag:value" option: "TGCA"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -d TGCA /tmp/naZZRIp7rP/view.test006.cram --no-PG
+
+
+.. expected failure
+
+	121: Filter -D BClong:/tmp/naZZRIp7rP/view.001.fobc (SAM input)samtools view: Invalid "tag:file" option: "BClong:/tmp/naZZRIp7rP/view.001.fobc"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test121.sam -h -D BClong:/tmp/naZZRIp7rP/view.001.fobc /tmp/naZZRIp7rP/view.001.sam --no-PG
+
+
+.. expected failure
+
+	122: Count -D BClong:/tmp/naZZRIp7rP/view.001.fobc (SAM input)samtools view: Invalid "tag:file" option: "BClong:/tmp/naZZRIp7rP/view.001.fobc"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -D BClong:/tmp/naZZRIp7rP/view.001.fobc /tmp/naZZRIp7rP/view.001.sam --no-PG
+
+
+.. expected failure
+
+	123: Filter -D BClong:/tmp/naZZRIp7rP/view.001.fobc (BAM input)samtools view: Invalid "tag:file" option: "BClong:/tmp/naZZRIp7rP/view.001.fobc"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test123.sam -h -D BClong:/tmp/naZZRIp7rP/view.001.fobc /tmp/naZZRIp7rP/view.test001.bam --no-PG
+
+
+.. expected failure
+
+	124: Count -D BClong:/tmp/naZZRIp7rP/view.001.fobc (BAM input)samtools view: Invalid "tag:file" option: "BClong:/tmp/naZZRIp7rP/view.001.fobc"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -D BClong:/tmp/naZZRIp7rP/view.001.fobc /tmp/naZZRIp7rP/view.test001.bam --no-PG
+
+
+.. expected failure
+
+	125: Filter -D BClong:/tmp/naZZRIp7rP/view.001.fobc (CRAM input)samtools view: Invalid "tag:file" option: "BClong:/tmp/naZZRIp7rP/view.001.fobc"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test125.sam -h -D BClong:/tmp/naZZRIp7rP/view.001.fobc /tmp/naZZRIp7rP/view.test006.cram --no-PG
+
+
+.. expected failure
+
+	126: Count -D BClong:/tmp/naZZRIp7rP/view.001.fobc (CRAM input)samtools view: Invalid "tag:file" option: "BClong:/tmp/naZZRIp7rP/view.001.fobc"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -D BClong:/tmp/naZZRIp7rP/view.001.fobc /tmp/naZZRIp7rP/view.test006.cram --no-PG
+
+
+.. expected failure
+
+	127: Filter -d BC:ACGT -d RG:grp2 (SAM input)               samtools view: Different tag "BC" was specified before: "RG:grp2"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test127.sam -h -d BC:ACGT -d RG:grp2 /tmp/naZZRIp7rP/view.001.sam --no-PG
+
+
+.. expected failure
+
+	128: Count -d BC:ACGT -d RG:grp2 (SAM input)                samtools view: Different tag "BC" was specified before: "RG:grp2"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -d BC:ACGT -d RG:grp2 /tmp/naZZRIp7rP/view.001.sam --no-PG
+
+
+.. expected failure
+
+	129: Filter -d BC:ACGT -d RG:grp2 (BAM input)               samtools view: Different tag "BC" was specified before: "RG:grp2"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test129.sam -h -d BC:ACGT -d RG:grp2 /tmp/naZZRIp7rP/view.test001.bam --no-PG
+
+
+.. expected failure
+
+	130: Count -d BC:ACGT -d RG:grp2 (BAM input)                samtools view: Different tag "BC" was specified before: "RG:grp2"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -d BC:ACGT -d RG:grp2 /tmp/naZZRIp7rP/view.test001.bam --no-PG
+
+
+.. expected failure
+
+	131: Filter -d BC:ACGT -d RG:grp2 (CRAM input)              samtools view: Different tag "BC" was specified before: "RG:grp2"
+	Failed command:
+	/w/samtools-1.24/samtools view -o /tmp/naZZRIp7rP/view.test131.sam -h -d BC:ACGT -d RG:grp2 /tmp/naZZRIp7rP/view.test006.cram --no-PG
+
+
+.. expected failure
+
+	132: Count -d BC:ACGT -d RG:grp2 (CRAM input)               samtools view: Different tag "BC" was specified before: "RG:grp2"
+	Failed command:
+	/w/samtools-1.24/samtools view -c -d BC:ACGT -d RG:grp2 /tmp/naZZRIp7rP/view.test006.cram --no-PG
+
+
+.. expected failure
+
+	133: Filter -d NM:13 (SAM input)                            .. ok
+
+	134: Count -d NM:13 (SAM input)                             .. ok
+
+	135: Filter -d NM:13 (BAM input)                            .. ok
+
+	136: Count -d NM:13 (BAM input)                             .. ok
+
+	137: Filter -d NM:13 (CRAM input)                           .. ok
+
+	138: Count -d NM:13 (CRAM input)                            .. ok
+
+	139: Filter -d ab:z (SAM input)                             .. ok
+
+	140: Count -d ab:z (SAM input)                              .. ok
+
+	141: Filter -d ab:z (BAM input)                             .. ok
+
+	142: Count -d ab:z (BAM input)                              .. ok
+
+	143: Filter -d ab:z (CRAM input)                            .. ok
+
+	144: Count -d ab:z (CRAM input)                             .. ok
+
+	145: Filter -l Library 2 (SAM input)                        .. ok
+
+	146: Count -l Library 2 (SAM input)                         .. ok
+
+	147: Filter -l Library 2 (BAM input)                        .. ok
+
+	148: Count -l Library 2 (BAM input)                         .. ok
+
+	149: Filter -l Library 2 (CRAM input)                       .. ok
+
+	150: Count -l Library 2 (CRAM input)                        .. ok
+
+	151: Filter -l Library 3 (SAM input)                        .. ok
+
+	152: Count -l Library 3 (SAM input)                         .. ok
+
+	153: Filter -l Library 3 (BAM input)                        .. ok
+
+	154: Count -l Library 3 (BAM input)                         .. ok
+
+	155: Filter -l Library 3 (CRAM input)                       .. ok
+
+	156: Count -l Library 3 (CRAM input)                        .. ok
+
+	157: Filter -q 50 (SAM input)                               .. ok
+
+	158: Count -q 50 (SAM input)                                .. ok
+
+	159: Filter -q 50 (BAM input)                               .. ok
+
+	160: Count -q 50 (BAM input)                                .. ok
+
+	161: Filter -q 50 (CRAM input)                              .. ok
+
+	162: Count -q 50 (CRAM input)                               .. ok
+
+	163: Filter -q 99 (SAM input)                               .. ok
+
+	164: Count -q 99 (SAM input)                                .. ok
+
+	165: Filter -q 99 (BAM input)                               .. ok
+
+	166: Count -q 99 (BAM input)                                .. ok
+
+	167: Filter -q 99 (CRAM input)                              .. ok
+
+	168: Count -q 99 (CRAM input)                               .. ok
+
+	169: Filter -q 100 (SAM input)                              .. ok
+
+	170: Count -q 100 (SAM input)                               .. ok
+
+	171: Filter -q 100 (BAM input)                              .. ok
+
+	172: Count -q 100 (BAM input)                               .. ok
+
+	173: Filter -q 100 (CRAM input)                             .. ok
+
+	174: Count -q 100 (CRAM input)                              .. ok
+
+	175: Filter -x fa (SAM input)                               .. ok
+
+	176: Count -x fa (SAM input)                                .. ok
+
+	177: Filter -x fa (BAM input)                               .. ok
+
+	178: Count -x fa (BAM input)                                .. ok
+
+	179: Filter -x fa (CRAM input)                              .. ok
+
+	180: Count -x fa (CRAM input)                               .. ok
+
+	181: Filter -x fa -x ha (SAM input)                         .. ok
+
+	182: Count -x fa -x ha (SAM input)                          .. ok
+
+	183: Filter -x fa -x ha (BAM input)                         .. ok
+
+	184: Count -x fa -x ha (BAM input)                          .. ok
+
+	185: Filter -x fa -x ha (CRAM input)                        .. ok
+
+	186: Count -x fa -x ha (CRAM input)                         .. ok
+
+	187: Filter -x fa,ha (SAM input)                            .. ok
+
+	188: Count -x fa,ha (SAM input)                             .. ok
+
+	189: Filter -x fa,ha (BAM input)                            .. ok
+
+	190: Count -x fa,ha (BAM input)                             .. ok
+
+	191: Filter -x fa,ha (CRAM input)                           .. ok
+
+	192: Count -x fa,ha (CRAM input)                            .. ok
+
+	193: Filter -x ^RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (SAM input).. ok
+
+	194: Count -x ^RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (SAM input).. ok
+
+	195: Filter -x ^RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (BAM input).. ok
+
+	196: Count -x ^RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (BAM input).. ok
+
+	197: Filter -x ^RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (CRAM input).. ok
+
+	198: Count -x ^RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (CRAM input).. ok
+
+	199: Filter --keep-tag RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (SAM input).. ok
+
+	200: Count --keep-tag RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (SAM input).. ok
+
+	201: Filter --keep-tag RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (BAM input).. ok
+
+	202: Count --keep-tag RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (BAM input).. ok
+
+	203: Filter --keep-tag RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (CRAM input).. ok
+
+	204: Count --keep-tag RG,BC,NM,MD,H0,aa,ab,za,ba,bb,bc,bd,be,bf,bg,ia (CRAM input).. ok
+
+	205: Filter -x fa -r grp2 (SAM input)                       .. ok
+
+	206: Count -x fa -r grp2 (SAM input)                        .. ok
+
+	207: Filter -x fa -r grp2 (BAM input)                       .. ok
+
+	208: Count -x fa -r grp2 (BAM input)                        .. ok
+
+	209: Filter -x fa -r grp2 (CRAM input)                      .. ok
+
+	210: Count -x fa -r grp2 (CRAM input)                       .. ok
+
+	211: Filter -x RG -r grp2 (SAM input)                       .. ok
+
+	212: Count -x RG -r grp2 (SAM input)                        .. ok
+
+	213: Filter -x RG -r grp2 (BAM input)                       .. ok
+
+	214: Count -x RG -r grp2 (BAM input)                        .. ok
+
+	215: Filter -x RG -r grp2 (CRAM input)                      .. ok
+
+	216: Count -x RG -r grp2 (CRAM input)                       .. ok
+
+	217: Filter -m 10 (SAM input)                               .. ok
+
+	218: Count -m 10 (SAM input)                                .. ok
+
+	219: Filter -m 10 (BAM input)                               .. ok
+
+	220: Count -m 10 (BAM input)                                .. ok
+
+	221: Filter -m 10 (CRAM input)                              .. ok
+
+	222: Count -m 10 (CRAM input)                               .. ok
+
+	223: Filter -m 11 (SAM input)                               .. ok
+
+	224: Count -m 11 (SAM input)                                .. ok
+
+	225: Filter -m 11 (BAM input)                               .. ok
+
+	226: Count -m 11 (BAM input)                                .. ok
+
+	227: Filter -m 11 (CRAM input)                              .. ok
+
+	228: Count -m 11 (CRAM input)                               .. ok
+
+	229: Filter -m 15 (SAM input)                               .. ok
+
+	230: Count -m 15 (SAM input)                                .. ok
+
+	231: Filter -m 15 (BAM input)                               .. ok
+
+	232: Count -m 15 (BAM input)                                .. ok
+
+	233: Filter -m 15 (CRAM input)                              .. ok
+
+	234: Count -m 15 (CRAM input)                               .. ok
+
+	235: Filter -m 16 (SAM input)                               .. ok
+
+	236: Count -m 16 (SAM input)                                .. ok
+
+	237: Filter -m 16 (BAM input)                               .. ok
+
+	238: Count -m 16 (BAM input)                                .. ok
+
+	239: Filter -m 16 (CRAM input)                              .. ok
+
+	240: Count -m 16 (CRAM input)                               .. ok
+
+	241: Filter -e !(flag & 128) && (flag & 2) (SAM input)      .. ok
+
+	242: Count -e !(flag & 128) && (flag & 2) (SAM input)       .. ok
+
+	243: Filter -e !(flag & 128) && (flag & 2) (BAM input)      .. ok
+
+	244: Count -e !(flag & 128) && (flag & 2) (BAM input)       .. ok
+
+	245: Filter -e !(flag & 128) && (flag & 2) (CRAM input)     .. ok
+
+	246: Count -e !(flag & 128) && (flag & 2) (CRAM input)      .. ok
+
+	247: Filter -e [BC] (SAM input)                             .. ok
+
+	248: Count -e [BC] (SAM input)                              .. ok
+
+	249: Filter -e [BC] (BAM input)                             .. ok
+
+	250: Count -e [BC] (BAM input)                              .. ok
+
+	251: Filter -e [BC] (CRAM input)                            .. ok
+
+	252: Count -e [BC] (CRAM input)                             .. ok
+
+	253: Filter -e [BC] == "ACGT" || [BC] == "AATTCCGG" (SAM input).. ok
+
+	254: Count -e [BC] == "ACGT" || [BC] == "AATTCCGG" (SAM input).. ok
+
+	255: Filter -e [BC] == "ACGT" || [BC] == "AATTCCGG" (BAM input).. ok
+
+	256: Count -e [BC] == "ACGT" || [BC] == "AATTCCGG" (BAM input).. ok
+
+	257: Filter -e [BC] == "ACGT" || [BC] == "AATTCCGG" (CRAM input).. ok
+
+	258: Count -e [BC] == "ACGT" || [BC] == "AATTCCGG" (CRAM input).. ok
+
+	259: Filter -e mapq >= 50 (SAM input)                       .. ok
+
+	260: Count -e mapq >= 50 (SAM input)                        .. ok
+
+	261: Filter -e mapq >= 50 (BAM input)                       .. ok
+
+	262: Count -e mapq >= 50 (BAM input)                        .. ok
+
+	263: Filter -e mapq >= 50 (CRAM input)                      .. ok
+
+	264: Count -e mapq >= 50 (CRAM input)                       .. ok
+
+	265: Filter -e mapq >= 99 (SAM input)                       .. ok
+
+	266: Count -e mapq >= 99 (SAM input)                        .. ok
+
+	267: Filter -e mapq >= 99 (BAM input)                       .. ok
+
+	268: Count -e mapq >= 99 (BAM input)                        .. ok
+
+	269: Filter -e mapq >= 99 (CRAM input)                      .. ok
+
+	270: Count -e mapq >= 99 (CRAM input)                       .. ok
+
+	271: Filter -e mapq >= 100 (SAM input)                      .. ok
+
+	272: Count -e mapq >= 100 (SAM input)                       .. ok
+
+	273: Filter -e mapq >= 100 (BAM input)                      .. ok
+
+	274: Count -e mapq >= 100 (BAM input)                       .. ok
+
+	275: Filter -e mapq >= 100 (CRAM input)                     .. ok
+
+	276: Count -e mapq >= 100 (CRAM input)                      .. ok
+
+	277: 1bp reads file SAM -> BAM -> SAM                       .. ok
+
+	278: 1bp reads file SAM -> CRAM -> SAM                      .. ok
+
+	278: Region  Z (BAM input)                                  .. ok
+
+	279: Count  Z (BAM input)                                   .. ok
+
+	280: Region  Z (CRAM input)                                 .. ok
+
+	281: Count  Z (CRAM input)                                  .. ok
+
+	282: Region  Z:30 (BAM input)                               .. ok
+
+	283: Count  Z:30 (BAM input)                                .. ok
+
+	284: Region  Z:30 (CRAM input)                              .. ok
+
+	285: Count  Z:30 (CRAM input)                               .. ok
+
+	286: Region  Z:20-40 (BAM input)                            .. ok
+
+	287: Count  Z:20-40 (BAM input)                             .. ok
+
+	288: Region  Z:20-40 (CRAM input)                           .. ok
+
+	289: Count  Z:20-40 (CRAM input)                            .. ok
+
+	290: Region  ref1 (BAM input)                               .. ok
+
+	291: Count  ref1 (BAM input)                                .. ok
+
+	292: Region  ref1 (CRAM input)                              .. ok
+
+	293: Count  ref1 (CRAM input)                               .. ok
+
+	294: Region  ref1:15 (BAM input)                            .. ok
+
+	295: Count  ref1:15 (BAM input)                             .. ok
+
+	296: Region  ref1:15 (CRAM input)                           .. ok
+
+	297: Count  ref1:15 (CRAM input)                            .. ok
+
+	298: Region  ref1:15-45 (BAM input)                         .. ok
+
+	299: Count  ref1:15-45 (BAM input)                          .. ok
+
+	300: Region  ref1:15-45 (CRAM input)                        .. ok
+
+	301: Count  ref1:15-45 (CRAM input)                         .. ok
+
+	302: Region  ref1:15-45 ref2 (BAM input)                    .. ok
+
+	303: Count  ref1:15-45 ref2 (BAM input)                     .. ok
+
+	304: Region  ref1:15-45 ref2 (CRAM input)                   .. ok
+
+	305: Count  ref1:15-45 ref2 (CRAM input)                    .. ok
+
+	306: Region  ref1:15-45 ref2:16 (BAM input)                 .. ok
+
+	307: Count  ref1:15-45 ref2:16 (BAM input)                  .. ok
+
+	308: Region  ref1:15-45 ref2:16 (CRAM input)                .. ok
+
+	309: Count  ref1:15-45 ref2:16 (CRAM input)                 .. ok
+
+	310: Region  ref1:15-45 ref2:16-31 (BAM input)              .. ok
+
+	311: Count  ref1:15-45 ref2:16-31 (BAM input)               .. ok
+
+	312: Region  ref1:15-45 ref2:16-31 (CRAM input)             .. ok
+
+	313: Count  ref1:15-45 ref2:16-31 (CRAM input)              .. ok
+
+	314: Region  ref1:15-15 ref1:45-45 (BAM input)              .. ok
+
+	315: Count  ref1:15-15 ref1:45-45 (BAM input)               .. ok
+
+	316: Region  ref1:15-15 ref1:45-45 (CRAM input)             .. ok
+
+	317: Count  ref1:15-15 ref1:45-45 (CRAM input)              .. ok
+
+	318: Region -f 128 ref1 (BAM input)                         .. ok
+
+	319: Count -f 128 ref1 (BAM input)                          .. ok
+
+	320: Region -f 128 ref1 (CRAM input)                        .. ok
+
+	321: Count -f 128 ref1 (CRAM input)                         .. ok
+
+	322: Region -q 50 ref1:15-45 (BAM input)                    .. ok
+
+	323: Count -q 50 ref1:15-45 (BAM input)                     .. ok
+
+	324: Region -q 50 ref1:15-45 (CRAM input)                   .. ok
+
+	325: Count -q 50 ref1:15-45 (CRAM input)                    .. ok
+
+	326: Region -r grp2 ref1:15-45 (BAM input)                  .. ok
+
+	327: Count -r grp2 ref1:15-45 (BAM input)                   .. ok
+
+	328: Region -r grp2 ref1:15-45 (CRAM input)                 .. ok
+
+	329: Count -r grp2 ref1:15-45 (CRAM input)                  .. ok
+
+	330: Region  * (BAM input)                                  .. ok
+
+	331: Count  * (BAM input)                                   .. ok
+
+	332: Region  * (CRAM input)                                 .. ok
+
+	333: Count  * (CRAM input)                                  .. ok
+
+	334: Region -L /w/samtools-1.24/test/dat/view.002.01.bed  (BAM input).. ok
+
+	335: Count -L /w/samtools-1.24/test/dat/view.002.01.bed  (BAM input).. ok
+
+	336: Region -L /w/samtools-1.24/test/dat/view.002.01.bed  (CRAM input).. ok
+
+	337: Count -L /w/samtools-1.24/test/dat/view.002.01.bed  (CRAM input).. ok
+
+	338: Region -L /w/samtools-1.24/test/dat/view.002.02.bed  (BAM input).. ok
+
+	339: Count -L /w/samtools-1.24/test/dat/view.002.02.bed  (BAM input).. ok
+
+	340: Region -L /w/samtools-1.24/test/dat/view.002.02.bed  (CRAM input).. ok
+
+	341: Count -L /w/samtools-1.24/test/dat/view.002.02.bed  (CRAM input).. ok
+
+	342: Region -L /w/samtools-1.24/test/dat/view.001.01.bed  (BAM input).. ok
+
+	343: Count -L /w/samtools-1.24/test/dat/view.001.01.bed  (BAM input).. ok
+
+	344: Region -L /w/samtools-1.24/test/dat/view.001.01.bed  (CRAM input).. ok
+
+	345: Count -L /w/samtools-1.24/test/dat/view.001.01.bed  (CRAM input).. ok
+
+	346: Region -L /w/samtools-1.24/test/dat/view.001.02.bed  (BAM input).. ok
+
+	347: Count -L /w/samtools-1.24/test/dat/view.001.02.bed  (BAM input).. ok
+
+	348: Region -L /w/samtools-1.24/test/dat/view.001.02.bed  (CRAM input).. ok
+
+	349: Count -L /w/samtools-1.24/test/dat/view.001.02.bed  (CRAM input).. ok
+
+	350: Region -L /w/samtools-1.24/test/dat/view.001.03.bed  (BAM input).. ok
+
+	351: Count -L /w/samtools-1.24/test/dat/view.001.03.bed  (BAM input).. ok
+
+	352: Region -L /w/samtools-1.24/test/dat/view.001.03.bed  (CRAM input).. ok
+
+	353: Count -L /w/samtools-1.24/test/dat/view.001.03.bed  (CRAM input).. ok
+
+	354: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z (BAM input).. ok
+
+	355: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z (BAM input).. ok
+
+	356: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z (CRAM input).. ok
+
+	357: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z (CRAM input).. ok
+
+	358: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z:30 (BAM input).. ok
+
+	359: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z:30 (BAM input).. ok
+
+	360: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z:30 (CRAM input).. ok
+
+	361: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z:30 (CRAM input).. ok
+
+	362: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z:10-30 (BAM input).. ok
+
+	363: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z:10-30 (BAM input).. ok
+
+	364: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z:10-30 (CRAM input).. ok
+
+	365: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z:10-30 (CRAM input).. ok
+
+	366: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z:25-35 (BAM input).. ok
+
+	367: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z:25-35 (BAM input).. ok
+
+	368: Region -L /w/samtools-1.24/test/dat/view.002.01.bed Z:25-35 (CRAM input).. ok
+
+	369: Count -L /w/samtools-1.24/test/dat/view.002.01.bed Z:25-35 (CRAM input).. ok
+
+	370: Region -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:11-16 (BAM input).. ok
+
+	371: Count -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:11-16 (BAM input).. ok
+
+	372: Region -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:11-16 (CRAM input).. ok
+
+	373: Count -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:11-16 (CRAM input).. ok
+
+	374: Region -L /w/samtools-1.24/test/dat/view.001.01.bed ref2 (BAM input).. ok
+
+	375: Count -L /w/samtools-1.24/test/dat/view.001.01.bed ref2 (BAM input).. ok
+
+	376: Region -L /w/samtools-1.24/test/dat/view.001.01.bed ref2 (CRAM input).. ok
+
+	377: Count -L /w/samtools-1.24/test/dat/view.001.01.bed ref2 (CRAM input).. ok
+
+	378: Region -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:1-15 ref1:44-45 (BAM input).. ok
+
+	379: Count -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:1-15 ref1:44-45 (BAM input).. ok
+
+	380: Region -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:1-15 ref1:44-45 (CRAM input).. ok
+
+	381: Count -L /w/samtools-1.24/test/dat/view.001.01.bed ref1:1-15 ref1:44-45 (CRAM input).. ok
+
+	382: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1  (BAM input).. ok
+
+	383: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1  (BAM input).. ok
+
+	384: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1  (CRAM input).. ok
+
+	385: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1  (CRAM input).. ok
+
+	386: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -f 128  (BAM input).. ok
+
+	387: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -f 128  (BAM input).. ok
+
+	388: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -f 128  (CRAM input).. ok
+
+	389: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -f 128  (CRAM input).. ok
+
+	390: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -q 5  (BAM input).. ok
+
+	391: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -q 5  (BAM input).. ok
+
+	392: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -q 5  (CRAM input).. ok
+
+	393: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -q 5  (CRAM input).. ok
+
+	394: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1 ref1:11-16 (BAM input).. ok
+
+	395: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1 ref1:11-16 (BAM input).. ok
+
+	396: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1 ref1:11-16 (CRAM input).. ok
+
+	397: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -r grp1 ref1:11-16 (CRAM input).. ok
+
+	398: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap  (BAM input).. ok
+
+	399: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap  (BAM input).. ok
+
+	400: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap  (CRAM input).. ok
+
+	401: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap  (CRAM input).. ok
+
+	402: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap ref1:11-30 (BAM input).. ok
+
+	403: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap ref1:11-30 (BAM input).. ok
+
+	404: Region -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap ref1:11-30 (CRAM input).. ok
+
+	405: Count -L /w/samtools-1.24/test/dat/view.001.01.bed -M --unmap ref1:11-30 (CRAM input).. ok
+
+	406: -L with nested regions                                 .. ok
+
+	407: Make BAM with no M5/UR tags                            .. ok
+
+	408: Add @SQ with -t (SAM -> SAM)                           .. ok
+
+	409: Add @SQ with -T (SAM -> SAM)                           .. ok
+
+	410: Add @SQ with -t (BAM -> SAM)                           .. ok
+
+	411: Add @SQ with -T (BAM -> SAM)                           .. ok
+
+	412: Add @SQ with -t (SAM -> BAM)                           .. ok
+
+	413: Add @SQ with -T (SAM -> BAM)                           .. ok
+
+	414: Add @SQ with -t (BAM -> BAM)                           .. ok
+
+	415: Add @SQ with -T (BAM -> BAM)                           .. ok
+
+	416: Add @SQ with -t (SAM -> CRAM)                          .. ok
+
+	417: Add @SQ with -T (SAM -> CRAM)                          .. ok
+
+	418: Add @SQ with -t (BAM -> CRAM)                          .. ok
+
+	419: Add @SQ with -T (BAM -> CRAM)                          .. ok
+
+	420: Make CRAM with no UR field                             .. ok
+
+	421: Decoding CRAM with no UR field via -T                  .. ok
+
+	422: CIGAR B-operator removal                               .. ok
+
+	423: Big SAM -> BAM                                         .. ok
+
+	424: Big SAM -> BAM (2 threads)                             .. ok
+
+	425: Big SAM -> BAM (4 threads)                             .. ok
+
+	426: Big SAM -> CRAM                                        .. ok
+
+	427: Big SAM -> CRAM (2 threads)                            .. ok
+
+	428: Big SAM -> CRAM (4 threads)                            .. ok
+
+	429: Subsample 0.2 (SAM input) ............ ok
+
+	430: Subsample 0.5 (SAM input) ............ ok
+
+	431: Subsample 0.8 (SAM input) ............ ok
+
+	432: Subsample 0.2 (BAM input) ............ ok
+
+	433: Subsample 0.5 (BAM input) ............ ok
+
+	434: Subsample 0.8 (BAM input) ............ ok
+
+	435: Subsample 0.2 (CRAM input) ............ ok
+
+	436: Subsample 0.5 (CRAM input) ............ ok
+
+	437: Subsample 0.8 (CRAM input) ............ ok
+
+	438: Repeated subsampling reduces reads (default seed) ..... ok
+
+	439: Repeated subsampling reduces reads (--subsample-seed auto) ..... ok
+
+	440: Repeated subsampling reduces reads (-s auto.FRAC) ..... ok
+
+	441: Subsample adds @CO line with fraction and seed .. ok
+
+	442: SAM add PG                                             .. ok
+
+	443: Unset dup flag, remove dt and do tags                  .. ok
+
+	444: Unmap dup flagged reads.                               .. ok
+
+	445: Unmap dup flagged reads.                               .. ok
+
+	446: fetch pairs                                            .. ok
+
+	447: fetch pairs                                            .. ok
+
+	448: fetch pairs                                            .. ok
+
+test_head:
+	/w/samtools-1.24/samtools head /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -h 0 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -h 1 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -h 5 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -h 29 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -h 30 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -n 0 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -n 1 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -n 5 /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_head:
+	/w/samtools-1.24/samtools head -h 5 -n 5 < /w/samtools-1.24/test/dat/view.001.sam
+.. ok
+
+test_cat:
+	Generating test data file .................. done
+	Generate BAM file #1                                        .. ok
+
+	Generate BAM region file #1                                 .. ok
+
+	Generate CRAM file #1                                       .. ok
+
+	Generating test data file .................. done
+	Generate BAM file #2                                        .. ok
+
+	Generate BAM region file #2                                 .. ok
+
+	Generate CRAM file #2                                       .. ok
+
+	Generating test data file .................. done
+	Generate BAM file #3                                        .. ok
+
+	Generate BAM region file #3                                 .. ok
+
+	Generate CRAM file #3                                       .. ok
+
+	Generating test data file .................. done
+	Generate BAM file #4                                        .. ok
+
+	Generate BAM region file #4                                 .. ok
+
+	Generate CRAM file #4                                       .. ok
+
+	1: cat BAM files                                            .. ok
+
+	2: cat recompressed BAM files                               .. ok
+
+	3: cat CRAM files                                           .. ok
+
+	4: cat CRAM subregion files                                 .. ok
+
+	5: cat BAM files to stdout                                  .. ok
+
+	6: cat recompressed BAM files to stdout                     .. ok
+
+	7: cat CRAM files to stdout                                 .. ok
+
+	8: cat CRAM subregion files to stdout                       .. ok
+
+	9: cat CRAM part 1/2                                        .. ok
+
+	9: cat CRAM part 2/2                                        .. ok
+
+	9: cat CRAM parts 1/2 + 2/2                                 .. ok
+
+	10: cat BAM files with new header                           .. ok
+
+	11: cat recompressed BAM files with new header              .. ok
+
+	12: cat CRAM files with new header                          .. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -0 test/bam2fq/1.1.fq.expected  | /w/samtools-1.24/samtools fastq -0 /w/samtools-1.24/test/0.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -s test/bam2fq/1.1.fq.expected  | /w/samtools-1.24/samtools fastq -0 /w/samtools-1.24/test/0.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -s test/bam2fq/5.s.fq.expected  | /w/samtools-1.24/samtools fastq -s /w/samtools-1.24/test/s.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/bam2fq/1.1.fq.expected test/bam2fq/1.2.fq.expected | /w/samtools-1.24/samtools fastq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/bam2fq/5.1.fq.expected test/bam2fq/5.2.fq.expected | /w/samtools-1.24/samtools fastq -N -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -i -1 test/bam2fq/12.1.fq.expected -2 test/bam2fq/12.2.fq.expected | /w/samtools-1.24/samtools fastq -i --index-format 'i*i*' -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG --barcode-tag OX -i -1 test/bam2fq/12.1.fq.expected -2 test/bam2fq/12.2.fq.expected | /w/samtools-1.24/samtools fastq --barcode-tag OX -i --index-format 'i*i*' -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -T "" -1 test/bam2fq/6.1.fq.expected -2 test/bam2fq/6.2.fq.expected | /w/samtools-1.24/samtools fastq -N -T RG,BC,QT -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -T "*" -1 test/bam2fq/7.1.fq.expected -2 test/bam2fq/7.2.fq.expected | /w/samtools-1.24/samtools fastq -N -T RG,BC,QT,MD,ia -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/bam2fq/1.1.fq.expected test/bam2fq/1.2.fq.expected -R rgid
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/bam2fq/1.1.fq.expected test/bam2fq/1.2.fq.expected -r ID:rgid
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/bam2fq/1.1.fq.expected test/bam2fq/1.2.fq.expected -r '@RG	ID:rgid'
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/import/2.interleaved.fq -T ""
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/import/3.interleaved.fq -i
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/import/4.aux.fq -T "*"
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/import/4.aux.fq -T ""
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG test/import/4.aux.fq -T XZ,XA,AA
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG --i1 test/import/5-i1.fq --i2  test/import/5-i2.fq --r1 test/import/5-r1.fq --r2 test/import/5-r2.fq
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG --i1 test/import/5-i1.fq --i2  test/import/5-i2.fq --r1 test/import/5-r1.fq --r2 test/import/5-r2.fq --barcode-tag OX --quality-tag BZ
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -U test/bam2fq/UMI.fq.expected
+.. ok
+
+test_import:
+	/w/samtools-1.24/samtools import --no-PG -U --UMI-tag OX test/bam2fq/UMI.fq.expected
+.. ok
+
+test_bam2fq:
+	Generate BAM file                                           .. ok
+
+	Generate CRAM file                                          .. ok
+
+	1: fastq  (SAM input)                                       [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	2: fastq -n (SAM input)                                     [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	3: fastq  (BAM input)                                       [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	4: fastq -n (BAM input)                                     [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	5: fastq  (CRAM input)                                      [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	6: fastq -n (CRAM input)                                    [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.002.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.003.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  --barcode-tag BC --index-format 'n2i2' --i1 /w/samtools-1.24/test/bc.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.004.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  --barcode-tag BC -O --index-format 'n2i2' --i1 /w/samtools-1.24/test/bc.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.004.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  --barcode-tag BC -O --index-format 'n2i2' --i1 /w/samtools-1.24/test/bc.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.010.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  --barcode-tag BC -N --index-format 'n*i*' --i1 /w/samtools-1.24/test/bc_split.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -t -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -t -T MD,ia -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  --barcode-tag BC -i --index-format 'n2i2' --i1 /w/samtools-1.24/test/i.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.004.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  --barcode-tag BC -i --index-format 'i*i*' --i1 /w/samtools-1.24/test/i.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -i --index-format 'i*i*' -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.703.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -1 /w/samtools-1.24/test/o.fq -2 /w/samtools-1.24/test/o.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fasta  -N -1 /w/samtools-1.24/test/o.fa -2 /w/samtools-1.24/test/o.fa /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -o /w/samtools-1.24/test/o.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -s /tmp/naZZRIp7rP/bam2fq.discard.s.fq -0 /tmp/naZZRIp7rP/bam2fq.discard.0.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -T ba,bb,bc,bd,be,bf,bg /w/samtools-1.24/test/dat/bam2fq.013.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  --index-format 'i8n1i8' --i1 /w/samtools-1.24/test/i1.fq --i2 /w/samtools-1.24/test/i2.fq -0 /w/samtools-1.24/test/0.fq /w/samtools-1.24/test/dat/bam2fq.014.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -T '' /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -t -T '*' /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -T '*' -d MD:10 /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -T '*' -d NM:0 /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -N -T '*' -d ia /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -d NM:13 -d NM:14 /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -D NM:test/dat/bam2fq.NM-D /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -D MD:test/dat/bam2fq.MD-D /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -O --no-sc --no-sc-bkp -T 's0' /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -O --no-sc -T's0' /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -O --no-sc /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq  -O --no-sc --sc-aux s1 -T's0,s1' /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -U test/import/UMI.expected.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -U --UMI-tag RX,OX test/import/UMI-OX.expected.sam
+.. ok
+
+test_bam2fq:
+	Generate BAM file (2 threads)                               .. ok
+
+	Generate CRAM file (2 threads)                              .. ok
+
+	1: fastq  (SAM input) (2 threads)                           [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	2: fastq -n (SAM input) (2 threads)                         [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	3: fastq  (BAM input) (2 threads)                           [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	4: fastq -n (BAM input) (2 threads)                         [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	5: fastq  (CRAM input) (2 threads)                          [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+	6: fastq -n (CRAM input) (2 threads)                        [M::bam2fq_mainloop] discarded 0 singletons
+[M::bam2fq_mainloop] processed 36 reads
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.002.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.003.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 --barcode-tag BC --index-format 'n2i2' --i1 /w/samtools-1.24/test/bc.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.004.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 --barcode-tag BC -O --index-format 'n2i2' --i1 /w/samtools-1.24/test/bc.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.004.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 --barcode-tag BC -O --index-format 'n2i2' --i1 /w/samtools-1.24/test/bc.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.010.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 --barcode-tag BC -N --index-format 'n*i*' --i1 /w/samtools-1.24/test/bc_split.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -t -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -t -T MD,ia -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 --barcode-tag BC -i --index-format 'n2i2' --i1 /w/samtools-1.24/test/i.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.004.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 --barcode-tag BC -i --index-format 'i*i*' --i1 /w/samtools-1.24/test/i.fq -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -i --index-format 'i*i*' -s /w/samtools-1.24/test/s.fq -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.005.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -1 /w/samtools-1.24/test/1.fq -2 /w/samtools-1.24/test/2.fq /w/samtools-1.24/test/dat/bam2fq.703.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -1 /w/samtools-1.24/test/o.fq -2 /w/samtools-1.24/test/o.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fasta -@ 2 -N -1 /w/samtools-1.24/test/o.fa -2 /w/samtools-1.24/test/o.fa /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -o /w/samtools-1.24/test/o.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -s /tmp/naZZRIp7rP/bam2fq.discard.s.fq -0 /tmp/naZZRIp7rP/bam2fq.discard.0.fq /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -T ba,bb,bc,bd,be,bf,bg /w/samtools-1.24/test/dat/bam2fq.013.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 --index-format 'i8n1i8' --i1 /w/samtools-1.24/test/i1.fq --i2 /w/samtools-1.24/test/i2.fq -0 /w/samtools-1.24/test/0.fq /w/samtools-1.24/test/dat/bam2fq.014.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -T '' /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -t -T '*' /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -T '*' -d MD:10 /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -T '*' -d NM:0 /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -N -T '*' -d ia /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -d NM:13 -d NM:14 /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -D NM:test/dat/bam2fq.NM-D /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -D MD:test/dat/bam2fq.MD-D /w/samtools-1.24/test/dat/bam2fq.001.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -O --no-sc --no-sc-bkp -T 's0' /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -O --no-sc -T's0' /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -O --no-sc /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -@ 2 -O --no-sc --sc-aux s1 -T's0,s1' /w/samtools-1.24/test/dat/bam2fq.sc.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -U test/import/UMI.expected.sam
+.. ok
+
+test_bam2fq:
+	/w/samtools-1.24/samtools fastq -U --UMI-tag RX,OX test/import/UMI-OX.expected.sam
+.. ok
+
+test_depad:
+	Generate BAM file                                           .. ok
+
+	depad  (SAM input)                                          .. ok
+
+	depad -s (SAM input)                                        .. ok
+
+	depad -u (SAM input)                                        .. ok
+
+	depad -1 (SAM input)                                        .. ok
+
+	depad  (BAM input)                                          .. ok
+
+	depad -s (BAM input)                                        .. ok
+
+	depad -u (BAM input)                                        .. ok
+
+	depad -1 (BAM input)                                        .. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/1_map_cigar.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/1_map_cigar_large.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/2_equal_cigar_full_seq.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/2_equal_cigar_full_seq_large.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/3_map_cigar_equal_seq.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/3_map_cigar_equal_seq_large.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/4_X_cigar_full_seq.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/4_X_cigar_full_seq_large.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/5_insert_cigar.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/5_insert_cigar_large.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa -i 0 /w/samtools-1.24/test/stat/5_insert_cigar.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/7_supp.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/7_supp_large.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/8_secondary.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/8_secondary_large.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -S RG -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/1_map_cigar.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -S RG -r /w/samtools-1.24/test/stat/test.fa /w/samtools-1.24/test/stat/10_map_cigar.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -t /w/samtools-1.24/test/stat/11.stats.targets /w/samtools-1.24/test/stat/11_target.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/11_target.bam ref1:10-24 ref1:30-46 ref1:39-56 | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -g 4 -t /w/samtools-1.24/test/stat/11.stats.targets /w/samtools-1.24/test/stat/11_target.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -g 4 /w/samtools-1.24/test/stat/11_target.bam ref1:10-24 ref1:30-46 ref1:39-56 | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/12_overlaps.bam -t /w/samtools-1.24/test/stat/12_3reads.bed | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/12_overlaps.bam -p -t /w/samtools-1.24/test/stat/12_3reads.bed | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/12_overlaps.bam -t /w/samtools-1.24/test/stat/12_2reads.bed | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/12_overlaps.bam -p -t /w/samtools-1.24/test/stat/12_2reads.bed | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/13_barcodes_ok.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/13_barcodes_ok_ox_bz.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/13_barcodes_fail_bc_length.sam | tail -n +4
+
+	/w/samtools-1.24/test/stat/13.barcodes.fail.expected: No such file or directory
+.. expected failure
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/13_barcodes_fail_hyphen.sam | tail -n +4
+
+	/w/samtools-1.24/test/stat/13.barcodes.fail.expected: No such file or directory
+.. expected failure
+
+test_stats:
+	/w/samtools-1.24/samtools stats /w/samtools-1.24/test/stat/13_barcodes_fail_qt_length.sam | tail -n +4
+
+	/w/samtools-1.24/test/stat/13.barcodes.fail.expected: No such file or directory
+.. expected failure
+
+test_stats:
+	/w/samtools-1.24/samtools stats -I s1 /w/samtools-1.24/test/stat/11_target.bam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -I grp2 /w/samtools-1.24/test/stat/11_target.bam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -I grp3 /w/samtools-1.24/test/stat/11_target.bam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -I Sample /w/samtools-1.24/test/stat/11_target.bam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats -r /w/samtools-1.24/test/mpileup/ce.fa /w/samtools-1.24/test/stat/15.big_del.sam | tail -n +4
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats --ref-stats /w/samtools-1.24/test/stat/11_target.sam | grep -e"^RFS"
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats --ref-stats /w/samtools-1.24/test/stat/11_target.sam -r /w/samtools-1.24/test/stat/test.fa
+
+	ERR: [E::faidx_adjust_position] The sequence "ref1" was not found
+Failed to fetch the sequence "ref1"
+
+.. expected failure
+
+test_stats:
+	/w/samtools-1.24/samtools stats --ref-stats /w/samtools-1.24/test/stat/11_target.sam -r /w/samtools-1.24/test/stat/test1.fa | grep -e"^RFS"
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats --ref-stats --ref-stats-chunk -1 /w/samtools-1.24/test/stat/11_target.sam -r /w/samtools-1.24/test/stat/test1.fa | grep -e"^RFS"
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats --ref-stats /w/samtools-1.24/test/stat/11_target.bam -r /w/samtools-1.24/test/stat/test1.fa alpha:10-20 | grep -e"^RFS"
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats --ref-stats /w/samtools-1.24/test/stat/11_target.sam -r /w/samtools-1.24/test/stat/test1.fa -t /w/samtools-1.24/test/stat/11.stats.targets  | grep -e"^RFS"
+.. ok
+
+test_stats:
+	/w/samtools-1.24/samtools stats --ref-stats /w/samtools-1.24/test/stat/11_target.bam -r /w/samtools-1.24/test/stat/test1.fa -t /w/samtools-1.24/test/stat/11.stats.targets ref1 | grep -e"^RFS"
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam /w/samtools-1.24/test/dat/test_input_1_c.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam /w/samtools-1.24/test/dat/test_input_1_c.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -s 1 -O sam -b /tmp/2O9v8i6FU_ - /w/samtools-1.24/test/dat/test_input_1_a.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_b.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -r -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam /w/samtools-1.24/test/dat/test_input_1_c.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -cp -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a_regex.sam /w/samtools-1.24/test/dat/test_input_1_b_regex.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -o - -s 1 -O sam /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam /w/samtools-1.24/test/dat/test_input_1_c.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -s 1 -p -c -t PG -O SAM - /tmp/naZZRIp7rP/merge.tag.1.bam /tmp/naZZRIp7rP/merge.tag.2.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -s 1 -p -c -n -t PG -O SAM - /tmp/naZZRIp7rP/merge.tag.3.bam /tmp/naZZRIp7rP/merge.tag.4.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge --no-PG -O SAM - /w/samtools-1.24/test/merge/test_no_pg_rg_co.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge --no-PG -O SAM -L /w/samtools-1.24/test/merge/merge.bed - /tmp/naZZRIp7rP/merge.bed.1.bam /tmp/naZZRIp7rP/merge.bed.2.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge --no-PG -r -O SAM - /w/samtools-1.24/test/merge/test_no_pg_rg_co.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge --no-PG -O SAM --template-coordinate - /w/samtools-1.24/test/merge/test_template_coordinate.1.sam /w/samtools-1.24/test/merge/test_template_coordinate.2.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam /w/samtools-1.24/test/dat/test_input_1_c.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.bam /w/samtools-1.24/test/dat/test_input_1_b.bam /w/samtools-1.24/test/dat/test_input_1_c.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -s 1 -O sam -b /tmp/v8rv3ChKRy - /w/samtools-1.24/test/dat/test_input_1_a.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_b.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -r -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam /w/samtools-1.24/test/dat/test_input_1_c.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -cp -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -s 1 -O sam - /w/samtools-1.24/test/dat/test_input_1_a_regex.sam /w/samtools-1.24/test/dat/test_input_1_b_regex.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -o - -s 1 -O sam /w/samtools-1.24/test/dat/test_input_1_a.sam /w/samtools-1.24/test/dat/test_input_1_b.sam /w/samtools-1.24/test/dat/test_input_1_c.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -s 1 -p -c -t PG -O SAM - /tmp/naZZRIp7rP/merge.tag.1.bam /tmp/naZZRIp7rP/merge.tag.2.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 -s 1 -p -c -n -t PG -O SAM - /tmp/naZZRIp7rP/merge.tag.3.bam /tmp/naZZRIp7rP/merge.tag.4.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 --no-PG -O SAM - /w/samtools-1.24/test/merge/test_no_pg_rg_co.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 --no-PG -O SAM -L /w/samtools-1.24/test/merge/merge.bed - /tmp/naZZRIp7rP/merge.bed.1.bam /tmp/naZZRIp7rP/merge.bed.2.bam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 --no-PG -r -O SAM - /w/samtools-1.24/test/merge/test_no_pg_rg_co.sam
+.. ok
+
+test_merge:
+	/w/samtools-1.24/samtools merge -@ 2 --no-PG -O SAM --template-coordinate - /w/samtools-1.24/test/merge/test_template_coordinate.1.sam /w/samtools-1.24/test/merge/test_template_coordinate.2.sam
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort /w/samtools-1.24/test/dat/test_input_1_a.bam /tmp/naZZRIp7rP/sortout
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -f /w/samtools-1.24/test/dat/test_input_1_a.bam /tmp/naZZRIp7rP/sortout.bam
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -o /w/samtools-1.24/test/dat/test_input_1_a.bam /tmp/naZZRIp7rP/sorttmp
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -n -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -N -m 10M /w/samtools-1.24/test/dat/test_input_1_b.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -n -m 10M /w/samtools-1.24/test/dat/sort_name_input_1.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -t RG -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -n -t RG -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -t AS -m 10M /w/samtools-1.24/test/dat/test_input_1_d.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -t FI -m 10M /w/samtools-1.24/test/dat/test_input_1_d.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort --template-coordinate -m 10M /w/samtools-1.24/test/sort/template-coordinate.sort.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort --template-coordinate -m 10M /w/samtools-1.24/test/sort/template-coordinate.cell-barcode.sort.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort --template-coordinate -m 10M /w/samtools-1.24/test/sort/template-coordinate-hardclip.sort.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools fixmate -O bam /w/samtools-1.24/test/sort/template-coordinate-supplementary.sam - | /w/samtools-1.24/samtools sort --template-coordinate -m 10M -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/dat/auto_indexed.tmp.bam | /w/samtools-1.24/samtools sort -m 10M -M -K10 -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/dat/auto_indexed.tmp.bam | /w/samtools-1.24/samtools sort -m 10M -M -K10 -I /w/samtools-1.24/test/dat/mpileup.ref.fa -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/dat/auto_indexed.tmp.bam | /w/samtools-1.24/samtools sort -m 10M -MH -K10 -I /w/samtools-1.24/test/dat/mpileup.ref.fa -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 /w/samtools-1.24/test/dat/test_input_1_a.bam /tmp/naZZRIp7rP/sortout
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -f /w/samtools-1.24/test/dat/test_input_1_a.bam /tmp/naZZRIp7rP/sortout.bam
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -o /w/samtools-1.24/test/dat/test_input_1_a.bam /tmp/naZZRIp7rP/sorttmp
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -n -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -N -m 10M /w/samtools-1.24/test/dat/test_input_1_b.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -n -m 10M /w/samtools-1.24/test/dat/sort_name_input_1.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -t RG -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -n -t RG -m 10M /w/samtools-1.24/test/dat/test_input_1_a.bam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -t AS -m 10M /w/samtools-1.24/test/dat/test_input_1_d.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 -t FI -m 10M /w/samtools-1.24/test/dat/test_input_1_d.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 --template-coordinate -m 10M /w/samtools-1.24/test/sort/template-coordinate.sort.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 --template-coordinate -m 10M /w/samtools-1.24/test/sort/template-coordinate.cell-barcode.sort.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools sort -@ 2 --template-coordinate -m 10M /w/samtools-1.24/test/sort/template-coordinate-hardclip.sort.sam -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools fixmate -O bam /w/samtools-1.24/test/sort/template-coordinate-supplementary.sam - | /w/samtools-1.24/samtools sort -@ 2 --template-coordinate -m 10M -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/dat/auto_indexed.tmp.bam | /w/samtools-1.24/samtools sort -@ 2 -m 10M -M -K10 -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/dat/auto_indexed.tmp.bam | /w/samtools-1.24/samtools sort -@ 2 -m 10M -M -K10 -I /w/samtools-1.24/test/dat/mpileup.ref.fa -O SAM -o -
+.. ok
+
+test_sort:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/dat/auto_indexed.tmp.bam | /w/samtools-1.24/samtools sort -@ 2 -m 10M -MH -K10 -I /w/samtools-1.24/test/dat/mpileup.ref.fa -O SAM -o -
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate --output-fmt=sam -O /w/samtools-1.24/test/dat/test_input_1_d.sam
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -o /w/samtools-1.24/test/collate/collate1.tmp.sam  /w/samtools-1.24/test/dat/test_input_1_d.sam
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -o /w/samtools-1.24/test/collate/collate2.tmp.sam  /w/samtools-1.24/test/dat/test_input_1_d.sam /w/samtools-1.24/test/collate/collate2.tmp
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate --output-fmt=sam /w/samtools-1.24/test/dat/test_input_1_d.sam /w/samtools-1.24/test/collate/collate3.tmp
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate --output-fmt=sam -f /w/samtools-1.24/test/collate/fast_collate.sam -o /w/samtools-1.24/test/collate/1_fast_collate.sam
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate --output-fmt=sam -f -r 4 /w/samtools-1.24/test/collate/fast_collate.sam -o /w/samtools-1.24/test/collate/2_fast_collate_with_tmp.sam
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -@ 2 --output-fmt=sam -O /w/samtools-1.24/test/dat/test_input_1_d.sam
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -@ 2 -o /w/samtools-1.24/test/collate/collate1.tmp.sam  /w/samtools-1.24/test/dat/test_input_1_d.sam
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -@ 2 -o /w/samtools-1.24/test/collate/collate2.tmp.sam  /w/samtools-1.24/test/dat/test_input_1_d.sam /w/samtools-1.24/test/collate/collate2.tmp
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -@ 2 --output-fmt=sam /w/samtools-1.24/test/dat/test_input_1_d.sam /w/samtools-1.24/test/collate/collate3.tmp
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -@ 2 --output-fmt=sam -f /w/samtools-1.24/test/collate/fast_collate.sam -o /w/samtools-1.24/test/collate/1_fast_collate.sam
+.. ok
+
+test_collate:
+	/w/samtools-1.24/samtools collate -@ 2 --output-fmt=sam -f -r 4 /w/samtools-1.24/test/collate/fast_collate.sam -o /w/samtools-1.24/test/collate/2_fast_collate_with_tmp.sam
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -O sam /w/samtools-1.24/test/fixmate/1_coord_sort.sam -
+
+	ERR: [bam_mating_core] ERROR: Coordinate sorted, require grouped/sorted by queryname.
+
+.. expected failure
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -z off -O sam /w/samtools-1.24/test/fixmate/2_isize_overflow.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -O sam /w/samtools-1.24/test/fixmate/3_reverse_read_pp_lt.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -O sam /w/samtools-1.24/test/fixmate/4_reverse_read_pp_equal.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -cO sam /w/samtools-1.24/test/fixmate/5_ct.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -cO sam /w/samtools-1.24/test/fixmate/6_ct_replace.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -z off -O sam /w/samtools-1.24/test/fixmate/7_two_read_mapped.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -z off -O sam /w/samtools-1.24/test/fixmate/8_isize_overflow_64bit.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -O sam /w/samtools-1.24/test/fixmate/sanitize.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -O sam /w/samtools-1.24/test/fixmate/9_supplementary_mc.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ok+.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ok-.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_draft.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_not_updated.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_not_updated_noML.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_not_updated_noMN.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_bad_MN.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_MN_only.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ML_only.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ML_wrong_len.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_noseq.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_bounds.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -O sam /w/samtools-1.24/test/fixmate/1_coord_sort.sam -
+
+	ERR: [bam_mating_core] ERROR: Coordinate sorted, require grouped/sorted by queryname.
+
+.. expected failure
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -z off -O sam /w/samtools-1.24/test/fixmate/2_isize_overflow.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -O sam /w/samtools-1.24/test/fixmate/3_reverse_read_pp_lt.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -O sam /w/samtools-1.24/test/fixmate/4_reverse_read_pp_equal.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -cO sam /w/samtools-1.24/test/fixmate/5_ct.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -cO sam /w/samtools-1.24/test/fixmate/6_ct_replace.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -z off -O sam /w/samtools-1.24/test/fixmate/7_two_read_mapped.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -z off -O sam /w/samtools-1.24/test/fixmate/8_isize_overflow_64bit.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -O sam /w/samtools-1.24/test/fixmate/sanitize.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -O sam /w/samtools-1.24/test/fixmate/9_supplementary_mc.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ok+.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ok-.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_draft.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_not_updated.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_not_updated_noML.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_not_updated_noMN.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_bad_MN.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_MN_only.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ML_only.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_ML_wrong_len.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_noseq.sam -
+.. ok
+
+test_fixmate:
+	/w/samtools-1.24/samtools fixmate -@ 2 -M -z off -O sam /w/samtools-1.24/test/fixmate/mod_bounds.sam -
+.. ok
+
+/w/samtools-1.24/samtools calmd -uAr /w/samtools-1.24/test/dat/mpileup.1.sam /w/samtools-1.24/test/dat/mpileup.ref.fa
+.. ok
+
+/w/samtools-1.24/samtools calmd -@ 2 -uAr /w/samtools-1.24/test/dat/mpileup.1.sam /w/samtools-1.24/test/dat/mpileup.ref.fa
+.. ok
+
+test_idxstat:
+	/w/samtools-1.24/samtools idxstats /w/samtools-1.24/test/dat/test_input_1_a.bam
+.. ok
+
+test_idxstat:
+	/w/samtools-1.24/samtools idxstats /w/samtools-1.24/test/dat/test_input_1_a.cram
+.. ok
+
+test_idxstat:
+	/w/samtools-1.24/samtools idxstats /w/samtools-1.24/test/dat/test_input_1_a.sam
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/1.quickcheck.badeof.bam
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/2.quickcheck.badheader.bam
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/3.quickcheck.ok.bam
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/4.quickcheck.ok.bam
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/5.quickcheck.scramble30.truncated.cram
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/6.quickcheck.cram21.ok.cram
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/7.quickcheck.cram30.ok.cram
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/8.quickcheck.cram21.truncated.cram
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/9.quickcheck.cram30.truncated.cram
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck /w/samtools-1.24/test/quickcheck/10.quickcheck.notargets.bam
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck -v  /w/samtools-1.24/test/quickcheck/1.quickcheck.badeof.bam /w/samtools-1.24/test/quickcheck/2.quickcheck.badheader.bam /w/samtools-1.24/test/quickcheck/3.quickcheck.ok.bam /w/samtools-1.24/test/quickcheck/4.quickcheck.ok.bam /w/samtools-1.24/test/quickcheck/5.quickcheck.scramble30.truncated.cram /w/samtools-1.24/test/quickcheck/6.quickcheck.cram21.ok.cram /w/samtools-1.24/test/quickcheck/7.quickcheck.cram30.ok.cram /w/samtools-1.24/test/quickcheck/8.quickcheck.cram21.truncated.cram /w/samtools-1.24/test/quickcheck/9.quickcheck.cram30.truncated.cram /w/samtools-1.24/test/quickcheck/10.quickcheck.notargets.bam | sed 's,.*/quickcheck/,,'
+.. ok
+
+test_quickcheck:
+	/w/samtools-1.24/samtools quickcheck -uv /w/samtools-1.24/test/quickcheck/10.quickcheck.notargets.bam | sed 's,.*/quickcheck/,,'
+.. ok
+
+test_reheader:
+	/w/samtools-1.24/samtools reheader /w/samtools-1.24/test/reheader/hdr.sam /w/samtools-1.24/test/dat/view.001.tmp.bam | /w/samtools-1.24/samtools view -h --no-PG | perl -pe 's/	VN:.*//'
+.. ok
+
+test_reheader:
+	/w/samtools-1.24/samtools reheader /w/samtools-1.24/test/reheader/hdr.sam /w/samtools-1.24/test/dat/view.001.tmp.v21.cram | /w/samtools-1.24/samtools view -h --no-PG | perl -pe 's/	VN:.*//'
+.. ok
+
+test_reheader:
+	/w/samtools-1.24/samtools reheader /w/samtools-1.24/test/reheader/hdr.sam /w/samtools-1.24/test/dat/view.001.tmp.v30.cram | /w/samtools-1.24/samtools view -h --no-PG | perl -pe 's/	VN:.*//'
+.. ok
+
+test_reheader:
+	/w/samtools-1.24/samtools reheader --in-place /w/samtools-1.24/test/reheader/hdr.sam /w/samtools-1.24/test/dat/view.001.tmp.v21.cram && /w/samtools-1.24/samtools view -h --no-PG /w/samtools-1.24/test/dat/view.001.tmp.v21.cram | perl -pe 's/	VN:.*//'
+.. ok
+
+test_reheader:
+	/w/samtools-1.24/samtools reheader --in-place /w/samtools-1.24/test/reheader/hdr.sam /w/samtools-1.24/test/dat/view.001.tmp.v30.cram && /w/samtools-1.24/samtools view -h --no-PG /w/samtools-1.24/test/dat/view.001.tmp.v30.cram | perl -pe 's/	VN:.*//'
+.. ok
+
+test_reheader:
+	/w/samtools-1.24/samtools reheader -c "sed 's/2014 Genome/2019 Genome/g'" /w/samtools-1.24/test/dat/view.001.tmp.bam | /w/samtools-1.24/samtools view -h --no-PG | perl -pe 's/	VN:.*//'
+.. ok
+
+test_reheader:
+	/w/samtools-1.24/samtools reheader -c "sed 's/2014 Genome/2019 Genome/g'" /w/samtools-1.24/test/dat/view.001.tmp.v30.cram | /w/samtools-1.24/samtools view -h --no-PG | perl -pe 's/	VN:.*//'
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -O sam -m overwrite_all /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -O sam -m orphan_only /w/samtools-1.24/test/addrprg/2_fixup_orphan.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -O sam -R '1#9' /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -O sam -r '@RG\tID:1#8\tCN:SC' /w/samtools-1.24/test/addrprg/4_fixup_norg.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -O sam -m overwrite_all -R '1#8' /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -O sam -r 'ID:1#8' -r 'CN:SC' /w/samtools-1.24/test/addrprg/4_fixup_norg.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -O sam -w -r '@RG\tID:1#8\tCN:Sanger\tDS:Testing the editing code.' /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -@ 2 -O sam -m overwrite_all /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -@ 2 -O sam -m orphan_only /w/samtools-1.24/test/addrprg/2_fixup_orphan.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -@ 2 -O sam -R '1#9' /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -@ 2 -O sam -r '@RG\tID:1#8\tCN:SC' /w/samtools-1.24/test/addrprg/4_fixup_norg.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -@ 2 -O sam -m overwrite_all -R '1#8' /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -@ 2 -O sam -r 'ID:1#8' -r 'CN:SC' /w/samtools-1.24/test/addrprg/4_fixup_norg.sam
+.. ok
+
+test_addrprg:
+	/w/samtools-1.24/samtools addreplacerg -@ 2 -O sam -w -r '@RG\tID:1#8\tCN:Sanger\tDS:Testing the editing code.' /w/samtools-1.24/test/addrprg/1_fixup.sam
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG /w/samtools-1.24/test/markdup/1_name_sort.sam -
+
+	ERR: samtools markdup: error, queryname sorted, must be sorted by coordinate.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG /w/samtools-1.24/test/markdup/2_bad_order.sam -
+
+	ERR: samtools markdup: error, not in coordinate sorted order.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG /w/samtools-1.24/test/markdup/3_missing_mc.sam -
+
+	ERR: samtools markdup: error, no MC tag. Please run samtools fixmate on file first.
+
+samtools markdup: error, unable to assign pair hash key.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG /w/samtools-1.24/test/markdup/4_missing_ms.sam -
+
+	ERR: samtools markdup: error, no ms score tag. Please run samtools fixmate on file first.
+
+samtools markdup: error, no ms score tag. Please run samtools fixmate on file first.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG /w/samtools-1.24/test/markdup/5_markdup.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam -r --no-PG /w/samtools-1.24/test/markdup/6_remove_dups.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -O sam --no-PG /w/samtools-1.24/test/markdup/7_mark_supp_dup.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 100 --mode s -t -O sam --no-PG /w/samtools-1.24/test/markdup/8_optical_dup.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 2500 --mode s -t --include-fails -O sam --no-PG /w/samtools-1.24/test/markdup/9_optical_dup_qcfail.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 2500 --mode s -t -O sam --no-PG -S /w/samtools-1.24/test/markdup/10_optical_chain.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 2500 --mode s -t -O sam --read-coords '([[:digit:]]+):([[:digit:]]+):([[:digit:]]+)$' --no-PG -S /w/samtools-1.24/test/markdup/10_optical_chain.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 100 --mode s -t -O sam --read-coords '^([0-9]+):([0-9]+):([[:print:]]+)' --coords-order xyt --no-PG /w/samtools-1.24/test/markdup/11_optical_dup_regex.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 100 --mode s -t -O sam --read-coords '^([0-9]+):([0-9]+)' --coords-order xy --no-PG /w/samtools-1.24/test/markdup/11_optical_dup_regex.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 2500 --mode s -t -O sam --read-coords '([[:digit:]]+):([[:digit:]]+)$' --coords-order xy --no-PG /w/samtools-1.24/test/markdup/12_optical_chain_regex.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 100 --mode s -t --barcode-tag BX -O sam --no-PG /w/samtools-1.24/test/markdup/13_optical_barcode_tag.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 100 --mode s -t --barcode-name -O sam --no-PG /w/samtools-1.24/test/markdup/14_optical_barcode_name.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 100 --mode s -t --barcode-rgx '^([!-9;-?A-~]+):[0-9]+:' --read-coords '^[!-9;-?A-~]+:([0-9]+):([0-9]+)' --coords-order xy -O sam --no-PG /w/samtools-1.24/test/markdup/15_optical_barcode_rgx_name.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -S -d 100 --mode s -t --barcode-rgx '^([!-9;-?A-~]+):[0-9]+:' --read-coords '^[!-9;-?A-~]+:([0-9]{4})([0-9]{4})' --coords-order xy -O sam --no-PG /w/samtools-1.24/test/markdup/16_optical_barcode_rgx_name_test_2.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -d 100 --mode s -t --use-read-groups -O sam --no-PG /w/samtools-1.24/test/markdup/17_read_group.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup --mode t -t -O sam --no-PG --duplicate-count --barcode-tag BC -S /w/samtools-1.24/test/markdup/18_primary_duplicate_count.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG --barcode-name --move-umi-to-tag /w/samtools-1.24/test/markdup/19_move_umi_to_tag.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG --barcode-rgx ':([A-Z]{7}):' --umi-separator ':' --move-umi-to-tag /w/samtools-1.24/test/markdup/20_move_umi_in_middle.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -O sam --no-PG --barcode-rgx '_([A-Z]{7})_' --umi-separator '_' --move-umi-to-tag /w/samtools-1.24/test/markdup/21_move_umi_custom_sep.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG /w/samtools-1.24/test/markdup/1_name_sort.sam -
+
+	ERR: samtools markdup: error, queryname sorted, must be sorted by coordinate.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG /w/samtools-1.24/test/markdup/2_bad_order.sam -
+
+	ERR: samtools markdup: error, not in coordinate sorted order.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG /w/samtools-1.24/test/markdup/3_missing_mc.sam -
+
+	ERR: samtools markdup: error, no MC tag. Please run samtools fixmate on file first.
+
+samtools markdup: error, unable to assign pair hash key.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG /w/samtools-1.24/test/markdup/4_missing_ms.sam -
+
+	ERR: samtools markdup: error, no ms score tag. Please run samtools fixmate on file first.
+
+samtools markdup: error, no ms score tag. Please run samtools fixmate on file first.
+
+
+.. expected failure
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG /w/samtools-1.24/test/markdup/5_markdup.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam -r --no-PG /w/samtools-1.24/test/markdup/6_remove_dups.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -O sam --no-PG /w/samtools-1.24/test/markdup/7_mark_supp_dup.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 100 --mode s -t -O sam --no-PG /w/samtools-1.24/test/markdup/8_optical_dup.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 2500 --mode s -t --include-fails -O sam --no-PG /w/samtools-1.24/test/markdup/9_optical_dup_qcfail.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 2500 --mode s -t -O sam --no-PG -S /w/samtools-1.24/test/markdup/10_optical_chain.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 2500 --mode s -t -O sam --read-coords '([[:digit:]]+):([[:digit:]]+):([[:digit:]]+)$' --no-PG -S /w/samtools-1.24/test/markdup/10_optical_chain.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 100 --mode s -t -O sam --read-coords '^([0-9]+):([0-9]+):([[:print:]]+)' --coords-order xyt --no-PG /w/samtools-1.24/test/markdup/11_optical_dup_regex.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 100 --mode s -t -O sam --read-coords '^([0-9]+):([0-9]+)' --coords-order xy --no-PG /w/samtools-1.24/test/markdup/11_optical_dup_regex.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 2500 --mode s -t -O sam --read-coords '([[:digit:]]+):([[:digit:]]+)$' --coords-order xy --no-PG /w/samtools-1.24/test/markdup/12_optical_chain_regex.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 100 --mode s -t --barcode-tag BX -O sam --no-PG /w/samtools-1.24/test/markdup/13_optical_barcode_tag.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 100 --mode s -t --barcode-name -O sam --no-PG /w/samtools-1.24/test/markdup/14_optical_barcode_name.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 100 --mode s -t --barcode-rgx '^([!-9;-?A-~]+):[0-9]+:' --read-coords '^[!-9;-?A-~]+:([0-9]+):([0-9]+)' --coords-order xy -O sam --no-PG /w/samtools-1.24/test/markdup/15_optical_barcode_rgx_name.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -S -d 100 --mode s -t --barcode-rgx '^([!-9;-?A-~]+):[0-9]+:' --read-coords '^[!-9;-?A-~]+:([0-9]{4})([0-9]{4})' --coords-order xy -O sam --no-PG /w/samtools-1.24/test/markdup/16_optical_barcode_rgx_name_test_2.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -d 100 --mode s -t --use-read-groups -O sam --no-PG /w/samtools-1.24/test/markdup/17_read_group.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 --mode t -t -O sam --no-PG --duplicate-count --barcode-tag BC -S /w/samtools-1.24/test/markdup/18_primary_duplicate_count.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG --barcode-name --move-umi-to-tag /w/samtools-1.24/test/markdup/19_move_umi_to_tag.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG --barcode-rgx ':([A-Z]{7}):' --umi-separator ':' --move-umi-to-tag /w/samtools-1.24/test/markdup/20_move_umi_in_middle.sam -
+.. ok
+
+test_markdup:
+	/w/samtools-1.24/samtools markdup -@ 2 -O sam --no-PG --barcode-rgx '_([A-Z]{7})_' --umi-separator '_' --move-umi-to-tag /w/samtools-1.24/test/markdup/21_move_umi_custom_sep.sam -
+.. ok
+
+test_bedcov:
+	/w/samtools-1.24/samtools bedcov /w/samtools-1.24/test/bedcov/bedcov.bed /w/samtools-1.24/test/bedcov/bedcov.bam
+.. ok
+
+test_bedcov:
+	/w/samtools-1.24/samtools bedcov -j /w/samtools-1.24/test/bedcov/bedcov.bed /w/samtools-1.24/test/bedcov/bedcov.bam
+.. ok
+
+test_bedcov:
+	/w/samtools-1.24/samtools bedcov -g512 -G2048 /w/samtools-1.24/test/bedcov/bedcov_gG.bed /w/samtools-1.24/test/bedcov/bedcov.bam
+.. ok
+
+test_bedcov:
+	/w/samtools-1.24/samtools bedcov -c /w/samtools-1.24/test/bedcov/bedcov_gG.bed /w/samtools-1.24/test/bedcov/bedcov.bam
+.. ok
+
+.. ok
+
+.. ok
+
+.. ok
+
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%#.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -u /w/samtools-1.24/test/split/split.tmp.unk.sam -p 5 -f /w/samtools-1.24/test/split/split.tmp.%#.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -d RG -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -d an -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -d an -M 3 -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -f /w/samtools-1.24/test/split/split.tmp.d_nn.%!.%. -d nn -u /w/samtools-1.24/test/split/split.tmp.d_nn.unk.sam  /w/samtools-1.24/test/split/split_d_nn.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  --output-fmt sam -f /w/samtools-1.24/test/split/split.tmp.d_nn.%!.%. -p 4 -d nn -u /w/samtools-1.24/test/split/split.tmp.d_nn.0unk.sam  /w/samtools-1.24/test/split/split_d_nn.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools sort  -m 10M -t nn /w/samtools-1.24/test/split/split_d_nn.sam |
+                /w/samtools-1.24/samtools split  --output-fmt sam -f /w/samtools-1.24/test/split/split.tmp.d_nn.%!.%. -p 4 -d nn -u /w/samtools-1.24/test/split/split.tmp.d_nn.0unk.sam - 
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%#.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -u /w/samtools-1.24/test/split/split.tmp.unk.sam -p 5 -f /w/samtools-1.24/test/split/split.tmp.%#.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -d RG -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -d an -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -d an -M 3 -u /w/samtools-1.24/test/split/split.tmp.unk.sam -f /w/samtools-1.24/test/split/split.tmp.%!.%. /w/samtools-1.24/test/split/split.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -f /w/samtools-1.24/test/split/split.tmp.d_nn.%!.%. -d nn -u /w/samtools-1.24/test/split/split.tmp.d_nn.unk.sam  /w/samtools-1.24/test/split/split_d_nn.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -f /w/samtools-1.24/test/split/split.tmp.d_nn.%!.%. -p 4 -d nn -u /w/samtools-1.24/test/split/split.tmp.d_nn.0unk.sam  /w/samtools-1.24/test/split/split_d_nn.sam
+.. ok
+
+test_split:
+	/w/samtools-1.24/samtools sort  -@ 2 -m 10M -t nn /w/samtools-1.24/test/split/split_d_nn.sam |
+                /w/samtools-1.24/samtools split  -@ 2 --output-fmt sam -f /w/samtools-1.24/test/split/split.tmp.d_nn.%!.%. -p 4 -d nn -u /w/samtools-1.24/test/split/split.tmp.d_nn.0unk.sam - 
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools view -h --no-PG /tmp/naZZRIp7rP/longref.sam.gz
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools view -h --no-PG /tmp/naZZRIp7rP/longref.sam.gz CHROMOSOME_I:10000000114-10000000168
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools view -h --no-PG -L /w/samtools-1.24/test/large_pos/test.bed /tmp/naZZRIp7rP/longref.sam.gz
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools sort -O sam --no-PG -m 10M /w/samtools-1.24/test/large_pos/longref_name.sam
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools merge -O sam --no-PG - /w/samtools-1.24/test/large_pos/longref.sam /w/samtools-1.24/test/large_pos/longref2.sam
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools depth /w/samtools-1.24/test/large_pos/longref.sam
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools depth -b /w/samtools-1.24/test/large_pos/test.bed /w/samtools-1.24/test/large_pos/longref.sam
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools tview -d T -p CHROMOSOME_I:10000000000 /tmp/naZZRIp7rP/longref.sam.gz
+.. ok
+
+test_large_positions:
+	/w/samtools-1.24/samtools sort    -O sam --no-PG -n -m 10M test/large_pos/longref3.sam |
+                     /w/samtools-1.24/samtools fixmate -O sam --no-PG - - |
+                     /w/samtools-1.24/samtools sort    -O sam --no-PG -m 10M
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --keep-tag --output-fmt=sam -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --keep-tag --primer-counts /w/samtools-1.24/test/ampliconclip/primer_counts.tsv --output-fmt=sam -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --keep-tag --output-fmt=sam --hard-clip -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --keep-tag --output-fmt=sam --strand --primer-counts /w/samtools-1.24/test/ampliconclip/primer_counts.tsv -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --keep-tag --output-fmt=sam --strand --filter-len 185 -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --keep-tag --output-fmt=sam --strand --fail-len 185 -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG  --keep-tag --output-fmt=sam --original -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --output-fmt=sam -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG  --keep-tag --output-fmt=sam --strand --both-ends -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/2_both_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --output-fmt=sam --keep-tag --primer-counts /w/samtools-1.24/test/ampliconclip/primer_counts.tsv -b /w/samtools-1.24/test/ampliconclip/multi_ref.bed /w/samtools-1.24/test/ampliconclip/3_multi_ref_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip --no-PG --output-fmt=sam --hard-clip -b /w/samtools-1.24/test/ampliconclip/ac_test2.bed /w/samtools-1.24/test/ampliconclip/4_total_hc_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --keep-tag --output-fmt=sam -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --keep-tag --primer-counts /w/samtools-1.24/test/ampliconclip/primer_counts.tsv --output-fmt=sam -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --keep-tag --output-fmt=sam --hard-clip -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --keep-tag --output-fmt=sam --strand --primer-counts /w/samtools-1.24/test/ampliconclip/primer_counts.tsv -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --keep-tag --output-fmt=sam --strand --filter-len 185 -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --keep-tag --output-fmt=sam --strand --fail-len 185 -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG  --keep-tag --output-fmt=sam --original -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --output-fmt=sam -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG  --keep-tag --output-fmt=sam --strand --both-ends -b /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/2_both_test_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --output-fmt=sam --keep-tag --primer-counts /w/samtools-1.24/test/ampliconclip/primer_counts.tsv -b /w/samtools-1.24/test/ampliconclip/multi_ref.bed /w/samtools-1.24/test/ampliconclip/3_multi_ref_data.sam
+.. ok
+
+test_ampliconclip:
+	/w/samtools-1.24/samtools ampliconclip -@ 2 --no-PG --output-fmt=sam --hard-clip -b /w/samtools-1.24/test/ampliconclip/ac_test2.bed /w/samtools-1.24/test/ampliconclip/4_total_hc_data.sam
+.. ok
+
+test_ampliconstats:
+	/w/samtools-1.24/samtools ampliconstats -@ 2 -S -t 50 -d 1,20,100 /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconclip/1_hard_clipped.expected.sam /w/samtools-1.24/test/ampliconclip/1_soft_clipped.expected.sam /w/samtools-1.24/test/ampliconclip/1_soft_clipped_strand.expected.sam /w/samtools-1.24/test/ampliconclip/2_both_clipped.expected.sam | grep -E -v 'Samtools version|Command line'
+.. ok
+
+test_ampliconstats:
+	/w/samtools-1.24/samtools ampliconstats -@ 2 -c 0 /w/samtools-1.24/test/ampliconclip/multi_ref.bed /w/samtools-1.24/test/ampliconstats/mixed_clipped.sam | grep -E -v 'Samtools version|Command line'
+.. ok
+
+test_ampliconstats:
+	/w/samtools-1.24/samtools ampliconstats -@ 2 -c 0 /w/samtools-1.24/test/ampliconclip/ac_test.bed /w/samtools-1.24/test/ampliconstats/mixed_clipped.sam | grep -E -v 'Samtools version|Command line'
+.. ok
+
+test_reset:
+	cat /w/samtools-1.24/test/dat/mpileup.1.sam | /w/samtools-1.24/samtools reset --dupflag | /w/samtools-1.24/samtools view
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag < /w/samtools-1.24/test/dat/mpileup.1.sam | /w/samtools-1.24/samtools view
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/dat/mpileup.1.sam | /w/samtools-1.24/samtools view
+.. ok
+
+test_reset:
+	cat /w/samtools-1.24/test/dat/mpileup.1.sam | /w/samtools-1.24/samtools reset  --dupflag -o /w/samtools-1.24/test/reset/output.tmp.sam
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag -o /w/samtools-1.24/test/reset/output.tmp.sam /w/samtools-1.24/test/dat/test_input_1_a.bam
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag -o /w/samtools-1.24/test/reset/output.tmp.sam /w/samtools-1.24/test/dat/test_input_1_a.cram
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam -o /w/samtools-1.24/test/reset/output.tmp.sam; grep -e"@PG	ID:samtools	PN:samtools" /w/samtools-1.24/test/reset/output.tmp.sam | wc -l | sed 's/ //g'
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG sam_to_fixed_bam /w/samtools-1.24/test/dat/mpileup.1.sam -o /w/samtools-1.24/test/reset/output.tmp.sam; grep -e"@PG	ID:" /w/samtools-1.24/test/reset/output.tmp.sam | wc -l | sed 's/ //g'
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index --no-PG /w/samtools-1.24/test/dat/mpileup.1.sam -o /w/samtools-1.24/test/reset/output.tmp.sam; grep -e"@PG" /w/samtools-1.24/test/reset/output.tmp.sam
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam --no-RG -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam --no-RG --keep-tag RG -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam --no-RG --keep-tag X0,MD -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam --no-RG --remove-tag X0,X1,MD --keep-tag X0,MD -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam --no-RG --remove-tag X0,X1,MD -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam --no-RG -x X0,X1,MD -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag --reject-PG bwa_index /w/samtools-1.24/test/dat/mpileup.1.sam --no-RG --remove-tag ^X0,MD --keep-tag X1 -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset  --dupflag /w/samtools-1.24/test/reset/seq.sam -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset /w/samtools-1.24/test/reset/seq.sam -o /w/samtools-1.24/test/reset/output
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset /w/samtools-1.24/test/reset/view.tmp.cram -T /w/samtools-1.24/test/dat/view.001.fa --input-fmt-option=filter="pos>35" --output-fmt-option=version=3.0 -o /w/samtools-1.24/test/reset/view30.tmp.cram; /w/samtools-1.24/samtools view -h /w/samtools-1.24/test/reset/view30.tmp.cram
+.. ok
+
+test_reset:
+	/w/samtools-1.24/samtools reset /w/samtools-1.24/test/reset/view.tmp.cram -T /w/samtools-1.24/test/dat/view.001.fa --input-fmt-option=filter="pos>35" --output-fmt-option=version=3.1 -o /w/samtools-1.24/test/reset/view31.tmp.cram; /w/samtools-1.24/samtools view -h /w/samtools-1.24/test/reset/view31.tmp.cram
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum /w/samtools-1.24/test/checksum/chk1.bam | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -a /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -qv /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -qv -a /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -m /w/samtools-1.24/test/checksum/chk1-ERR*.tmp.chk | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -m /w/samtools-1.24/test/checksum/chk2-*.tmp.chk | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -B /w/samtools-1.24/test/checksum/chk1.bam
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools view test/checksum/chk1.bam -h | sed '/@RG/d;s/	RG:Z:[0-9a-zA-Z]*//g' | /w/samtools-1.24/samtools checksum -B -
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -B -m /w/samtools-1.24/test/checksum/chk1.4.expected
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -B -m /w/samtools-1.24/test/checksum/chk1.4.expected /w/samtools-1.24/test/checksum/chk1.5.expected
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -m /w/samtools-1.24/test/checksum/chk1.1.expected /w/samtools-1.24/test/checksum/chk1.tmp.chk
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -m /w/samtools-1.24/test/checksum/chk1.1.expected /w/samtools-1.24/test/checksum/chk1.4.expected
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -B -m /w/samtools-1.24/test/checksum/chk1.1.expected /w/samtools-1.24/test/checksum/chk1.4.expected
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 /w/samtools-1.24/test/checksum/chk1.bam | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -a /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -qv /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -qv -a /w/samtools-1.24/test/checksum/chk2.cram | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -m /w/samtools-1.24/test/checksum/chk1-ERR*.tmp.chk | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -m /w/samtools-1.24/test/checksum/chk2-*.tmp.chk | sed 's/\(# Checksum[^:]*:\).*/\1/'
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -B /w/samtools-1.24/test/checksum/chk1.bam
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools view test/checksum/chk1.bam -h | sed '/@RG/d;s/	RG:Z:[0-9a-zA-Z]*//g' | /w/samtools-1.24/samtools checksum -@ 2 -B -
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -B -m /w/samtools-1.24/test/checksum/chk1.4.expected
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -B -m /w/samtools-1.24/test/checksum/chk1.4.expected /w/samtools-1.24/test/checksum/chk1.5.expected
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -m /w/samtools-1.24/test/checksum/chk1.1.expected /w/samtools-1.24/test/checksum/chk1.tmp.chk
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -m /w/samtools-1.24/test/checksum/chk1.1.expected /w/samtools-1.24/test/checksum/chk1.4.expected
+.. ok
+
+test_checksum:
+	/w/samtools-1.24/samtools checksum -@ 2 -B -m /w/samtools-1.24/test/checksum/chk1.1.expected /w/samtools-1.24/test/checksum/chk1.4.expected
+.. ok
+
+test_coverage:
+	/w/samtools-1.24/samtools coverage /w/samtools-1.24/test/dat/sample.sam
+.. ok
+
+test_coverage:
+	/w/samtools-1.24/samtools coverage --min-depth 1 /w/samtools-1.24/test/dat/sample.sam
+.. ok
+
+test_coverage:
+	/w/samtools-1.24/samtools coverage --min-depth 2 /w/samtools-1.24/test/dat/sample.sam
+.. ok
+
+test_coverage:
+	/w/samtools-1.24/samtools coverage --min-depth 2 -Q 8 -q 45 /w/samtools-1.24/test/dat/sample.sam
+.. ok
+
+test_coverage:
+	/w/samtools-1.24/samtools coverage --min-depth 1 /w/samtools-1.24/test/dat/sample.sam /tmp/naZZRIp7rP/sample1.sam
+.. ok
+
+test_coverage:
+	/w/samtools-1.24/samtools coverage --min-depth 4 /w/samtools-1.24/test/dat/sample.sam /tmp/naZZRIp7rP/sample1.sam
+.. ok
+
+
+Number of tests:
+    total            .. 1032
+    passed           .. 1000
+    failed           .. 0
+    expected failure .. 32
+    unexpected pass  .. 0
+
+test/merge/test_bam_translate test/merge/test_bam_translate.tmp
+test/merge/test_rtrans_build
+test/merge/test_trans_tbl_init
+cd test/mpileup && AWK="awk" ../regression.sh mpileup.reg
+
+=== Testing mpileup.reg regressions ===
+[W::cram_encode_aux] Missing @RG header for RG "ERR162872"
+[W::cram_encode_aux] Missing @RG header for RG "ERR162872"
+[W::cram_encode_aux] Missing @RG header for RG "ERR162872"
+[W::cram_encode_aux] Missing @RG header for RG "ERR162872"
+
+EXPECTED FAIL: Task failed, but expected to fail;
+when running $samtools mpileup -ABQ0 -a -l xx.bed3 xx#depth3.bam
+
+Expected   passes:   120
+Unexpected passes:   0
+Expected   failures: 1
+Unexpected failures: 0
+=> PASS
+cd test/mpileup && AWK="awk" ../regression.sh depth.reg
+
+=== Testing depth.reg regressions ===
+
+EXPECTED FAIL: Task failed, but expected to fail;
+when running $samtools depth -a -b xx.bed3 xx#depth3.bam
+
+Expected   passes:   55
+Unexpected passes:   0
+Expected   failures: 1
+Unexpected failures: 0
+=> PASS
+cd test/mpileup && AWK="awk" ../regression.sh cram-size.reg
+
+=== Testing cram-size.reg regressions ===
+
+Expected   passes:   5
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+=> PASS
+cd test/consensus && AWK="awk" ../regression.sh consensus.reg
+
+=== Testing consensus.reg regressions ===
+
+Expected   passes:   81
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+=> PASS
+cd test/consensus && AWK="awk" PARAM="-@4 -Z4" ../regression.sh consensus.reg
+
+=== Testing consensus.reg regressions ===
+
+Expected   passes:   81
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+=> PASS
+cd test/cram_size && AWK="awk" ../regression.sh cram_size.reg
+
+=== Testing cram_size.reg regressions ===
+
+Expected   passes:   3
+Unexpected passes:   0
+Expected   failures: 0
+Unexpected failures: 0
+=> PASS
+rc=0 secs=58

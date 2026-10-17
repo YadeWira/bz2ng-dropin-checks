@@ -1,15 +1,16 @@
 # bz2ng-dropin-checks
 
-Two checks that [bz2-ng](https://github.com/tfenne/bz2-ng) can replace a distribution's libbz2 without rebuilding anything, with the scripts and the complete output of the runs reported in tfenne/bz2-ng issues [#13](https://github.com/tfenne/bz2-ng/issues/13) and [#14](https://github.com/tfenne/bz2-ng/issues/14).
+Checks that [bz2-ng](https://github.com/tfenne/bz2-ng) can replace a distribution's libbz2 without rebuilding anything, with the scripts and the complete output of the runs reported in tfenne/bz2-ng issues [#13](https://github.com/tfenne/bz2-ng/issues/13) and [#14](https://github.com/tfenne/bz2-ng/issues/14).
 
 It is an independent repository, not part of bz2-ng. Its companion is [bz2ng-damaged-streams](https://github.com/YadeWira/bz2ng-damaged-streams).
 
 | Directory | What it checks |
 |---|---|
-| `alpine/` | that no Alpine package references a libbz2 symbol bz2-ng does not export (bz2-ng exports the 24 public functions only; libbz2's shared library also leaks internals such as `BZ2_blockSort`) |
-| `debian13/` | that the unmodified test suites of seven dependants give the same results on Debian 13 before and after bz2-ng is installed over Debian's libbz2 and `bzip2` |
+| `alpine/scan.sh` | that no Alpine package references a libbz2 symbol bz2-ng does not export (bz2-ng exports the 24 public functions only; libbz2's shared library also leaks internals such as `BZ2_blockSort`) |
+| `alpine/dependants.sh` | that the test suites of htslib and samtools give the same results on Alpine (musl) before and after bz2-ng is installed over Alpine's libbz2 and `bzip2` |
+| `debian13/validate.sh` | that the unmodified test suites of seven dependants give the same results on Debian 13 before and after bz2-ng is installed over Debian's libbz2 and `bzip2` |
 
-Each directory has the script, which runs inside a fresh container, and `results/`, the complete output of one run.
+Each script runs inside a fresh container; the directory beside it (`results/`, `dependants-results/`) is the complete output of one run.
 
 ## Alpine 3.23: private-symbol scan
 
@@ -36,6 +37,27 @@ The run in `alpine/results/` (17 October 2026, Alpine 3.23.6, bz2-ng `63987e0`):
 | Packages carrying a bundled copy of libbz2's internals | none |
 
 Alpine's own `libbz2.so.1.0.8` exports 37 dynamic symbols: the 24 public functions, 11 of libbz2's internals, and `_init` and `_fini`; and its SONAME is `libbz2.so.1` (`alpine-libbz2-exports.txt`, `run.log`). One package, `ruby-mathematical`, links libbz2 but references none of its symbols.
+
+## Alpine 3.23: htslib and samtools under musl
+
+Alpine packages neither, so `alpine/dependants.sh` builds them from upstream's release tarballs (1.24 by default, `HTSVER` to change it) against Alpine's libbz2, runs htslib's `make check`, samtools' `make test` and bzip2's own `make test` checks, installs bz2-ng over Alpine's files with Alpine's SONAME (`-DBZ2NG_SONAME=1`), and runs the same three again in the same built trees.
+
+```sh
+mkdir -p out-alpine-deps
+docker run --rm --platform linux/amd64 -e HOSTUID=$(id -u) -e HOSTGID=$(id -g) \
+    -v "$PWD/bz2-ng:/src:ro" -v "$PWD/out-alpine-deps:/out" -v "$PWD/alpine/dependants.sh:/dependants.sh:ro" \
+    alpine:3.23 sh /dependants.sh
+```
+
+The run in `alpine/dependants-results/` (17 October 2026, Alpine 3.23.6, gcc 15.2, musl 1.2.5, libbz2 1.0.8-r6, bz2-ng `add9a49`) took about 4 minutes:
+
+| Suite | Before | After |
+|---|---|---|
+| htslib 1.24 `make check` | 356 of 356 | the same |
+| samtools 1.24 `make test` | 1,032 tests: 1,000 passed, 0 failed, 32 expected failures | the same |
+| bzip2's six `make test` comparisons, through the installed `bzip2` | pass | the same |
+
+After the install `libbz2.so.1` resolves to bz2-ng's `libbz2.so.1.0.8` with the `libbz2.so.1` SONAME, and `htsfile` and `samtools` load it. Alpine's own `bzip2` program has libbz2 compiled in rather than linking it, so before the install that row tests Alpine's own code; `cmake --install` replaces the program with bz2-ng's, which links the installed library.
 
 ## Debian 13: drop-in validation
 
@@ -75,7 +97,7 @@ Things the script handles that are worth knowing if you adapt it:
 
 ## Limits
 
-- x86-64 only, in containers, one release of each distribution.
+- x86-64 only, in containers, one release of each distribution. On Alpine only htslib and samtools, built from upstream's sources rather than from a distribution package.
 - The Alpine scan covers the `main` and `community` repositories as the container sees them on the day it runs; it reads symbol tables, it does not start the programs.
 - A suite giving the same result says the dependant behaves the same with bz2-ng; it does not say how much of bz2-ng the suite exercises.
 - Each suite ran once per pass; I did not repeat them to look for flaky tests.

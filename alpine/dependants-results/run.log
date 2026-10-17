@@ -1,0 +1,35 @@
+== 2026-10-17T16:47:49Z htslib and samtools 1.24
+alpine 3.23.6 | gcc (Alpine 15.2.0) 15.2.0 | installed: bzip2-1.0.8-r6 libbz2-1.0.8-r6 musl-1.2.5-r23 
+libbz2: /usr/lib/libbz2.so /usr/lib/libbz2.so.1 /usr/lib/libbz2.so.1.0.8 
+bz2-ng source: add9a49
+bz2-ng built: /bz2ng/libbz2.so /bz2ng/libbz2.so.1 /bz2ng/libbz2.so.1.0.8 
+[htslib] htslib-1.24.tar.bz2 sha256 28a8de191381c7a97a35675ceac76fa1ea95e7b678d6a2e9d600a7874e4077de
+[samtools] samtools-1.24.tar.bz2 sha256 89b2a440123eeaa400392ce1736e7d60ce9041843027d76819753c5a8246bfdd
+[htslib] built
+[samtools] built
+== BEFORE: Alpine's own libbz2 and bzip2
+bzip2 says: bzip2, a block-sorting file compressor.  Version 1.0.8, 13-Jul-2019.
+  /w/htslib-1.24/htsfile -> libbz2.so.1 => /usr/lib/libbz2.so.1
+  /w/samtools-1.24/samtools -> libbz2.so.1 => /usr/lib/libbz2.so.1
+  /usr/bin/bzip2 -> 
+[before] htslib: rc=0 secs=42
+[before] samtools: rc=0 secs=58
+[before] bzip2 (its own make test, through /usr/bin/bzip2): rc=0
+== INSTALL bz2-ng over the distribution's files
+bzip2 says: bzip2, a block-sorting file compressor.  Version 1.0.8, bz2-ng 0.1.0.
+libbz2.so.1 -> /usr/lib/libbz2.so.1.0.8, SONAME libbz2.so.1
+  /w/htslib-1.24/htsfile -> libbz2.so.1 => /usr/lib/libbz2.so.1
+  /w/samtools-1.24/samtools -> libbz2.so.1 => /usr/lib/libbz2.so.1
+  /usr/bin/bzip2 -> libbz2.so.1 => /usr/lib/libbz2.so.1
+== AFTER
+[after] htslib: rc=0 secs=39
+[after] samtools: rc=0 secs=57
+[after] bzip2 (its own make test, through /usr/bin/bzip2): rc=0
+== SUMMARY (before | after)
+htslib before: total 356,passed 356,failed 0, rc=0 secs=42
+htslib after: total 356,passed 356,failed 0, rc=0 secs=39
+samtools before: total 1032,passed 1000,failed 0,expected failure 32,unexpected pass 0, rc=0 secs=58
+samtools after: total 1032,passed 1000,failed 0,expected failure 32,unexpected pass 0, rc=0 secs=57
+bzip2 before: rc=0
+bzip2 after: rc=0
+== done 2026-10-17T16:51:50Z
